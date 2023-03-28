@@ -255,7 +255,8 @@ export interface Wallet {
 export interface UserProfile {
     usrid: number
     username: string
-    fullname: string
+    firstname: string
+    lastname: string
     gender: number
     country: string
     city: string

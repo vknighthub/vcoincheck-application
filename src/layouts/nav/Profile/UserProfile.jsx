@@ -6,13 +6,15 @@ import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 
 const UserProfile = ({ isAuthorized }) => {
     const { t } = useTranslation('common');
-    const { me } = useMe()
-    const { mutate: logout } = useLogout();
-
+    const { me } = useMe();
+    const { mutate: logout, isSuccess } = useLogout();
+    const router = useRouter();
     const {
         account,
         activate,
@@ -28,6 +30,12 @@ const UserProfile = ({ isAuthorized }) => {
         deactivate()
     }
 
+    useEffect(() => {
+        if (isSuccess) {
+            router.push('/page-login');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSuccess, router]);
 
     return (
         <>
@@ -41,7 +49,7 @@ const UserProfile = ({ isAuthorized }) => {
                         >
                             <div className="header-info">
                                 <span className="text-black">
-                                    {t('hello')}, <strong>{me?.fullname}</strong>
+                                    {t('hello')}, <strong>{me?.firstname.toString() + me?.lastname.toString()}</strong>
                                 </span>
                                 <p className="fs-12 mb-0">{me?.isadmin ? "Admin" : "Normal user"}</p>
                             </div><Image src={me?.avatar ? me.avatar : profile} width={20} height={20} alt="" className="img-fluid" />

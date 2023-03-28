@@ -1,4 +1,5 @@
 const routes = {
-    home: ''
+    home: '',
+    project: '/project',
 }
 export default routes;

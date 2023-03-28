@@ -1,8 +1,9 @@
 import useAuth from '@/components/auth/use-auth';
 import type { UserProfileResult } from '@/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import client from './client';
 import { API_ENDPOINTS } from './client/endpoints';
+import { useRouter } from 'next/router';
 
 export const useMe = () => {
   const { isAuthorized } = useAuth();
@@ -24,10 +25,14 @@ export const useMe = () => {
 
 export function useLogout() {
   const { unauthorize } = useAuth();
-  const queryClient = useQueryClient();
+  const router = useRouter();
   return useMutation(client.users.logout, {
     onSuccess: () => {
       unauthorize();
     },
+    onError: (err: Error) => {
+      console.error(err)
+    }
   });
+  
 }
