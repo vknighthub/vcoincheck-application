@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import client from './client';
 import { API_ENDPOINTS } from './client/endpoints';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export const useMe = () => {
   const { isAuthorized } = useAuth();
@@ -24,15 +25,17 @@ export const useMe = () => {
 }
 
 export function useLogout() {
-  const { unauthorize } = useAuth();
   const router = useRouter();
+  const { unauthorize, isAuthorized } = useAuth();
   return useMutation(client.users.logout, {
-    onSuccess: () => {
-      unauthorize();
-    },
-    onError: (err: Error) => {
-      console.error(err)
+    onSuccess: (data) => {
+      if (data) {
+        unauthorize();
+        if (isAuthorized) {
+          router.push('/page-login')
+        }
+      }
     }
   });
-  
+
 }

@@ -1,4 +1,4 @@
-import { AuthResponse, FaceInput, LoginUserInput, MenuResponse, NewsQueryArrray, NewsQueryObject, ProjectResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, SettingsQueryOptions, TopInput, UserProfileResult } from "@/types";
+import { AuthResponse, FaceInput, LoginUserInput, MenuResponse, NewsQueryArrray, NewsQueryObject, ProjectDetailResponse, ProjectInput, ProjectResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, SettingsQueryOptions, TopInput, UserProfileResult } from "@/types";
 import { HttpClient } from "./http-client";
 import { API_ENDPOINTS } from "./endpoints";
 
@@ -12,7 +12,8 @@ class Client {
     }
     project = {
         top: (input: TopInput) => HttpClient.post<ProjectResponse>(API_ENDPOINTS.TOP_PROJECT, input),
-        all: () => HttpClient.get<ProjectResponse>(API_ENDPOINTS.ALL_PROJECT)
+        all: () => HttpClient.get<ProjectResponse>(API_ENDPOINTS.ALL_PROJECT),
+        getdetail: (proname: ProjectInput, language: SettingsQueryOptions) => HttpClient.post<ProjectDetailResponse>(API_ENDPOINTS.PROJECT_DETAIL, proname, { params: language })
     }
     system = {
         menu: ({ language }: SettingsQueryOptions) => HttpClient.get<MenuResponse>(API_ENDPOINTS.SYSTEM_MENU, { language })

@@ -1,41 +1,15 @@
-import { connectors } from "@/components/vKnightHub/connector";
 import { useLogout, useMe } from '@/data/user';
 import profile from '@/images/profile/profile.png';
-import { truncateAddress } from '@/utils/truncateAddress';
-import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 
 const UserProfile = ({ isAuthorized }) => {
     const { t } = useTranslation('common');
     const { me } = useMe();
-    const { mutate: logout, isSuccess } = useLogout();
-    const router = useRouter();
-    const {
-        account,
-        activate,
-        deactivate,
-        active
-    } = useWeb3React();
+    const { mutate: logout } = useLogout();
 
-    const connectWallet = () => {
-        activate(connectors.injected);
-    }
-
-    const disconnectWallet = () => {
-        deactivate()
-    }
-
-    useEffect(() => {
-        if (isSuccess) {
-            router.push('/page-login');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSuccess, router]);
 
     return (
         <>
@@ -49,27 +23,14 @@ const UserProfile = ({ isAuthorized }) => {
                         >
                             <div className="header-info">
                                 <span className="text-black">
-                                    {t('hello')}, <strong>{me?.firstname.toString() + me?.lastname.toString()}</strong>
+                                    {t('hello')}, <strong>{me?.firstname}  {me?.lastname}</strong>
                                 </span>
                                 <p className="fs-12 mb-0">{me?.isadmin ? "Admin" : "Normal user"}</p>
                             </div><Image src={me?.avatar ? me.avatar : profile} width={20} height={20} alt="" className="img-fluid" />
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu align="start">
-                            {!active ?
-                                <Link href="#" className="dropdown-item ai-icon" onClick={() => connectWallet()}>
-                                    <i className="fa fa-wallet"></i>
-                                    <span className="ml-2">{t('connectwallet')}</span>
-                                </Link>
-                                :
-                                <>
-                                    <Link href="#" className="dropdown-item ai-icon" onClick={() => disconnectWallet()}>
-                                        <i className="fa fa-wallet"></i>
-                                        <span className="ml-2">{truncateAddress(account)}</span>
-                                    </Link>
-                                </>
-
-                            }
+                            
                             <Link href="/app-profile" className="dropdown-item ai-icon">
                                 <svg
                                     id="icon-user1"

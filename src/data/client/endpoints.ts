@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
     USERS_LOGOUT:'/user/logout',
     TOP_PROJECT: '/project/listdatatop',
     ALL_PROJECT: '/project/listdata',
-    SYSTEM_MENU: '/system/getmenu'
+    SYSTEM_MENU: '/system/getmenu',
+    PROJECT_DETAIL: '/project/projectbyname'
 
 }

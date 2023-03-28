@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { ActionContext } from './ActionContext'
+import Image from 'next/image'
 
 const InputField = ({ cancellor, parentId, child, value, edit, main }) => {
   const [text, setText] = useState('')
@@ -23,7 +24,7 @@ const InputField = ({ cancellor, parentId, child, value, edit, main }) => {
       }
     >
       <div className="userImg">
-        <img
+        <Image
           src={actions.userImg}
           style={{ width: 38, height: 38, borderRadius: 38 / 2 }}
           alt='userIcon'

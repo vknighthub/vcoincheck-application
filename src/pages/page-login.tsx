@@ -39,7 +39,7 @@ const LoginPage: NextPageWithLayout = () => {
     });
 
 
-    const { mutate: login, isSuccess } = useMutation(client.users.login, {
+    const { mutate: login } = useMutation(client.users.login, {
         onSuccess: (data) => {
             if (!data.result.token) {
                 toast.error(<b>{t('text-wrong-user-name-and-pass')}</b>, {
@@ -48,6 +48,7 @@ const LoginPage: NextPageWithLayout = () => {
                 return;
             } else {
                 authorize(data.result.token);
+                router.push('/')
             }
 
         },
@@ -63,10 +64,6 @@ const LoginPage: NextPageWithLayout = () => {
 
         }
     });
-
-    if (isSuccess) {
-        router.push('/')
-    }
 
     const onSubmit: SubmitHandler<LoginUserInput> = (data) => {
         login(data)

@@ -1,19 +1,10 @@
 import React, { useContext } from 'react'
-// import Popup from 'reactjs-popup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faReply } from '@fortawesome/free-solid-svg-icons'
 
-// import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-// import {
-//   modal,
-//   modalClose,
-//   modalHeader,
-//   modalContent,
-//   modalActions,
-//   modalActionBtn,
-//   modalDelBtn
-// } from './ModalStyles'
+
 import { ActionContext } from './ActionContext'
+import Image from 'next/image'
 
 const CommentStructure = ({ i, reply, displayReply, parentId }) => {
   const actions = useContext(ActionContext)
@@ -27,7 +18,7 @@ const CommentStructure = ({ i, reply, displayReply, parentId }) => {
         <div>{i.text}</div>
         <div className="commentsTwo">
           <div>
-            <img
+            <Image
               src={i.avatarUrl}
               style={{ width: 24, height: 24, borderRadius: 24 / 2 }}
               alt='userIcon'

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import ada from '@/icons/project/svgs/cardano.svg';
 import Link from "next/link";
+import Image from "next/image";
 
 
 const Donate = () => {
@@ -52,7 +53,7 @@ const Donate = () => {
                         <li>
                             <div className='timeline-panel'>
                                 <div className='media m-3'>
-                                    <img alt='avatar' width='50' src={ada} />
+                                    <Image alt='avatar' width='50' src={ada} />
                                     <div className='media-body ml-3'>
                                         <h5>ADA</h5>
                                         <small className='d-block' id="address">

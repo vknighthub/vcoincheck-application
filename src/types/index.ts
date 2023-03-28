@@ -30,6 +30,10 @@ export interface TopInput {
     top: number;
 }
 
+export interface ProjectInput {
+    proname: string | string[] | undefined;
+}
+
 interface ResultObject<T> {
     result: {
         data: T
@@ -301,5 +305,64 @@ export interface MenuResponse {
     messagedetail: string;
     result: {
         data: Menu[]
+    }
+}
+export interface Label {
+    en: string
+    vn: string
+    jp: string
+}
+export interface Key {
+    en: string
+    vn: string
+    jp: string
+}
+export interface Answer {
+    value: string
+    key: Key
+}
+export interface Content {
+    name: string
+    label: Label
+    control: string
+    type?: string
+    styles: string
+    rows: number
+    required: string
+    answer: Answer[]
+}
+export interface Advancequestion {
+    group: any
+    content: Content[]
+}
+export interface Basicquestion {
+    group: string
+    content: Content[]
+}
+
+export interface Expertquestion {
+    group: string
+    content: Content[]
+}
+export interface Overquestion {
+    group: any
+    content: Content[]
+}
+export interface QuestionInfo {
+    advancequestion: Advancequestion[]
+    basicquestion: Basicquestion[]
+    expertquestion: Expertquestion[]
+    overquestion: Overquestion[]
+}
+export interface ProjectDetail {
+    project_info: ProjectInfo
+    review_info: ReviewInfo[]
+    question_info: QuestionInfo
+}
+export interface ProjectDetailResponse {
+    errorcode: string;
+    messagedetail: string;
+    result: {
+        data: ProjectDetail
     }
 }

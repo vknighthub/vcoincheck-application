@@ -4,9 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // images
-import card1 from "../../../../../images/card/card1.jpg";
-import card2 from "../../../../../images/card/card2.jpg";
-import card3 from "../../../../../images/card/card3.jpg";
+import card1 from "@/images/card/card1.jpg";
+import card2 from "@/images/card/card2.jpg";
+import card3 from "@/images/card/card3.jpg";
+import Image from "next/image";
 
 const CardSlider = () => {
    const settings = {
@@ -25,22 +26,22 @@ const CardSlider = () => {
    return (
       <Slider {...settings}>
          <div className="items">
-            <img src={card1} className="mw-100" alt="" />
+            <Image src={card1} className="mw-100" alt="" />
          </div>
          <div className="items">
-            <img src={card2} className="mw-100" alt="" />
+            <Image src={card2} className="mw-100" alt="" />
          </div>
          <div className="items">
-            <img src={card3} className="mw-100" alt="" />
+            <Image src={card3} className="mw-100" alt="" />
          </div>
          <div className="items">
-            <img src={card1} className="mw-100" alt="" />
+            <Image src={card1} className="mw-100" alt="" />
          </div>
          <div className="items">
-            <img src={card2} className="mw-100" alt="" />
+            <Image src={card2} className="mw-100" alt="" />
          </div>
          <div className="items">
-            <img src={card3} className="mw-100" alt="" />
+            <Image src={card3} className="mw-100" alt="" />
          </div>
       </Slider>
    );
