@@ -1,9 +1,8 @@
-import React from 'react'
-import { useTranslation } from 'next-i18next'
 import HotProject from '@/components/Project/HotProject'
 import client from '@/data/client'
+import { ProjectResponse } from '@/types'
 import { useQuery } from '@tanstack/react-query'
-import { ProjectInfo, ProjectResponse } from '@/types'
+import { useTranslation } from 'next-i18next'
 
 type Props = {}
 

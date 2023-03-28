@@ -5,16 +5,29 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
+import NProgress from 'nprogress';
 import { useEffect, useState } from 'react';
 import { SSRProvider } from 'react-bootstrap';
-import './../css/style.css';
 import './../css/index.css';
+import './../css/style.css';
+import "./../vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
+Router.events.on('routeChangeStart', () => {
+  NProgress.start();
+});
+
+Router.events.on('routeChangeComplete', () => {
+  NProgress.done();
+});
+
+Router.events.on('routeChangeError', () => {
+  NProgress.done();
+});
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)

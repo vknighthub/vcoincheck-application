@@ -3,6 +3,7 @@ import Project from '@/components/Slider/Project'
 import client from '@/data/client'
 import { useQuery } from '@tanstack/react-query'
 import { ProjectResponse, TopInput } from '@/types'
+import Skeleton from 'react-loading-skeleton'
 
 type Props = {}
 
@@ -21,7 +22,11 @@ const BestProject = (props: Props) => {
         }
     }
 
-    const { topproject } = ProjectList({ top: 10 })
+    const { topproject, isLoading } = ProjectList({ top: 10 })
+
+    if (isLoading) {
+        return <Skeleton count={10} />
+    }
 
     return (
         <div className="col-xl-12 col-xxl-12">

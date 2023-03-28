@@ -5,8 +5,6 @@ import Header from "./nav/Header";
 
 
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {
-   const [toggle, setToggle] = useState("");
-   const onClick = (name: React.SetStateAction<string>) => setToggle(toggle === name ? "" : name);
    return (
       <>
          <main>

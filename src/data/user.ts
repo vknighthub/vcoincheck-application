@@ -15,7 +15,7 @@ export const useMe = () => {
   );
 
   return {
-    me: data?.result.data,
+    me: data?.result,
     isLoading,
     error,
     isAuthorized,

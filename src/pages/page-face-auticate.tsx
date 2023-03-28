@@ -1,29 +1,31 @@
+import loginbg from "@/images/bg-login.jpg"
+import PrivateLayout from '@/layouts/_private-route'
+import { NextPageWithLayout } from '@/types'
+import { GetStaticProps } from 'next'
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import AsideLeftAuthen from './../components/AsideLeftAuthen'
 
-import LinkIcon from "@/components/Control/LinkIcon";
-import useAuth from '@/components/auth/use-auth';
-import client from "@/data/client";
-import PrivateLayout from "@/layouts/_private-route";
-import { AuthResponse, LoginUserInput, NextPageWithLayout } from "@/types";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from "axios";
-import { GetStaticProps } from "next";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/navigation';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import Swal from "sweetalert2";
-import * as yup from 'yup';
-import loginbg from "@/images/bg-login.jpg";
-import Asideleft from "@/components/AsideLeft";
-import Seo from "@/layouts/_seo";
+import LinkIcon from "@/components/Control/LinkIcon"
+import useAuth from "@/components/auth/use-auth"
+import client from "@/data/client"
+import Seo from "@/layouts/_seo"
+import { AuthResponse, LoginUserInput } from "@/types"
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from "axios"
+import { useRouter } from "next/router"
+import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import Swal from "sweetalert2"
+import * as yup from 'yup'
 
-const LoginPage: NextPageWithLayout = () => {
+type Props = {}
+
+const FaceAuthicatePage: NextPageWithLayout = (props: Props) => {
     const { t } = useTranslation('common');
-    const { authorize } = useAuth();
     const router = useRouter()
-
+    const { authorize } = useAuth();
 
     const loginValidationSchema = yup.object().shape({
         username: yup.string().required(),
@@ -65,24 +67,23 @@ const LoginPage: NextPageWithLayout = () => {
     });
 
     if (isSuccess) {
-        router.push('/')
+        router.push('/page-authentication-submit')
     }
 
     const onSubmit: SubmitHandler<LoginUserInput> = (data) => {
         login(data)
     };
-
     return (
         <>
             <Seo
-                title="vCoincheck - Login"
-                url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/page-login`}
+                title="vCoincheck - Login authentication"
+                url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/page-face-auticate`}
                 image_url={""}
-                description="Welcome to vCoincheck. Please input some information to Login to vCoincheck"
+                description="Please sign in or sign up user before continuing face authentication"
             />
             <div className="login-main-page" style={{ backgroundImage: "url(" + loginbg.src + ")" }}>
                 <div className="login-wrapper">
-                    <Asideleft />
+                    <AsideLeftAuthen />
                     <div className="login-aside-right gradient_one">
                         <div className="row m-0 justify-content-center h-100 align-items-center">
                             <div className="col-xl-7 col-xxl-7">
@@ -92,18 +93,18 @@ const LoginPage: NextPageWithLayout = () => {
                                             <div className="auth-form-1">
                                                 <div className="mb-4">
                                                     <h3 className="text-white mb-1">{t('welcome')} vCoincheck</h3>
-                                                    <p className="text-white">{t('signinby')}</p>
+                                                    <p className="text-white">{t('askauthentication')}</p>
                                                 </div>
+
                                                 <form onSubmit={handleSubmit(onSubmit)}>
                                                     <div className="form-group">
                                                         <label className="mb-2 ">
                                                             <strong className="text-white">{t('username')}</strong>
                                                         </label>
                                                         <input type="text" className="form-control"
-                                                            autoComplete="username"
                                                             {...register('username')}
-
                                                         />
+                                                        {errors.username && <div className="text-danger fs-12">{errors.username.message}</div>}
                                                     </div>
                                                     <div className="form-group">
                                                         <label className="mb-2 "><strong className="text-white">{t('password')}</strong></label>
@@ -113,6 +114,7 @@ const LoginPage: NextPageWithLayout = () => {
                                                             autoComplete="current-password"
                                                             {...register('password')}
                                                         />
+                                                        {errors.password && <div className="text-danger fs-12">{errors.password.message}</div>}
                                                     </div>
 
                                                     <div className="text-center">
@@ -123,30 +125,24 @@ const LoginPage: NextPageWithLayout = () => {
                                                             {t('signin')}
                                                         </button>
                                                     </div>
-
                                                 </form>
 
                                                 <div className="form-row d-flex justify-content-between mt-4 mb-2">
                                                     <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/page-register" name={t('register')} />
+                                                        <LinkIcon className="ai-icon" href="/page-register" name={t('register')} />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-row d-flex justify-content-between mt-4 mb-2">
                                                     <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/page-face-auticate" name={t('faceauthentication')} />
+                                                        <LinkIcon className="ai-icon" href="/page-forgot-password" name={t('forgotpwd')} />
                                                     </div>
                                                 </div>
 
-                                                <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                                                    <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/page-sign-in-face" name={t('signinface')} />
-                                                    </div>
-                                                </div>
 
                                                 <div className="form-row d-flex justify-content-between mt-4 mb-2">
                                                     <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/" name={t('backtohome')} />
+                                                        <LinkIcon className="ai-icon" href="/" name={t('backtohome')} />
                                                     </div>
                                                 </div>
 
@@ -161,6 +157,9 @@ const LoginPage: NextPageWithLayout = () => {
             </div>
         </>
     )
+}
+FaceAuthicatePage.getLayout = function getLayout(page) {
+    return <PrivateLayout>{page}</PrivateLayout>
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -182,10 +181,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         };
     }
 };
-
-LoginPage.getLayout = function getLayout(page) {
-    return <PrivateLayout>{page}</PrivateLayout>
-}
-
-export default LoginPage
-
+export default FaceAuthicatePage

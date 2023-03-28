@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import RegisterPage from '../pages/page-register';
 
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
     authorization?: boolean;
@@ -9,6 +10,20 @@ export type NextPageWithLayout<P = {}> = NextPage<P> & {
 export interface LoginUserInput {
     username: string;
     password: string;
+}
+export interface FaceInput {
+    username: string;
+    faceid: string;
+}
+export interface RegisterUserInput {
+    username: string
+    firstname: string
+    lastname: string
+    gender: number
+    address: string
+    email: string
+    birthday: string
+    phone: string
 }
 
 export interface TopInput {
@@ -77,21 +92,16 @@ export interface UserInfor {
 }
 
 export interface Menu {
-    name: Name
+    name: string
     path: string
     class: string
     icon: string
     menu_sub: MenuSub[]
 }
 
-export interface Name {
-    en: string
-    vn: string
-    jp: string
-}
 
 export interface MenuSub {
-    name: Name
+    name: string
     path: string
 }
 
@@ -182,6 +192,42 @@ export interface AuthResponse {
     result: UserInfor
 
 }
+
+export interface RegisterUserInfor {
+    usrid: number
+    username: string
+    firstname: string
+    lastname: string
+    gender: number
+    address: string
+    email: string
+    birthday: string
+    phone: string
+    lastlogintime: Date
+    status: string
+    usercreated: string
+    datecreated: string
+    usermodified: Date
+    datemodified: Date
+    islogin: boolean
+    expiretime: Date
+    isshow: boolean
+    scores: number
+    avatar: string
+    failnumber: number
+    faceid: string
+}
+export interface RegisterReponse {
+    errorcode: string;
+    messagedetail: string;
+    result: RegisterUserInfor
+}
+export interface RegisterFaceReponse {
+    errorcode: string;
+    messagedetail: string;
+    result: { data: string }
+}
+
 export interface ProjectResponse {
     errorcode: string;
     messagedetail: string;
@@ -242,8 +288,17 @@ export interface UserProfile {
 }
 
 export interface UserProfileResult {
-    result: {
-        data: UserProfile
-    }
+    result: UserProfile
 }
 
+export interface SettingsQueryOptions {
+    language?: string;
+}
+
+export interface MenuResponse {
+    errorcode: string;
+    messagedetail: string;
+    result: {
+        data: Menu[]
+    }
+}

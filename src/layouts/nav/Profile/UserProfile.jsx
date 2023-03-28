@@ -6,7 +6,6 @@ import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { Dropdown } from "react-bootstrap";
 
 const UserProfile = ({ isAuthorized }) => {
@@ -45,7 +44,7 @@ const UserProfile = ({ isAuthorized }) => {
                                     {t('hello')}, <strong>{me?.fullname}</strong>
                                 </span>
                                 <p className="fs-12 mb-0">{me?.isadmin ? "Admin" : "Normal user"}</p>
-                            </div><Image src={me?.avatar ? me.avatar : profile} width={20} alt="" className="img-fluid" />
+                            </div><Image src={me?.avatar ? me.avatar : profile} width={20} height={20} alt="" className="img-fluid" />
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu align="start">

@@ -30,7 +30,7 @@ const ErrorPage: NextPageWithLayout = () => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ['common', 'footer'])),
+      ...(await serverSideTranslations(locale!, ['common']))
     },
     revalidate: 60, // In seconds
   };
