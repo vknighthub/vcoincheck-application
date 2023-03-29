@@ -1,8 +1,8 @@
+import useAuth from '@/components/auth/use-auth';
 import routes from '@/config/routes';
 import ProjectDescription from '@/dashboards/ProjectDescription';
-import ReviewList from '@/dashboards/ReviewList';
+import Review from '@/dashboards/Review';
 import client from '@/data/client';
-import { useMe } from '@/data/user';
 import Layout from '@/layouts/_layout';
 import Seo from '@/layouts/_seo';
 import PageTitle from '@/layouts/_title';
@@ -11,7 +11,6 @@ import { useQuery } from '@tanstack/react-query';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useState } from 'react';
 import Swal from 'sweetalert2';
 import invariant from 'tiny-invariant';
 
@@ -22,53 +21,7 @@ const ProjectDetail: NextPageWithLayout<
 
     const { t } = useTranslation()
 
-    const [reviewID, setReviewID] = useState('');
-    const [showReviewList, setShowReviewList] = useState(true);
-
-    const checkView = (isBuy: boolean) => {
-        if (!isBuy) {
-            Swal.fire({
-                title: `${t('questionviewdetail')}`,
-                text: `${t('questionbuyviewdetail')}`,
-                icon: "warning"
-            })
-        }
-    }
-
-    const exchangeScores = (userInfo: UserProfile | undefined, scores: number, isShowReviewList: boolean) => {
-        let postdata = {
-            username: userInfo?.username,
-            score: scores
-        }
-
-        setShowReviewList(isShowReviewList)
-    }
-
-    const checkBuy = (users: UserProfile | undefined, scoreneed: number) => {
-
-        if (users!.scores >= scoreneed) {
-            Swal.fire({
-                title: `${t('exchangescoreviewdetail')}`,
-                text: `${t('exchangescoreviewdetailquestion', { score: users!.scores, scoreneed: scoreneed })}`,
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: `${t('ok')}`,
-                cancelButtonText: `${t('cancel')}`,
-            }).then((willExchange) => {
-                if (willExchange.isConfirmed) {
-                    exchangeScores(users, scoreneed, false)
-                } else {
-                    Swal.fire(`${t('remindbuyreview')}`);
-                }
-            })
-        } else {
-            Swal.fire({
-                title: `${t('noenoughtoreview')}`,
-                text: `${t('earnmorereview', { scoremore: scoreneed - users!.scores })}`,
-                icon: "warning",
-            })
-        }
-    }
+    const { isAuthorized } = useAuth()
 
     const { data } = useQuery({
         queryKey: ['project-detail'],
@@ -83,7 +36,7 @@ const ProjectDetail: NextPageWithLayout<
         initialData: projectdetail,
     })
 
-    const { me } = useMe()
+
 
     const projectdata = data.result.data
 
@@ -98,10 +51,7 @@ const ProjectDetail: NextPageWithLayout<
 
             <div className="row">
                 <ProjectDescription project={projectdata.project_info} />
-                {showReviewList ?
-                    <ReviewList reviewlist={projectdata.review_info} checkView={() => checkView(false)} handleSetReviewID={setReviewID} checkBuy={() => checkBuy(me, 50)} />
-                    : <></>
-                }
+                <Review lang={lang} reviewinfo={projectdata.review_info} isAuthorized={isAuthorized} />
             </div>
         </>
     )

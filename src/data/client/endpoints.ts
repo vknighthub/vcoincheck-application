@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
     TOP_PROJECT: '/project/listdatatop',
     ALL_PROJECT: '/project/listdata',
     SYSTEM_MENU: '/system/getmenu',
-    PROJECT_DETAIL: '/project/projectbyname'
+    PROJECT_DETAIL: '/project/projectbyname',
+    PROJECT_REVIEWID: 'project/reviewbyid'
 
 }

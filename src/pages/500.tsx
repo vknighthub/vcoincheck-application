@@ -1,10 +1,8 @@
 import type { NextPageWithLayout } from '@/types';
 import type { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const ErrorPage: NextPageWithLayout = () => {
-  const { t } = useTranslation('common');
   return (
     <>
       <div className="authincation h-100 p-meddle">

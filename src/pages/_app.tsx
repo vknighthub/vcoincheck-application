@@ -31,6 +31,7 @@ Router.events.on('routeChangeError', () => {
   NProgress.done();
 });
 
+
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
   const { locale } = useRouter();
@@ -39,6 +40,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     document.documentElement.dir = dir;
   }, [dir]);
   const [queryClient] = useState(() => new QueryClient())
+
+
 
   return (
     <SSRProvider>

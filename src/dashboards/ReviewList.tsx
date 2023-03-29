@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import React from 'react'
 import { Card, Col, Table } from 'react-bootstrap'
-import { UserProfile } from '../types/index';
 
 type Props = {
     reviewlist: ReviewInfo[]
@@ -54,7 +53,7 @@ const ReviewList = ({ reviewlist, checkView, handleSetReviewID, checkBuy }: Prop
 
                             </thead>
                             <tbody>
-                                {reviewlist.map((review, index) => (
+                                {reviewlist?.map((review, index) => (
                                     <tr key={index}>
                                         <td>
                                             <strong>{index + 1}</strong>

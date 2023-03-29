@@ -1,10 +1,9 @@
 import useAuth from '@/components/auth/use-auth';
 import type { UserProfileResult } from '@/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import client from './client';
 import { API_ENDPOINTS } from './client/endpoints';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export const useMe = () => {
   const { isAuthorized } = useAuth();

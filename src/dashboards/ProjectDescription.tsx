@@ -1,43 +1,17 @@
-import useAuth from '@/components/auth/use-auth';
+
 import { ProjectSvg } from '@/components/svg';
 import { ProjectInfo } from '@/types';
 import ColorQuality from '@/utils/ColorQuality';
 import parse from 'html-react-parser';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
-import { NextRouter, useRouter } from 'next/router';
 import { Tab } from 'react-bootstrap';
-import Swal from 'sweetalert2';
 
 type PageProps = {
-    project: ProjectInfo
+    project: ProjectInfo,
 }
 
 const ProjectDescription = ({ project }: PageProps) => {
     const { t } = useTranslation()
-    const { locale } = useRouter()
-    const router = useRouter()
-
-    const { isAuthorized } = useAuth()
-
-    const checklogin = (isLogin: boolean, _router: NextRouter) => {
-        if (!isLogin) {
-            Swal.fire({
-                title: `${t('questionreview')}`,
-                text: `${t('questionloginreview')}`,
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: `${t('ok')}`,
-                cancelButtonText: `${t('cancel')}`,
-            }).then((willLogin) => {
-                if (willLogin.isConfirmed) {
-                    _router.replace('/page-login')
-                } else {
-                    Swal.fire(`${t('confirmcancel')}`);
-                }
-            })
-        }
-    }
 
     return (
         <div className="col-lg-12">
@@ -70,20 +44,12 @@ const ProjectDescription = ({ project }: PageProps) => {
                                             <div className="col-xl-6 col-lg-6  col-md-6 col-xxl-6 ">
                                                 <p>{t('projectscore')}: <span className="item ml-3">{project.scores}</span>{" "}</p>
                                                 <p>{t('projectquality')}:
-                                                    {ColorQuality( project.quality)}
+                                                    {ColorQuality(project.quality)}
                                                 </p>
 
                                                 <p>{t('noofreviewed')}: <span className="item ml-3">{project.totalreview}</span>{" "}</p>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6  col-md-6 col-xxl-6 ">
-                                                {!isAuthorized ?
-                                                    <>
-                                                        <Link onClick={() => checklogin(isAuthorized, router)} href="#" className="btn btn-success product-review">{t('review')}?</Link>
-                                                    </>
-                                                    :
-                                                    null
-                                                }
-                                            </div>
+
                                         </div>
                                     </div>
                                     <span className="text-content ml-3">

@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
-import RegisterPage from '../pages/page-register';
 
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
     authorization?: boolean;
@@ -364,5 +363,54 @@ export interface ProjectDetailResponse {
     messagedetail: string;
     result: {
         data: ProjectDetail
+    }
+}
+
+export interface ProjectReviewInput {
+    reviewid: string;
+}
+
+export interface Content {
+    name: string
+    labels: string
+    control: string
+    types: string | undefined
+    styles: string
+    rows: number
+    answers: string
+    choose: string
+}
+export interface MainContent {
+    group: string
+    content: Content[]
+}
+export interface Reviewdata {
+    reviewid: string;
+    main_content: MainContent[]
+}
+export interface Lastcomment { }
+
+export interface Scores {
+    overreview: number
+    basicreview: number
+    advancereview: number
+    expertreview: number
+}
+export interface ProjectReview {
+    main_data: Reviewdata[]
+    status: string
+    likes: number
+    islike: boolean
+    userinfor: UserInfor
+    lastcomment: Lastcomment
+    comment: any[]
+    scores: Scores
+    activereviewed: string
+}
+export interface ProjectReviewResponse {
+    errorcode: number
+    messagedetail: string
+    result: {
+        data: ProjectReview
     }
 }
