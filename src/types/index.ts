@@ -144,9 +144,8 @@ export interface ProjectInfo {
 }
 
 export interface Quality {
-    en: string
-    vn: string
-    jp: string
+    key: string
+    text: string
 }
 
 export interface ReviewInfo {
@@ -289,7 +288,8 @@ export interface UserProfile {
     first_login: boolean
     socials?: Social[]
     wallet?: Wallet[],
-    isadmin: boolean
+    isadmin: boolean,
+    scores: number
 }
 
 export interface UserProfileResult {

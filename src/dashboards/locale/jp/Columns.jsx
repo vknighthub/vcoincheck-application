@@ -53,8 +53,7 @@ export const COLUMNSFILTER = [
 		Header: '品質',
 		Footer: '品質',
 		Cell: (props) => {
-			const quality = GetContentLanguage(localStorage.getItem('i18nextLng'), props.row.original.quality)
-			const colorquality = ColorQuality(localStorage.getItem('i18nextLng'), quality)
+			const colorquality = ColorQuality(props.row.original.quality)
 			return (
 				colorquality
 			)

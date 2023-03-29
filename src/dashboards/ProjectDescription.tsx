@@ -2,7 +2,6 @@ import useAuth from '@/components/auth/use-auth';
 import { ProjectSvg } from '@/components/svg';
 import { ProjectInfo } from '@/types';
 import ColorQuality from '@/utils/ColorQuality';
-import GetContentLanguage from '@/utils/GetContentLanguage';
 import parse from 'html-react-parser';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -20,9 +19,6 @@ const ProjectDescription = ({ project }: PageProps) => {
     const router = useRouter()
 
     const { isAuthorized } = useAuth()
-
-    const quality = GetContentLanguage(locale, project.quality)
-    const colorquality = ColorQuality(locale, quality)
 
     const checklogin = (isLogin: boolean, _router: NextRouter) => {
         if (!isLogin) {
@@ -74,7 +70,7 @@ const ProjectDescription = ({ project }: PageProps) => {
                                             <div className="col-xl-6 col-lg-6  col-md-6 col-xxl-6 ">
                                                 <p>{t('projectscore')}: <span className="item ml-3">{project.scores}</span>{" "}</p>
                                                 <p>{t('projectquality')}:
-                                                    {colorquality}
+                                                    {ColorQuality( project.quality)}
                                                 </p>
 
                                                 <p>{t('noofreviewed')}: <span className="item ml-3">{project.totalreview}</span>{" "}</p>

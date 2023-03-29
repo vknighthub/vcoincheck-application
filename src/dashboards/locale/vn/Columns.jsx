@@ -1,8 +1,7 @@
 import { ProjectSvg } from '@/components/svg';
+import { ColumnFilter } from '@/components/table/FilteringTable/ColumnFilter';
 import ColorQuality from '@/utils/ColorQuality';
-import GetContentLanguage from '@/utils/GetContentLanguage';
 import Link from 'next/link';
-import {ColumnFilter} from '@/components/table/FilteringTable/ColumnFilter'
 
 const getStatusType = (status) => {
 	switch (status) {
@@ -54,8 +53,7 @@ export const COLUMNSFILTER = [
 		Header: 'Chất lượng',
 		Footer: 'Chất lượng',
 		Cell: (props) => {
-			const quality = GetContentLanguage(localStorage.getItem('i18nextLng'), props.row.original.quality)
-			const colorquality = ColorQuality(localStorage.getItem('i18nextLng'), quality)
+			const colorquality = ColorQuality(props.row.original.quality)
 			return (
 				colorquality
 			)
