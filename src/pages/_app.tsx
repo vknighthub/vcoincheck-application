@@ -13,6 +13,7 @@ import './../css/index.css';
 import './../css/style.css';
 import "./../vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import './../components/table/FilteringTable/filtering.css';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 type AppPropsWithLayout = AppProps & {

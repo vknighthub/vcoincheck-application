@@ -369,6 +369,9 @@ export interface ProjectDetailResponse {
 export interface ProjectReviewInput {
     reviewid: string;
 }
+export interface LikeProjectReviewInput {
+    reviewid: string;
+}
 
 export interface Content {
     name: string

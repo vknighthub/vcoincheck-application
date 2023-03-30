@@ -27,12 +27,9 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.log(`error` + error.message);
         if (
             (error.response && error.response.status === 401) ||
-            (error.response && error.response.status === 403) ||
-            (error.response &&
-                error.response.data.message === 'PIXER_ERROR.NOT_AUTHORIZED')
+            (error.response && error.response.status === 403)
         ) {
             removeAuthToken();
             Router.reload();

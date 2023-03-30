@@ -3,6 +3,8 @@ import client from '@/data/client'
 import { ProjectResponse } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
+import { SkeletonTheme } from 'react-loading-skeleton'
+import SkeletionThemeTable from './../components/SkeletionTheme/Table';
 
 type Props = {}
 
@@ -22,7 +24,7 @@ const ProjectList = (props: Props) => {
         }
     }
 
-    const { projects } = Project();
+    const { projects, isLoading } = Project();
 
     return (
         <>
@@ -60,8 +62,9 @@ const ProjectList = (props: Props) => {
                             </tr>
                         </thead>
                         <tbody>
+
                             {
-                                projects?.map((project) =>(
+                                projects?.map((project) => (
                                     <HotProject key={project.proid} project={project} index={project.proid} />
                                 ))
                             }

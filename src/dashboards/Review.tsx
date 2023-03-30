@@ -1,5 +1,5 @@
 import { useMe } from '@/data/user'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProjectReviewed from '@/dashboards/ProjectReviewed';
 import ReviewList from '@/dashboards/ReviewList';
 import Swal from 'sweetalert2';
@@ -67,15 +67,19 @@ const Review = ({ lang, reviewinfo, isAuthorized }: Props) => {
         }
     }
 
+    const [isShow, setIsShow] = useState(false)
+
+    useEffect(() => {
+        setIsShow(true)
+    }, [])
+
+
     return (
         <>
-            {isAuthorized &&
+            {isAuthorized && isShow &&
                 <>
-                    {showReviewList ?
-                        <ReviewList reviewlist={reviewinfo} checkView={() => checkView(false)} handleSetReviewID={setReviewID} checkBuy={() => checkBuy(me, 50)} />
-                        :
-                        <ProjectReviewed reviewid={reviewID} language={lang} />
-                    }
+                    <ReviewList isShow = {isShow} showReviewList={showReviewList} reviewlist={reviewinfo} checkView={() => checkView(false)} handleSetReviewID={setReviewID} checkBuy={() => checkBuy(me, 50)} />
+                    <ProjectReviewed isShow = {isShow} showReviewList={!showReviewList} reviewid={reviewID} language={lang} />
                 </>
             }
         </>

@@ -2,26 +2,24 @@ import useAuth from '@/components/auth/use-auth';
 import routes from '@/config/routes';
 import ProjectDescription from '@/dashboards/ProjectDescription';
 import Review from '@/dashboards/Review';
+import ReviewProject from '@/dashboards/ReviewProject';
 import client from '@/data/client';
 import Layout from '@/layouts/_layout';
 import Seo from '@/layouts/_seo';
 import PageTitle from '@/layouts/_title';
-import { NextPageWithLayout, UserProfile } from '@/types';
+import { NextPageWithLayout } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Swal from 'sweetalert2';
 import invariant from 'tiny-invariant';
 
 
 const ProjectDetail: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
 > = ({ projectname, projectdetail, lang }) => {
-
-    const { t } = useTranslation()
-
     const { isAuthorized } = useAuth()
+    const { t } = useTranslation()
 
     const { data } = useQuery({
         queryKey: ['project-detail'],
@@ -52,6 +50,7 @@ const ProjectDetail: NextPageWithLayout<
             <div className="row">
                 <ProjectDescription project={projectdata.project_info} />
                 <Review lang={lang} reviewinfo={projectdata.review_info} isAuthorized={isAuthorized} />
+                <ReviewProject />
             </div>
         </>
     )
@@ -60,6 +59,7 @@ ProjectDetail.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+    
     try {
         const { projectname } = params!; //* we know it's required because of getStaticPaths
         const lang = locale!

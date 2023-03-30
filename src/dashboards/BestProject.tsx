@@ -1,17 +1,16 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import Project from '@/components/Slider/Project'
 import client from '@/data/client'
 import { useQuery } from '@tanstack/react-query'
 import { ProjectResponse, TopInput } from '@/types'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import SliderSlice from './../components/Slider/index';
 
-type Props = {}
-
-const BestProject = (props: Props) => {
+const BestProject = () => {
 
     const ProjectList = (top: TopInput) => {
 
-        const { data, isLoading, error } = useQuery<ProjectResponse, Error>(
+        const { data, isLoading, error, isError } = useQuery<ProjectResponse, Error>(
             ['top-project'],
             () => client.project.top(top),
         )
@@ -19,21 +18,32 @@ const BestProject = (props: Props) => {
             topproject: data?.result.data,
             isLoading,
             error,
+            isError
         }
     }
 
-    const { topproject, isLoading } = ProjectList({ top: 10 })
-
-    if (isLoading) {
-        return <Skeleton count={10} />
-    }
+    const { topproject, isLoading, isError } = ProjectList({ top: 10 })
 
     return (
         <div className="col-xl-12 col-xxl-12">
             <div className="card">
                 <div className="card-body">
                     <div className="testimonial-one owl-right-nav owl-carousel owl-loaded owl-drag">
-                        <Project topproject={topproject} />
+                        {(!isLoading) ?
+                            <>
+                                <Project topproject={topproject} />
+                            </>
+                            :
+                            <>
+                                <SkeletonTheme
+                                    baseColor="#28253b"
+                                    borderRadius="0.5rem">
+                                    <SliderSlice >
+                                        <Skeleton count={10} inline height={120} width={120} />
+                                    </SliderSlice>
+                                </SkeletonTheme>
+                            </>
+                        }
                     </div>
                 </div>
 
