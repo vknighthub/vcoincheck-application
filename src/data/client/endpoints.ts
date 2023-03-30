@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
     SYSTEM_MENU: '/system/getmenu',
     PROJECT_DETAIL: '/project/projectbyname',
     PROJECT_REVIEWID: '/project/reviewbyid',
-    LIKE_REVIEW_PROJECT: '/project/likereview'
+    LIKE_REVIEW_PROJECT: '/project/likereview',
+    ADD_REVIEW: '/project/addreviewed'
 
 }

@@ -1,4 +1,4 @@
-import { AuthResponse, FaceInput, LikeProjectReviewInput, LoginUserInput, MenuResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, SettingsQueryOptions, TopInput, UserProfileResult } from "@/types";
+import { AuthResponse, FaceInput, LikeProjectReviewInput, LoginUserInput, MenuResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, ReviewProjectInput, ReviewProjectResponse, SettingsQueryOptions, TopInput, UserProfileResult } from "@/types";
 import { API_ENDPOINTS } from "./endpoints";
 import { HttpClient } from "./http-client";
 
@@ -16,6 +16,9 @@ class Client {
         getdetail: (proname: ProjectInput, language: SettingsQueryOptions) => HttpClient.post<ProjectDetailResponse>(API_ENDPOINTS.PROJECT_DETAIL, proname, { params: language }),
         getprojectreview: (projectreview: ProjectReviewInput, language: SettingsQueryOptions) => HttpClient.post<ProjectReviewResponse>(API_ENDPOINTS.PROJECT_REVIEWID, projectreview, { params: language }),
         likeprojectreview: (likeprojectreview: LikeProjectReviewInput) => HttpClient.post<ProjectReviewResponse>(API_ENDPOINTS.LIKE_REVIEW_PROJECT, likeprojectreview)
+    }
+    review = {
+        add: (reviewinput: ReviewProjectInput) => HttpClient.post<ReviewProjectResponse>(API_ENDPOINTS.ADD_REVIEW,reviewinput)
     }
     system = {
         menu: ({ language }: SettingsQueryOptions) => HttpClient.get<MenuResponse>(API_ENDPOINTS.SYSTEM_MENU, { language })

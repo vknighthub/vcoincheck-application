@@ -50,7 +50,7 @@ const ProjectDetail: NextPageWithLayout<
             <div className="row">
                 <ProjectDescription project={projectdata.project_info} />
                 <Review lang={lang} reviewinfo={projectdata.review_info} isAuthorized={isAuthorized} />
-                <ReviewProject />
+                <ReviewProject projectid = {projectdata.project_info.proid} question = {projectdata.question_info}/>
             </div>
         </>
     )

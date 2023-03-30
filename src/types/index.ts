@@ -417,3 +417,15 @@ export interface ProjectReviewResponse {
         data: ProjectReview
     }
 }
+export interface ReviewProjectInput {
+    projectid: number
+    reviewid: string
+    reviewtype: string
+    reviewdata: {
+        answerdata: []
+    }
+}
+
+export interface ReviewProjectResponse {
+
+}

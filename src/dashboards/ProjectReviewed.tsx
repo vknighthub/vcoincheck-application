@@ -16,15 +16,15 @@ type Props = {
 
 const ProjectReviewed = ({ isShow, showReviewList, reviewid, language }: Props) => {
     const { t } = useTranslation()
+
     const ProjectReviews = (reviewinput: ProjectReviewInput, languages: SettingsQueryOptions) => {
-        const { data, isLoading, error } = useQuery<ProjectReviewResponse, Error>(
+        const { data, isLoading } = useQuery<ProjectReviewResponse, Error>(
             ['project-review'],
             () => client.project.getprojectreview(reviewinput, languages),
         )
         return {
             projectreview: data?.result.data,
-            isLoading,
-            error,
+            isLoading 
         }
     }
 
@@ -36,8 +36,6 @@ const ProjectReviewed = ({ isShow, showReviewList, reviewid, language }: Props) 
     const score = projectreview?.scores
 
     const totalscore = (score?.advancereview ?? 0) + (score?.basicreview ?? 0) + (score?.expertreview ?? 0) + (score?.overreview ?? 0)
-
-
 
     const [activeToggle, setActiveToggle] = useState("");
 

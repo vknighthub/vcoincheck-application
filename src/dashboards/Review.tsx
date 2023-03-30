@@ -78,8 +78,10 @@ const Review = ({ lang, reviewinfo, isAuthorized }: Props) => {
         <>
             {isAuthorized && isShow &&
                 <>
-                    <ReviewList isShow = {isShow} showReviewList={showReviewList} reviewlist={reviewinfo} checkView={() => checkView(false)} handleSetReviewID={setReviewID} checkBuy={() => checkBuy(me, 50)} />
-                    <ProjectReviewed isShow = {isShow} showReviewList={!showReviewList} reviewid={reviewID} language={lang} />
+                    <ReviewList isShow={isShow} showReviewList={showReviewList} reviewlist={reviewinfo} checkView={() => checkView(false)} handleSetReviewID={setReviewID} checkBuy={() => checkBuy(me, 50)} />
+                    {reviewID &&
+                        <ProjectReviewed isShow={isShow} showReviewList={!showReviewList} reviewid={reviewID} language={lang} />
+                    }
                 </>
             }
         </>

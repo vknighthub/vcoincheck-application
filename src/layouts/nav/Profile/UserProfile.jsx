@@ -14,6 +14,7 @@ const UserProfile = ({ isAuthorized }) => {
     return (
         <>
             {isAuthorized &&
+            
                 (
                     <Dropdown className="nav-item dropdown header-profile ">
                         <Dropdown.Toggle
