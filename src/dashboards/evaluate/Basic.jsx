@@ -1,25 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Formik } from "formik";
 import Swal from "sweetalert2";
-import * as Yup from "yup";
-import FormikControl from '@/components/Forms/Formik/FormikControl';
+import FormikControl from "@/components/Forms/Formik/FormikControl";
 import { useTranslation } from "next-i18next";
-import client from "@/data/client";
 import { useMutation } from "@tanstack/react-query";
+import client from "@/data/client";
 
+const Basic = ({ basicquestion, projectid, actions }) => {
 
-const Overviews = ({ overquestion, projectid, actions }) => {
     const { t } = useTranslation('common');
-
-    const initialValues = (listQuestion) => {
-        let obj = {}
-        listQuestion.forEach((question) => {
-            question.content.forEach((controls) => {
-                obj[controls.name] = ''
-            })
-        })
-        return obj
-    }
-
 
     const { mutate: AddReviewAction } = useMutation(client.review.add, {
         onSuccess: () => {
@@ -37,35 +26,34 @@ const Overviews = ({ overquestion, projectid, actions }) => {
         }
     });
 
-
-    const validationSchema = (listQuestion) => {
-        const shape = {};
+    const initialValues = (listQuestion) => {
+        let obj = {}
         listQuestion.forEach((question) => {
             question.content.forEach((controls) => {
-                if (controls.required === 'Y') {
-                    shape[controls.name] = Yup.string().required("Please enter a answer for this question")
-                }
+                obj[controls.name] = ''
             })
         })
-        return Yup.object().shape(shape);
+        return obj
     }
 
-    const onSubmit = (values,) => {
+    const onSubmit = (listdata) => {
 
         const listanswer = [];
-        const jlistData = Object.entries(values);
+        const jlistData = Object.entries(listdata);
 
         jlistData.forEach(([key, value]) => {
+            if (value === "") {
+                value = "0";
+            }
             const jobject = { "qstcd": key, "answer": value }
             listanswer.push(jobject)
         })
 
         const postData = {
             projectid: projectid,
-            reviewid: "",
-            reviewtype: "OR",
+            reviewtype: "BR",
             reviewdata: {
-                answerdata: listanswer
+                answerdata: listanswer,
             }
         }
         Swal.fire({
@@ -81,42 +69,47 @@ const Overviews = ({ overquestion, projectid, actions }) => {
                 AddReviewAction(postData);
             }
         });
+
     }
 
     return (
-        <div className="pt-3">
+        <div className="my-post-content pt-3">
             <div className="settings-form">
+
                 <Formik
-                    initialValues={initialValues(overquestion)}
-                    validationSchema={validationSchema(overquestion)}
-                    onSubmit={(values) => onSubmit(values)}
+                    initialValues={initialValues(basicquestion)}
+                    onSubmit={(values) => { onSubmit(values) }}
                 >
-                    {({
-                        handleBlur,
-                        handleSubmit
-                    }) => (
+                    {({ handleSubmit }) => (
                         <form onSubmit={handleSubmit}>
                             <h3 className="text-primary pb-5">{t('overviewtitle')}</h3>
-                            {overquestion.map((groups, index) => (
+                            {basicquestion.map((groups, index) => (
                                 <div key={index}>
-                                    {groups.group && <h4 className="text-primary pb-3 pt-3" >{groups.group}</h4>}
-                                    {groups.content.map((controls, index) => {
+                                    <h4 className="text-primary pb-3">{groups.group}</h4>
+                                    {groups.content.map((controls) => {
                                         return (
-                                            <div key={index} >
+                                            <div key={index}>
                                                 <FormikControl
                                                     control={controls.control}
-                                                    type={controls.types}
+                                                    styles={controls.styles}
                                                     label={controls.labels}
                                                     name={controls.name}
-                                                    className="form-control"
-                                                    onBlur={handleBlur} />
+                                                    options={controls.answers}
+                                                    component="input" />
+                                                {controls.control === 'input' &&
+                                                    <FormikControl
+                                                        control={controls.control}
+                                                        type={controls.types}
+                                                        label={controls.labels}
+                                                        name={controls.name}
+                                                        className="form-control"
+                                                        rows={controls.rows} />}
                                             </div>
                                         )
                                     })}
                                 </div>
                             ))}
-                            <button className="btn btn-primary mt-5" type="submit" >{t('submitreview')} </button>
-                            <br />
+                            <button className="btn btn-primary" type="submit">{t('submitreview')}</button>
                         </form>
                     )}
                 </Formik>
@@ -125,4 +118,4 @@ const Overviews = ({ overquestion, projectid, actions }) => {
     )
 }
 
-export default Overviews
+export default Basic;

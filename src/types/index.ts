@@ -426,6 +426,14 @@ export interface ReviewProjectInput {
     }
 }
 
+export interface ReviewProject {
+    project_score: number
+    review_score: number
+}
 export interface ReviewProjectResponse {
-
+    errorcode: number
+    messagedetail: string
+    result: {
+        data: ReviewProject
+    }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import TextError from './TextError';
 
 const RadioButtonHorizontal = (props) => {
-    const { label, name, options, answer, language, ...rest } = props;
+    const { label, name, options, answer, ...rest } = props;
 
     return (
         <div className="form-group" key={name}>

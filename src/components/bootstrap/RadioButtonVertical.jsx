@@ -3,13 +3,13 @@ import React from 'react';
 import TextError from './TextError';
 
 const RadioButtonVertical = (props) => {
-    const { label, name, options, answer, language, ...rest } = props;
+    const { label, name, options, answer, ...rest } = props;
     return (
         <div className="form-group" key={name}>
             <label>{label}</label>
             <Field name={name} {...rest}>
                 {({ field }) => {
-                    return options.map(option => {
+                    return options.map((option,key) => {
                         return (
                             <React.Fragment key={key}>
                                 <div className="form-control-input">

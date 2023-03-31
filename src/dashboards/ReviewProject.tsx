@@ -3,6 +3,9 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import Overviews from './evaluate/Overviews'
 import { QuestionInfo } from '@/types';
+import Basic from './evaluate/Basic';
+import Advanced from './evaluate/Advanced';
+import Expert from './evaluate/Expert';
 
 type Props = {
     question: QuestionInfo
@@ -61,10 +64,22 @@ const ReviewProject = ({ question, projectid }: Props) => {
                                     />
                                 </div>
                                 <div id="basic-review" className={`tab-pane fade ${activeToggle === "basic-review" ? "active show" : ""}`} >
+                                    <Basic
+                                        basicquestion={question.basicquestion}
+                                        projectid={projectid}
+                                        actions={() => actionStep("basic")} />
                                 </div>
                                 <div id="advance-review" className={`tab-pane fade ${activeToggle === "advance-review" ? "active show" : ""}`}>
+                                    <Advanced
+                                        advancequestion={question.advancequestion}
+                                        projectid={projectid}
+                                        actions={() => actionStep("advanced")} />
                                 </div>
                                 <div id="expert-review" className={`tab-pane fade ${activeToggle === "expert-review" ? "active show" : ""}`}>
+                                    <Expert
+                                        expertquestion ={question.expertquestion }
+                                        projectid={projectid}
+                                        actions={() => actionStep("advanced")} />
                                 </div>
                             </div>
                         </div>
