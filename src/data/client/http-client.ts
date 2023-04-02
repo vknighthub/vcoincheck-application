@@ -1,6 +1,6 @@
+import { AUTH_TOKEN_KEY } from '@/components/auth/use-auth';
 import axios, { AxiosRequestHeaders } from 'axios';
-import { getAuthToken, removeAuthToken } from './token.utils';
-import Router from 'next/router';
+import Cookies from 'js-cookie';
 
 const Axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
@@ -12,10 +12,14 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use(
     (config) => {
-        const token = getAuthToken();
+        const cookies = Cookies.get(AUTH_TOKEN_KEY);
+        let token = '';
+        if (cookies) {
+            token = JSON.parse(cookies)['token'];
+        }
         config.headers = {
             ...config.headers,
-            Authorization: `Bearer ${token ? token : ''}`,
+            Authorization: `Bearer ${token}`,
         } as unknown as AxiosRequestHeaders;
         return config;
     },
@@ -31,8 +35,6 @@ Axios.interceptors.response.use(
             (error.response && error.response.status === 401) ||
             (error.response && error.response.status === 403)
         ) {
-            removeAuthToken();
-            Router.reload();
         }
         return Promise.reject(error);
     }
@@ -49,6 +51,10 @@ export class HttpClient {
     }
     static async put<T>(url: string, data: unknown) {
         const response = await Axios.put<T>(url, data);
+        return response.data;
+    }
+    static async delete<T>(url: string) {
+        const response = await Axios.delete<T>(url);
         return response.data;
     }
 }

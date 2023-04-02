@@ -50,7 +50,7 @@ const ProjectDetail: NextPageWithLayout<
             <div className="row">
                 <ProjectDescription project={projectdata.project_info} />
                 <Review lang={lang} reviewinfo={projectdata.review_info} isAuthorized={isAuthorized} />
-                <ReviewProject projectid = {projectdata.project_info.proid} question = {projectdata.question_info}/>
+                <ReviewProject projectid = {projectdata.project_info.proid} question = {projectdata.question_info} isAuthorized={isAuthorized}/>
             </div>
         </>
     )
@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     try {
         const { projectname } = params!; //* we know it's required because of getStaticPaths
         const lang = locale!
+
         const projectdetail = await client.project.getdetail(
             {
                 proname: projectname,

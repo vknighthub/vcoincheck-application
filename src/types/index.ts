@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import { ReactElement, ReactNode } from "react";
 
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
@@ -34,11 +34,15 @@ export interface ProjectInput {
 }
 
 interface ResultObject<T> {
+    errorcode: number
+    messagedetail: string
     result: {
         data: T
     }
 }
 interface ResultArray<T> {
+    errorcode: number
+    messagedetail: string
     result: {
         data: T[]
     }
@@ -187,11 +191,14 @@ export interface ProjectInfor {
     quality: Quality
     color: string
 }
-
+export interface Auth {
+    token: string,
+    permission: number[];
+}
 export interface AuthResponse {
     errorcode: string;
     messagedetail: string;
-    result: UserInfor
+    result: Auth
 
 }
 
@@ -437,3 +444,168 @@ export interface ReviewProjectResponse {
         data: ReviewProject
     }
 }
+
+export interface Ecosystem {
+    ecoid: number
+    shortname: string
+    econame: string
+    description: string
+}
+export interface EcosystemResponse {
+    errorcode: number
+    messagedetail: string
+    result: {
+        data: Ecosystem[]
+    }
+}
+
+export interface ProjectTypeList {
+    typeid: number
+    typecd: string
+    name: string
+    description?: string
+}
+
+export interface ProjectTypeListResponse {
+    errorcode: number
+    messagedetail: string
+    result: {
+        data: ProjectTypeList[]
+    }
+}
+
+export interface UserInput {
+    username: string | string[] | undefined;
+}
+export interface RoleUserInput {
+    username: string
+    roleid: string[]
+    description?: string
+}
+export interface ApproveUserInput {
+    username: string | undefined,
+    status: string | undefined
+}
+export interface UserDeleteResponse {
+    errorcode: number
+    messagedetail: string
+    result: JSON
+}
+
+export interface UserListResponse {
+    errorcode: number
+    messagedetail: string
+    result: {
+        data: UserProfile[]
+    }
+}
+
+export interface RoleList {
+    roleid: number
+    rolename: string
+}
+
+export interface UserViewDetail {
+    username: string
+    firstname: string
+    lastname: string
+    gender: number
+    address: string
+    email: string
+    birthday: string
+    phone: string
+    status: string
+    usercreated: string
+    datecreated: string
+    expiretime: string
+    isshow: any
+    failnumber: any
+    token: string
+    token_type: string
+    fastmode: any
+    scores: number
+    avatar: string
+    isadmin: boolean
+    faceid: any
+    routes: any
+    menu: any
+    role_list: RoleList[]
+    project_list: any[]
+    list_review: ListReview[]
+}
+export interface UserViewDetailResponse {
+    errorcode: number
+    messagedetail: string
+    result: UserViewDetail
+}
+
+export interface ListUserRole {
+    roleid: number
+    rolename: string
+    roledescription: string
+    usertype: any
+    contractno: any
+    usercreated: string
+    datecreated: string
+    usermodified: string
+    datemodified: string
+    serviceid: any
+    status: string
+    isshow: string
+}
+
+export enum SortOrder {
+    Asc = 'asc',
+    Desc = 'desc',
+}
+export interface QueryOptions {
+    language: string;
+    limit?: number;
+    page?: number;
+    orderBy?: string;
+    sortedBy?: SortOrder;
+}
+
+export interface ListUserRoleResponse extends ResultArray<ListUserRole> { }
+
+export interface SetRoleUserResponse extends ResultObject<RoleUserInput> { }
+
+export interface ApproveUserResponse {
+    errorcode: number
+    messagedetail: string
+    result: {
+        data: string
+    }
+}
+export interface GetParams {
+    slug: string;
+    language: string;
+}
+
+export interface PaginatorInfo<T> {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: any[];
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number;
+    total: number;
+}
+
+export interface FAQ {
+    faqid: string
+    question: string
+    answers: string
+    createdt: string
+    username: string
+}
+
+export interface FAQsResponse extends ResultArray<FAQ> { }
+
+export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

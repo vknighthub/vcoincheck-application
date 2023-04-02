@@ -47,7 +47,7 @@ const LoginPage: NextPageWithLayout = () => {
                 });
                 return;
             } else {
-                authorize(data.result.token);
+                authorize(data.result.token,data.result.permission);
                 router.push('/')
             }
 

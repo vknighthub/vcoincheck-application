@@ -1,26 +1,37 @@
 import routes from '@/config/routes'
+import UserList from '@/dashboards/UserList'
 import Layout from '@/layouts/_layout'
 import Seo from '@/layouts/_seo'
+import PageTitle from '@/layouts/_title'
 import { NextPageWithLayout } from '@/types'
 import { GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
-import FAQs from '@/dashboards/FAQs'
 
-type Props = {}
+const UserListPage: NextPageWithLayout = () => {
+    const { t } = useTranslation()
 
-const FAQ: NextPageWithLayout = (props: Props) => {
     return (
         <>
             <Seo title="vCoincheck"
-                description="VcoinCheck - Frequently Asked Questions (FAQs)"
-                url={routes.faq}
-                image_url='https://vcoincheck.io/static/media/logo128.46a7870a.svg' />
-            <FAQs />
+                description="User list management"
+                url={routes.userlist}
+                image_url="" />
+
+            <PageTitle activeMenu={t('userlist')} motherMenu={t('usermanagement')} path={"user-list"} pageHeading={''} activeDisplay={''} />
+
+            <div className="row">
+                <div className="col-xl-12 col-xxl-12 col-lg-12">
+                    <div className="card">
+                        <UserList />
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
-FAQ.getLayout = function getLayout(page) {
+
+UserListPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
@@ -43,4 +54,5 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         };
     }
 };
-export default FAQ
+
+export default UserListPage

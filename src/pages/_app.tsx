@@ -43,7 +43,6 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [queryClient] = useState(() => new QueryClient())
 
 
-
   return (
     <SSRProvider>
       <QueryClientProvider client={queryClient}>

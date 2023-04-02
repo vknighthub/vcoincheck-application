@@ -3,5 +3,8 @@ export const ConfigValue = {
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_REST_API_ENDPOINT: process.env.NEXT_PUBLIC_API_URL,
   NEXT_PUBLIC_WEBSITE_URL: process.env.NEXT_PUBLIC_WEBSITE_URL,
-  AUTH_TOKEN_KEY: 'vcoincheck-auth-token'
+  AUTH_TOKEN_KEY: 'vcoinchecks-auth-token'
 };
+export const Config = {
+  defaultLanguage: process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE ?? 'en',
+}
