@@ -610,6 +610,10 @@ export interface LibraryInput {
     catname: string;
 }
 
+export interface LibraryDetailInput {
+    libraryid: string | string[] | undefined;
+}
+
 export interface Library {
     id: string
     name: string
@@ -633,5 +637,8 @@ export interface Library {
 export interface FAQsResponse extends ResultArray<FAQ> { }
 
 export interface LibraryResponse extends ResultArray<Library> { }
+
+export interface LibraryDetailResponse extends ResultObject<Library> { }
+
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;
