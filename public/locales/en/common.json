@@ -221,5 +221,6 @@
     "unregistered": "Unregistered",
     "signinface": "Sign in by Face",
     "loginbyusername": "Login by username",
-    "scan": "Scan"
+    "scan": "Scan",
+    "input-placeholder-search": "Type your query and press enter"
 }

@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import parse from 'html-react-parser';
-import { useEffect, useState } from "react";
-import { Accordion, Card, Dropdown, Modal } from "react-bootstrap";
-import Swal from "sweetalert2";
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useMe } from '@/data/user';
-import { useFAQQuery } from '@/data/faq';
+import parse from 'html-react-parser';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from "react";
+import { Accordion, Card, Modal, AccordionButton, Dropdown, AccordionCollapse } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 
-const FAQs = () => {
+const FAQs = ({ faq }) => {
 
   const { t } = useTranslation('common');
   const { locale } = useRouter();
@@ -18,9 +17,6 @@ const FAQs = () => {
   const { me } = useMe()
 
   const isadmin = me?.isadmin
-
-
-  const { faq, refetch } = useFAQQuery()
 
   const defaultFAQs = faq
 
@@ -100,10 +96,10 @@ const FAQs = () => {
   const handleEditClick = (event, faqs) => {
     event.preventDefault();
     setEditFAQsId(faqs.faqid);
-    setLangEdit(i18next.language)
+    setLangEdit(locale)
     const formValues = {
-      question: aqs.question,
-      answer: faqs.answer
+      question: faqs.question,
+      answer: faqs.answers
     }
     const editValue = {
       question: faqs.question,
@@ -178,10 +174,6 @@ const FAQs = () => {
     setEditModal(false);
     setFetchData(true);
   }
-
-  useEffect(() => {
-    refetch()
-  }, [fetchData])
 
   return (
     <>
@@ -329,18 +321,51 @@ const FAQs = () => {
                 className='accordion accordion-rounded-stylish accordion-bordered'
                 defaultActiveKey='0'
               >
-                {defaultFAQs?.map((data, i) => (
+                {defaultFAQs.map((data, i) => (
                   <div className="row" key={i}>
-                    {Object.keys(data.question).length !== 0 ?
-                      <>
-                        <div className={`${isadmin ? 'accordion__item col-lg-11 col-xl-11 col-sm-11 col-10' : 'accordion__item col-lg-12 col-xl-12 col-sm-12 col-12'}`} >
-                          <Accordion.Toggle
-                            
-                          ></Accordion.Toggle>
+                    <>
+                      <div className={`${isadmin ? 'accordion__item col-lg-11 col-xl-11 col-sm-11 col-10' : 'accordion__item col-lg-12 col-xl-12 col-sm-12 col-12'}`} >
+                        <Accordion.Item eventKey={`${i}`}>
+                          <AccordionButton
+                            className={`accordion__header ${activeBordered !== i ? 'collapsed' : ''}`}
+                            as={Card.Text}
+                            onClick={() =>
+                              handleAccording(activeBordered, i)
+                            }
+                          >
+                            {' '}
+                            <span className='accordion__header--text'>
+                              {data.question}
+                            </span>
+                            <span className='accordion__header--indicator'></span>
+                          </AccordionButton>
+
+                          <AccordionCollapse
+                            eventKey={`${i}`}
+                            className='accordion__body'
+                          >
+                            <div className='accordion__body--text' >{parse(data.answers)}</div>
+                          </AccordionCollapse>
+                        </Accordion.Item>
+                      </div>
+                      {isadmin &&
+                        <div className='col-lg-01 col-xl-1 col-sm-1 col-1'>
+                          <Dropdown className="">
+                            <Dropdown.Toggle variant="" as="div" className="btn-link i-false" >
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#342E59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#342E59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#342E59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu alignRight={true} className="dropdown-menu-right">
+                              <Dropdown.Item onClick={(event) => handleEditClick(event, data)}>{t('edit')}</Dropdown.Item>
+                              <Dropdown.Item onClick={() => handleDeleteClick(data.faqid)} className="text-danger">{t('delete')}</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
                         </div>
-                      </> :
-                      <></>
-                    }
+                      }
+                    </>
                   </div>
                 ))}
               </Accordion>

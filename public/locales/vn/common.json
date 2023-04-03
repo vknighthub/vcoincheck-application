@@ -217,5 +217,6 @@
     "unregistered": "Chưa đăng ký",
     "signinface": "Đăng nhập bằng khuôn mặt",
     "loginbyusername": "Đăng nhập bằng tài khoản",
-    "scan": "Quét"
+    "scan": "Quét",
+    "input-placeholder-search": "Nhập truy vấn của bạn và nhấn enter"
 }

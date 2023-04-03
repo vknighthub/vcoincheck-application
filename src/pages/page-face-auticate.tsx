@@ -43,13 +43,13 @@ const FaceAuthicatePage: NextPageWithLayout = (props: Props) => {
 
     const { mutate: login, isSuccess } = useMutation(client.users.login, {
         onSuccess: (data) => {
-            if (!data.result.token) {
+            if (!data.result) {
                 toast.error(<b>{t('text-wrong-user-name-and-pass')}</b>, {
                     className: '-mt-10 xs:mt-0',
                 });
                 return;
             } else {
-                authorize(data.result.token);
+                authorize(data.result.token, data.result.permission);
             }
 
         },

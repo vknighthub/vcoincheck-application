@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
     ROLE_OF_USER: '/user/userrole',
     SET_ROLE_USER: '/user/setroleuser',
     APPROVE_USER: '/user/updatestatus',
-    FAQS_LIST: '/faqs/listdata'
+    FAQS_LIST: '/faqs/listdata',
+    LIBRARY: '/library/librarybycategory'
 
 }

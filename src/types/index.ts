@@ -606,6 +606,32 @@ export interface FAQ {
     username: string
 }
 
+export interface LibraryInput {
+    catname: string;
+}
+
+export interface Library {
+    id: string
+    name: string
+    title: string
+    pubdt: string
+    image: string
+    summary: string
+    content: string
+    catid: number
+    catname: string
+    username: string
+    fullname: string
+    status: string
+    noofview: number
+    keyen: number
+    keyvn: number
+    keyjp: number
+    createdt: string
+}
+
 export interface FAQsResponse extends ResultArray<FAQ> { }
+
+export interface LibraryResponse extends ResultArray<Library> { }
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

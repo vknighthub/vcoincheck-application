@@ -217,5 +217,6 @@
     "unregistered": "未登録",
     "signinface": "顔認証でサインイン",
     "loginbyusername": "ユーザー名でログイン",
-    "scan": "スキャン"
+    "scan": "スキャン",
+    "input-placeholder-search": "クエリを入力して Enter キーを押します"
 }

@@ -1,4 +1,4 @@
-import { ApproveUserInput, ApproveUserResponse, AuthResponse, EcosystemResponse, FAQsResponse, FaceInput, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
+import { ApproveUserInput, ApproveUserResponse, AuthResponse, EcosystemResponse, FAQsResponse, FaceInput, LibraryInput, LibraryResponse, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
 import { API_ENDPOINTS } from "./endpoints";
 import { HttpClient } from "./http-client";
 
@@ -34,6 +34,9 @@ class Client {
     }
     faq = {
         all: () => HttpClient.get<FAQsResponse>(API_ENDPOINTS.FAQS_LIST)
+    }
+    library = {
+        cardanoknowledge: (input: LibraryInput, language: SettingsQueryOptions) => HttpClient.post<LibraryResponse>(API_ENDPOINTS.LIBRARY, input, { params: language })
     }
 
 }

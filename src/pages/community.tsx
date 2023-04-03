@@ -1,37 +1,23 @@
-import routes from '@/config/routes'
-import FAQs from '@/dashboards/FAQs'
-import { useFAQQuery } from '@/data/faq'
 import Layout from '@/layouts/_layout'
-import Seo from '@/layouts/_seo'
 import { NextPageWithLayout } from '@/types'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import React from 'react'
 
+type Props = {}
 
-const FAQ: NextPageWithLayout = () => {
-    const { faq } = useFAQQuery()
-
+const Community: NextPageWithLayout  = (props: Props) => {
     return (
-        <>
-            <Seo title="vCoincheck"
-                description="VcoinCheck - Frequently Asked Questions (FAQs)"
-                url={routes.faq}
-                image_url='https://vcoincheck.io/static/media/logo128.46a7870a.svg' />
-            {
-                faq && <FAQs faq={faq} />
-            }
-        </>
+        <div>Community</div>
     )
 }
-FAQ.getLayout = function getLayout(page) {
+
+Community.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     try {
-        const formattedparams = {
-            language: locale,
-        };
         return {
             props: {
                 ...(await serverSideTranslations(locale!, ['common'])),
@@ -46,4 +32,5 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         };
     }
 };
-export default FAQ
+
+export default Community

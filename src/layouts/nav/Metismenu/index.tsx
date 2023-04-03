@@ -13,7 +13,7 @@ const Metismenu = (props: Props) => {
     const GetMenulist = () => {
 
         const { data, isLoading, error } = useQuery<MenuResponse, Error>(
-            ['menu',locale],
+            ['menu', locale],
             () => client.system.menu({
                 language: locale
             }),
@@ -24,19 +24,19 @@ const Metismenu = (props: Props) => {
             error,
         }
     }
-    
+
     const { menulist } = GetMenulist()
-    
+
     return (
         <>
-                <MM className="metismenu" id="menu">
-                    {menulist?.map((menu, index) => (
-                        <li className={`${pathname === menu.path ? "mm-active" : ""}`} key={index}>
-                            <Link href={menu.path} className={menu.class} passHref>
-                                <i className={menu.icon}></i>
-                                <span className="nav-text">{menu.name}</span>
-                            </Link>
-
+            <MM className="metismenu" id="menu">
+                {menulist?.map((menu, index) => (
+                    <li className={`${pathname === menu.path ? "mm-active" : ""}`} key={index}>
+                        <Link href={menu.path} className={menu.class} passHref>
+                            <i className={menu.icon}></i>
+                            <span className="nav-text">{menu.name}</span>
+                        </Link>
+                        {menu.menu_sub[0] &&
                             <ul>
                                 {menu.menu_sub?.map((content, index) => (
                                     <li key={index} >
@@ -46,10 +46,11 @@ const Metismenu = (props: Props) => {
                                     </li>
                                 ))}
                             </ul>
+                        }
 
-                        </li>
-                    ))}
-                </MM>
+                    </li>
+                ))}
+            </MM>
         </>
     )
 }

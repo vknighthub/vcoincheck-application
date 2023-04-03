@@ -1,6 +1,7 @@
 import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 import TextError from './TextError';
+import Image from 'next/image';
 
 const File = (props) => {
     const { label, name, defaultValue, source, disabled, ...rest } = props
@@ -51,7 +52,7 @@ const File = (props) => {
                                         <label className='custom-file-label'>Choose file</label>
                                     </>
                                 }
-                                <img id={`img-${field.name}`} className="img-fluid pb-5" width={150} alt="" src={source} />
+                                <Image id={`img-${field.name}`} className="img-fluid pb-5" width={150} alt="" src={source} />
 
                             </React.Fragment>
                         );
