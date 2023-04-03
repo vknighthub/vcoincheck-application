@@ -21,6 +21,10 @@ export const API_ENDPOINTS = {
     APPROVE_USER: '/user/updatestatus',
     FAQS_LIST: '/faqs/listdata',
     LIBRARY: '/library/librarybycategory',
-    LIBRARY_DETAIL: '/library/getlibrarybyid'
+    LIBRARY_DETAIL: '/library/getlibrarybyid',
+    POST_COMMENT_LIBRARY: '/library/commentlibrary',
+    LIBRARY_MANAGEMENT: '/library/listalllibrary',
+    REMOVE_LIBRARY: '/library/deletelibrary',
+    POST_LIBRARY: '/library/postlibrary'
 
 }

@@ -4,18 +4,25 @@ import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import CustomInput from '@/components/vKnightHub/Control/CustomInput';
 import { CommentSection } from '@/components/vKnightHub/Comment/CommentSection';
+import { useMe } from '@/data/user';
+import client from '@/data/client';
+import { useMutation } from '@tanstack/react-query';
 
 
 const PostComment = ({ libraryid, comments }) => {
 
-    const {t} = useTranslation('common')
-    
+    const { t } = useTranslation('common')
+
     const [comment, setComment] = useState(comments);
     const [insertComment, setInsertComment] = useState();
-    
-    const avatarUrl = user.avatar;
-    const username = user.username;
-    const name = user.firstname + ' ' + user.lastname;
+
+    const { me } = useMe()
+
+    const user = me
+
+    const avatarUrl = user?.avatar;
+    const username = user?.username;
+    const name = user?.firstname + ' ' + user?.lastname;
     const signinUrl = "/page-login";
     const signupUrl = "/page-register";
 
@@ -32,6 +39,21 @@ const PostComment = ({ libraryid, comments }) => {
         );
     };
 
+    const { mutate: PostComment } = useMutation(client.library.postcomment, {
+        onSuccess: () => {
+        },
+        onError: (errorAsUnknown) => {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                color: 'red',
+                title: 'Oops...',
+                text: `${errorAsUnknown}`,
+            })
+
+        }
+    });
+
     const commentLibrary = (library, commentContent) => {
 
         if (commentContent) {
@@ -39,7 +61,8 @@ const PostComment = ({ libraryid, comments }) => {
                 libraryid: library,
                 data: commentContent
             }
-            // dispatch(commentLibraryAction(postdata));
+            console.log(postdata);
+            PostComment(postdata)
         }
     }
 
@@ -64,7 +87,7 @@ const PostComment = ({ libraryid, comments }) => {
                                 currentUser={
                                     username && { username: username, avatarUrl: avatarUrl, name: name }
                                 }
-                                commentsArray={comment.length === 0 ? comments : comment}
+                                commentsArray={comment?.length === 0 ? comments : comment}
                                 setComment={setComment}
                                 setInsertComment={setInsertComment}
                                 signinUrl={signinUrl}

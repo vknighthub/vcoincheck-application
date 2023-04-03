@@ -22,6 +22,8 @@ const CommentStructure = ({ i, reply, displayReply, parentId }) => {
               src={i.avatarUrl}
               style={{ width: 24, height: 24, borderRadius: 24 / 2 }}
               alt='userIcon'
+              width={24}
+              height={24}
             />
           </div>
           <div className="fullName">{i.fullname} </div>

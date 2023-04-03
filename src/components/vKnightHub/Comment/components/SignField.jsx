@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
+import { useContext } from 'react'
 import { ActionContext } from './ActionContext'
 
-const SignField = ({ t }) => {
+const SignField = () => {
   const actions = useContext(ActionContext)
-
+  const { t } = useTranslation('common')
   return (
     <div className="signBox">
       <div className="signLine">
@@ -13,13 +14,13 @@ const SignField = ({ t }) => {
       <div>
         <Link
           className="loginBtn"
-          to={actions.signinUrl}
+          href={actions.signinUrl}
         >
           {t('signin')}
         </Link>
         <Link
           className="signBtn"
-          to={actions.signupUrl}
+          href={actions.signupUrl}
         >
           {t('register')}
         </Link>

@@ -12,16 +12,15 @@ import invariant from 'tiny-invariant';
 import PostComment from './../../dashboards/PostComment';
 
 
-const CardanoKnowledgeDetail: NextPageWithLayout<
+const CatalystKnowledgeDetail: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
-> = ({ cardanoknowledgedetailInit, libraryid, lang }) => {
+> = ({ catalystknowledgedetailInit, libraryid, lang }) => {
 
     const { t } = useTranslation('common')
 
-
     const { data } = useQuery({
-        queryKey: ['library-cardano-detail'],
-        queryFn: () => client.library.cardanoknowledgedetail(
+        queryKey: ['library-catalyst-detail'],
+        queryFn: () => client.library.catalystknowledgedetail(
             {
                 libraryid: libraryid,
             },
@@ -29,7 +28,7 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
                 language: lang
             }
         ),
-        initialData: cardanoknowledgedetailInit,
+        initialData: catalystknowledgedetailInit,
     })
 
     const library = data.result?.data
@@ -99,7 +98,7 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
     )
 }
 
-CardanoKnowledgeDetail.getLayout = function getLayout(page) {
+CatalystKnowledgeDetail.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
@@ -108,7 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const { libraryid } = params!; //* we know it's required because of getStaticPaths
     const lang = locale!
 
-    const cardanoknowledgedetail = await client.library.cardanoknowledgedetail(
+    const catalystknowledgedetail = await client.library.catalystknowledgedetail(
         {
             libraryid: libraryid
         },
@@ -116,11 +115,11 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
             language: locale
         }
     )
-    const cardanoknowledgedetailInit = cardanoknowledgedetail.result.data
+    const catalystknowledgedetailInit = catalystknowledgedetail.result.data
     try {
         return {
             props: {
-                cardanoknowledgedetailInit,
+                catalystknowledgedetailInit,
                 libraryid,
                 lang,
                 ...(await serverSideTranslations(locale!, ['common'])),
@@ -146,4 +145,4 @@ export const getStaticPaths: GetStaticPaths = async (
 };
 
 
-export default CardanoKnowledgeDetail
+export default CatalystKnowledgeDetail

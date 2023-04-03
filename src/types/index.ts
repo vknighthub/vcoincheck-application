@@ -638,7 +638,67 @@ export interface FAQsResponse extends ResultArray<FAQ> { }
 
 export interface LibraryResponse extends ResultArray<Library> { }
 
-export interface LibraryDetailResponse extends ResultObject<Library> { }
+export interface LibraryDetail {
+    library_infor: Library
+    comment_infor: []
+}
 
+export interface LibraryDetailResponse extends ResultObject<LibraryDetail> { }
+
+export interface Reply {
+    comId: string
+    text: string
+    username: string
+}
+export interface Comment {
+    comId: string
+    text: string
+    username: string
+    avatarUrl: string
+    replies: Reply[]
+}
+export interface CommentInput {
+    libraryid: string,
+    data: Comment
+}
+
+export interface CommentResponse extends ResultObject<Comment> { }
+
+
+export interface LibraryManagement {
+    id: string
+    name: string
+    title: string
+    pubdt: string
+    image: string
+    summary: string
+    content: string
+    catid: number
+    catname: string
+    username: string
+    fullname: string
+    status: string
+    noofview: number
+    keyen: number
+    keyvn: number
+    keyjp: number
+    createdt: string
+}
+
+export interface LibraryManagementResponse extends ResultArray<LibraryManagement> { }
+
+
+export interface RemoveLibraryResponse extends ResultObject<{}> { }
+
+export interface PostLibraryResponse extends ResultObject<{}> { }
+export interface PostLibraryInput {
+    title: string,
+    name: string,
+    image: string,
+    summary: string,
+    content: string,
+    category: string,
+    lang: string,
+}
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

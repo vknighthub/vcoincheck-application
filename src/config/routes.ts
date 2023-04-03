@@ -7,6 +7,9 @@ const routes = {
     login: '/page-login',
     faq: '/faq',
     cardanoknowledge: '/cardano-knowledge',
+    catalystknowledge: '/catalyst-knowledge',
+    blockchainknowledge: '/blockchain-knowledge',
+    librarymanagement: '/library-management',
 
 
     project_detail: (slug?: string) => `ecom-project-detail/${slug}`,

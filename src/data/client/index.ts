@@ -1,4 +1,4 @@
-import { ApproveUserInput, ApproveUserResponse, AuthResponse, EcosystemResponse, FAQsResponse, FaceInput, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryResponse, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
+import { ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, EcosystemResponse, FAQsResponse, FaceInput, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
 import { API_ENDPOINTS } from "./endpoints";
 import { HttpClient } from "./http-client";
 
@@ -37,7 +37,15 @@ class Client {
     }
     library = {
         cardanoknowledge: (input: LibraryInput, language: SettingsQueryOptions) => HttpClient.post<LibraryResponse>(API_ENDPOINTS.LIBRARY, input, { params: language }),
-        cardanoknowledgedetail: (input: LibraryDetailInput, language: SettingsQueryOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language })
+        blockchainknowledge: (input: LibraryInput, language: SettingsQueryOptions) => HttpClient.post<LibraryResponse>(API_ENDPOINTS.LIBRARY, input, { params: language }),
+        catalystknowledge: (input: LibraryInput, language: SettingsQueryOptions) => HttpClient.post<LibraryResponse>(API_ENDPOINTS.LIBRARY, input, { params: language }),
+        cardanoknowledgedetail: (input: LibraryDetailInput, language: SettingsQueryOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
+        blockchainknowledgedetail: (input: LibraryDetailInput, language: SettingsQueryOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
+        catalystknowledgedetail: (input: LibraryDetailInput, language: SettingsQueryOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
+        postcomment: (input: CommentInput) => HttpClient.post<CommentResponse>(API_ENDPOINTS.POST_COMMENT_LIBRARY, input),
+        librarymanagement: (language?: string) => HttpClient.post<LibraryManagementResponse>(API_ENDPOINTS.LIBRARY_MANAGEMENT, { lang: language }),
+        removelibrary: (id: string) => HttpClient.post<RemoveLibraryResponse>(API_ENDPOINTS.REMOVE_LIBRARY, id),
+        postlibrary: (input: PostLibraryInput) => HttpClient.post<PostLibraryResponse>(API_ENDPOINTS.POST_LIBRARY, input)
     }
 
 }

@@ -1,4 +1,5 @@
 import routes from '@/config/routes'
+import { useFetchListCatalystKnowledge } from '@/data/catalystknowledge'
 import client from '@/data/client'
 import profile from '@/images/profile/profile.png'
 import Layout from '@/layouts/_layout'
@@ -14,25 +15,24 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import { ReactSearchAutocomplete } from "react-search-autocomplete"
-import { useFetchListCardanoKnowledge } from '../data/cardanoknowledge'
-import CutText from './../utils/CutText'
+import CutText from '../utils/CutText'
 
 
-const CardanoKnowledge: NextPageWithLayout<
+const CatalystKnowledge: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
-> = ({ cardanoknowledgeInit }) => {
+> = ({ catalystknowledgeInit }) => {
 
     const { t } = useTranslation('common');
     const { locale } = useRouter()
 
-    const { cardanoknowledge, refetch } = useFetchListCardanoKnowledge({ language: locale });
+    const { catalystknowledge, refetch } = useFetchListCatalystKnowledge({ language: locale });
 
-    const [searchTerm, setSearchTerm] = useState(cardanoknowledgeInit);
+    const [searchTerm, setSearchTerm] = useState(catalystknowledgeInit);
 
     const handleOnSearch = (string: any, results: any) => {
 
         if (string === '') {
-            setSearchTerm(cardanoknowledgeInit)
+            setSearchTerm(catalystknowledgeInit)
         }else {
             setSearchTerm(results)
         }
@@ -40,23 +40,23 @@ const CardanoKnowledge: NextPageWithLayout<
 
     useEffect(() => {
         refetch()
-        setSearchTerm(cardanoknowledgeInit)
+        setSearchTerm(catalystknowledgeInit)
     }, [locale])
 
 
     return (
         <>
             <Seo title="vCoincheck"
-                description={cardanoknowledgeInit[0].summary}
-                url={routes.cardanoknowledge}
-                image_url={cardanoknowledgeInit[0].image} />
+                description={catalystknowledgeInit[0].summary}
+                url={routes.catalystknowledge}
+                image_url={catalystknowledgeInit[0].image} />
 
-            <PageTitle activeMenu={t('cardanoknowledge')} motherMenu={t('library')} path={"library"} pageHeading={''} activeDisplay={''} />
+            <PageTitle activeMenu={t('catalystknowledge')} motherMenu={t('library')} path={"library"} pageHeading={''} activeDisplay={''} />
             <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
                 <div className="input-group  d-inline-flex">
                     <div style={{ width: '600px', marginBottom: 20 }}>
                         <ReactSearchAutocomplete
-                            items={cardanoknowledge!}
+                            items={catalystknowledge!}
                             onSearch={handleOnSearch}
                             styling={{ zIndex: 15 }} // To display it on top of the search box below
                             autoFocus
@@ -70,7 +70,7 @@ const CardanoKnowledge: NextPageWithLayout<
             <Row>
                 {searchTerm?.map((knowledge: Library) => (
                     <Col xl='4' key={knowledge.id}>
-                        <Link href={`/cardano-knowledge/${knowledge.id}`} className='float-right'>
+                        <Link href={`/catalyst-knowledge/${knowledge.id}`} className='float-right'>
                             <Card className='mb-3'>
                                 <Image className="card-img-top img-block" src={(knowledge.image)} alt="Cardano Knowledge" width={472.66} height={250} />
                                 <Card.Header>
@@ -100,25 +100,25 @@ const CardanoKnowledge: NextPageWithLayout<
     )
 }
 
-CardanoKnowledge.getLayout = function getLayout(page) {
+CatalystKnowledge.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
-    const cardanoknowledge = await client.library.cardanoknowledge(
+    const catalystknowledge = await client.library.catalystknowledge(
         {
-            catname: "Cardano Knowledge"
+            catname: "Catalyst Knowledge"
         },
         {
             language: locale
         }
     )
-    const cardanoknowledgeInit = cardanoknowledge.result.data
+    const catalystknowledgeInit = catalystknowledge.result.data
     try {
         return {
             props: {
-                cardanoknowledgeInit,
+                catalystknowledgeInit,
                 ...(await serverSideTranslations(locale!, ['common'])),
             },
             revalidate: 60, // In seconds
@@ -132,4 +132,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     }
 };
 
-export default CardanoKnowledge
+export default CatalystKnowledge

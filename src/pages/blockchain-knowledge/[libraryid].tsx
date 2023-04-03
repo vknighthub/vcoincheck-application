@@ -12,16 +12,15 @@ import invariant from 'tiny-invariant';
 import PostComment from './../../dashboards/PostComment';
 
 
-const CardanoKnowledgeDetail: NextPageWithLayout<
+const BlockchainKnowledgeDetail: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
-> = ({ cardanoknowledgedetailInit, libraryid, lang }) => {
+> = ({ blockchainknowledgedetailInit, libraryid, lang }) => {
 
     const { t } = useTranslation('common')
 
-
     const { data } = useQuery({
-        queryKey: ['library-cardano-detail'],
-        queryFn: () => client.library.cardanoknowledgedetail(
+        queryKey: ['library-blockchain-detail'],
+        queryFn: () => client.library.blockchainknowledgedetail(
             {
                 libraryid: libraryid,
             },
@@ -29,7 +28,7 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
                 language: lang
             }
         ),
-        initialData: cardanoknowledgedetailInit,
+        initialData: blockchainknowledgedetailInit,
     })
 
     const library = data.result?.data
@@ -99,7 +98,7 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
     )
 }
 
-CardanoKnowledgeDetail.getLayout = function getLayout(page) {
+BlockchainKnowledgeDetail.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
@@ -108,7 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const { libraryid } = params!; //* we know it's required because of getStaticPaths
     const lang = locale!
 
-    const cardanoknowledgedetail = await client.library.cardanoknowledgedetail(
+    const blockchainknowledgedetail = await client.library.blockchainknowledgedetail(
         {
             libraryid: libraryid
         },
@@ -116,11 +115,11 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
             language: locale
         }
     )
-    const cardanoknowledgedetailInit = cardanoknowledgedetail.result.data
+    const blockchainknowledgedetailInit = blockchainknowledgedetail.result.data
     try {
         return {
             props: {
-                cardanoknowledgedetailInit,
+                blockchainknowledgedetailInit,
                 libraryid,
                 lang,
                 ...(await serverSideTranslations(locale!, ['common'])),
@@ -146,4 +145,4 @@ export const getStaticPaths: GetStaticPaths = async (
 };
 
 
-export default CardanoKnowledgeDetail
+export default BlockchainKnowledgeDetail
