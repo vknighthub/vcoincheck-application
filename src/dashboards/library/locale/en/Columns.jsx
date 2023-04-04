@@ -50,7 +50,7 @@ export const COLUMNSFILTER = [
 				<>
 					<div className="row">
 						<div className="col-xs-12 ml-3">
-							<Link href={`/post-library-language/${btoa(props.row.original.name)}&${btoa('EN')}`}
+							<Link href={`/post-library-language/library/${props.row.original.id}/language/${'en'}`}
 								className={`btn ${value_en ? 'btn-success' : 'btn-danger'} shadow btn-xs sharp`}
 							>
 								<i className={`fa ${value_en ? 'fa-check' : 'fa-remove'} `}
@@ -59,7 +59,7 @@ export const COLUMNSFILTER = [
 							</Link>
 						</div>
 						<div className="col-xs-12 ml-3">
-							<Link href={`/post-library-language/${btoa(props.row.original.name)}&${btoa('VN')}`}
+						<Link href={`/post-library-language/library/${props.row.original.id}/language/${'vn'}`}
 								className={`btn ${value_vi ? 'btn-success' : 'btn-danger'} shadow btn-xs sharp`}
 							>
 								<i className={`fa ${value_vi ? 'fa-check' : 'fa-remove'} `}
@@ -69,7 +69,7 @@ export const COLUMNSFILTER = [
 						</div>
 
 						<div className="col-xs-12 ml-3">
-							<Link href={`/post-library-language/${btoa(props.row.original.name)}&${btoa('JP')}`}
+						<Link href={`/post-library-language/library/${props.row.original.id}/language/${'jp'}`}
 								className={`btn ${value_jp ? 'btn-success' : 'btn-danger'} shadow btn-xs sharp`}
 							>
 								<i className={`fa ${value_jp ? 'fa-check' : 'fa-remove'} `}
@@ -87,14 +87,14 @@ export const COLUMNSFILTER = [
 		Header: 'Admin',
 		Footer: 'Admin',
 		Cell: (props) => {
-			
+
 			const { mutate: RemoveLibrary } = useRemoveLibraryMutation();
 
 			const handleRemoveLibrary = () => {
 				const postData = {
 					id: props.row.original.id
 				}
-				
+
 				Swal.fire({
 					icon: "question",
 					title: "Are you want to remove this library?",

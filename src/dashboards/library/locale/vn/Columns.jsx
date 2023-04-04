@@ -50,7 +50,7 @@ export const COLUMNSFILTER = [
 				<>
 					<div className="row">
 						<div className="col-xs-12 ml-3">
-							<Link href={`/post-library-language/${btoa(props.row.original.name)}&${btoa('EN')}`}
+							<Link href={`/post-library-language/${props.row.original.id}&${btoa('EN')}`}
 								className={`btn ${value_en ? 'btn-success' : 'btn-danger'} shadow btn-xs sharp`}
 							>
 								<i className={`fa ${value_en ? 'fa-check' : 'fa-remove'} `}
@@ -59,7 +59,7 @@ export const COLUMNSFILTER = [
 							</Link>
 						</div>
 						<div className="col-xs-12 ml-3">
-							<Link href={`/post-library-language/${btoa(props.row.original.name)}&${btoa('VN')}`}
+							<Link href={`/post-library-language/${btoa(props.row.original.id)}&${btoa('VN')}`}
 								className={`btn ${value_vi ? 'btn-success' : 'btn-danger'} shadow btn-xs sharp`}
 							>
 								<i className={`fa ${value_vi ? 'fa-check' : 'fa-remove'} `}
@@ -69,7 +69,7 @@ export const COLUMNSFILTER = [
 						</div>
 
 						<div className="col-xs-12 ml-3">
-							<Link href={`/post-library-language/${btoa(props.row.original.name)}&${btoa('JP')}`}
+							<Link href={`/post-library-language/${btoa(props.row.original.id)}&${btoa('JP')}`}
 								className={`btn ${value_jp ? 'btn-success' : 'btn-danger'} shadow btn-xs sharp`}
 							>
 								<i className={`fa ${value_jp ? 'fa-check' : 'fa-remove'} `}

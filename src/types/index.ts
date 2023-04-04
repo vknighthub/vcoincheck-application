@@ -701,4 +701,8 @@ export interface PostLibraryInput {
     lang: string,
 }
 
+export interface LanguageOptions {
+    language: string | undefined | string[];
+}
+
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;
