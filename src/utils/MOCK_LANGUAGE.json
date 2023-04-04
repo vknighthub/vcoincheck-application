@@ -1,14 +1,14 @@
 [
     {
-        "languagecd": "VN",
+        "languagecd": "vn",
         "description": "Vietnamese"
     },
     {
-        "languagecd": "EN",
+        "languagecd": "en",
         "description": "English"
     },
     {
-        "languagecd": "JP",
+        "languagecd": "jp",
         "description": "Japanese"
     }
 ]

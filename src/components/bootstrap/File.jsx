@@ -52,7 +52,7 @@ const File = (props) => {
                                         <label className='custom-file-label'>Choose file</label>
                                     </>
                                 }
-                                <Image id={`img-${field.name}`} className="img-fluid pb-5" width={150} alt="" src={source} />
+                                <Image id={`img-${field.name}`} className="img-fluid pb-5" width={150} height={150} alt="" src={source} />
 
                             </React.Fragment>
                         );

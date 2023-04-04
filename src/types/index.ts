@@ -705,4 +705,18 @@ export interface LanguageOptions {
     language: string | undefined | string[];
 }
 
+
+export interface SubmitProjectInput {
+    procd: string,
+    proname: string,
+    prosts: string,
+    protype: string,
+    ecosystem: string,
+    prodescr: string,
+    proicon: string,
+    teaminfo: string
+}
+
+export interface SubmitProjectResponse extends ResultObject<{}> { }
+
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

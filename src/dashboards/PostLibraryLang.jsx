@@ -1,23 +1,43 @@
+import FormikControl from "@/components/Forms/Formik/FormikControl";
+import client from "@/data/client";
+import GetLanguageofpost from "@/utils/GetLanguageofpost";
+import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useTranslation } from "next-i18next";
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
-import GetLanguageofpost from "@/utils/GetLanguageofpost";
-import FormikControl from "@/components/Forms/Formik/FormikControl";
-import listCategory from './MOCK_LIBRARY.json';
-import { useTranslation } from "next-i18next";
 
 
-const PostLibraryLang = ({ library }) => {
+const listCategory = [
+    {
+        "librarycd": 1,
+        "description": "Cardano Knowledge"
+    },
+    {
+        "librarycd": 2,
+        "description": "Blockchain Knowledge"
+    },
+    {
+        "librarycd": 3,
+        "description": "Cardano Dictionary"
+    },
+    {
+        "librarycd": 4,
+        "description": "Catalyst Knowledge"
+    }
+]
+
+const PostLibraryLang = ({ library, language }) => {
 
     const { t } = useTranslation('common');
+    const router = useRouter()
 
-    const title = GetContentLanguage(language.toLowerCase(), library.title)
-    const summary = GetContentLanguage(language.toLowerCase(), library.summary)
-    const image = library.image
-    const contentresult = GetContentLanguage(language.toLowerCase(), library.content)
+    const title = library.library_infor.title
+    const summary = library.library_infor.summary
+    const image = library.library_infor.image
+    const contentresult = library.library_infor.content
 
     const initialValues = (listField) => {
         let obj = {}
@@ -38,16 +58,49 @@ const PostLibraryLang = ({ library }) => {
     }
     const [edit, setEdit] = useState(false);
 
+
+    const { mutate: PostLibrary } = useMutation(client.library.postlibrarylanguage, {
+        onSuccess: (data) => {
+            if (!data) {
+                toast.error(<b>{t('text-wrong-user-name-and-pass')}</b>, {
+                    className: '-mt-10 xs:mt-0',
+                });
+                return;
+            } else {
+                Swal.fire({
+                    title: "Submitted!",
+                    html: "Thank you! Your post has been received and will be reviewed.",
+                    icon: "success"
+                }).then((result) => {
+                    if (result) {
+                        router.reload()
+                    }
+                })
+            }
+
+        },
+        onError: (errorAsUnknown) => {
+            const error = errorAsUnknown
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                color: 'red',
+                title: 'Oops...',
+                text: `${error?.response?.status === 400 ? error?.response?.data.messagedetail : 'Error'}`,
+            })
+
+        }
+    });
+
     const onSubmit = (values) => {
 
         const postData = {
             title: values.title,
-            name: library.name,
+            name: library.library_infor.name,
             image: values.illustration,
             summary: values.briefintro,
             content: values.content,
             category: values.category,
-            username: props.users.username,
             lang: values.languageofpost.toLowerCase(),
         }
         Swal.fire({
@@ -61,20 +114,19 @@ const PostLibraryLang = ({ library }) => {
             cancelButtonText: `${t('cancel')}`,
         }).then((result) => {
             if (result.value) {
-                dispatch(loadingToggleAction(true));
-                dispatch(addLangLibraryAction(postData, history, 'library-management'));
+                PostLibrary(postData)
             }
         });
     }
 
     const getListCategory = (list) => {
-        const listCategory = [];
-        listCategory.push({ "key": `${t('selectcategory')}`, "value": '' })
+        const listcategory = [];
+        listcategory.push({ "key": `${t('selectcategory')}`, "value": '' })
         list.forEach((key) => {
             const jobject = { "key": key.description, "value": key.librarycd }
-            listCategory.push(jobject)
+            listcategory.push(jobject)
         })
-        return listCategory
+        return listcategory
     }
 
     const dropdownOptionsCategory = getListCategory(listCategory)
@@ -102,7 +154,7 @@ const PostLibraryLang = ({ library }) => {
             "styles": "",
             "rows": 1,
             "required": "Y",
-            "answer": library.catid,
+            "answer": library.library_infor.catid,
             "disabled": true,
             "classname": "form-control",
             "options": dropdownOptionsCategory

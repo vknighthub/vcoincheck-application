@@ -7,16 +7,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import React from 'react'
 import invariant from 'tiny-invariant'
+import PostLibraryLang from '@/dashboards/PostLibraryLang'
 
-type Props = {}
 
 const PostLibraryLanguage: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
 > = ({ libararyInit }) => {
     const router = useRouter();
     const { lang, libraryid } = router.query;
-    console.log(lang)
-    console.log(libraryid)
 
     const { data } = useQuery({
         queryKey: ['librarybyid'],
@@ -33,10 +31,10 @@ const PostLibraryLanguage: NextPageWithLayout<
 
     const library = data.result?.data
 
-    console.log(library)
-
     return (
-        <div>PostLibraryLanguage</div>
+        <>
+            <PostLibraryLang library={library} language = {lang} />
+        </>
     )
 }
 

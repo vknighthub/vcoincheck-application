@@ -1,5 +1,4 @@
-
-import { Link } from 'react-router-dom';
+import Link from 'next/link'
 
 const LinkIcon = (props) => {
     const { className, name, to, ...rest } = props;

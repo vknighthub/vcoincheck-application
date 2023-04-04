@@ -1,4 +1,4 @@
-import { ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, EcosystemResponse, FAQsResponse, FaceInput, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
+import { ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, EcosystemResponse, FAQsResponse, FaceInput, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
 import { API_ENDPOINTS } from "./endpoints";
 import { HttpClient } from "./http-client";
 
@@ -23,8 +23,8 @@ class Client {
         getprojectreview: (projectreview: ProjectReviewInput, language: SettingsQueryOptions) => HttpClient.post<ProjectReviewResponse>(API_ENDPOINTS.PROJECT_REVIEWID, projectreview, { params: language }),
         likeprojectreview: (likeprojectreview: LikeProjectReviewInput) => HttpClient.post<ProjectReviewResponse>(API_ENDPOINTS.LIKE_REVIEW_PROJECT, likeprojectreview),
         ecosystem: () => HttpClient.get<EcosystemResponse>(API_ENDPOINTS.ECOSYSTEM),
-        projectype: () => HttpClient.get<ProjectTypeListResponse>(API_ENDPOINTS.PROJECTYPELIST)
-
+        projectype: () => HttpClient.get<ProjectTypeListResponse>(API_ENDPOINTS.PROJECTYPELIST),
+        submitproject: (input: SubmitProjectInput) => HttpClient.post<SubmitProjectResponse>(API_ENDPOINTS.SUBMIT_PRỌECT,input)
     }
     review = {
         add: (reviewinput: ReviewProjectInput) => HttpClient.post<ReviewProjectResponse>(API_ENDPOINTS.ADD_REVIEW, reviewinput)
@@ -46,6 +46,7 @@ class Client {
         librarymanagement: (language?: string) => HttpClient.post<LibraryManagementResponse>(API_ENDPOINTS.LIBRARY_MANAGEMENT, { lang: language }),
         removelibrary: (id: string) => HttpClient.post<RemoveLibraryResponse>(API_ENDPOINTS.REMOVE_LIBRARY, id),
         postlibrary: (input: PostLibraryInput) => HttpClient.post<PostLibraryResponse>(API_ENDPOINTS.POST_LIBRARY, input),
+        postlibrarylanguage: (input: PostLibraryInput) => HttpClient.post<PostLibraryResponse>(API_ENDPOINTS.POST_LIBRARY_LANGUAGE,input),
         getbyid: (input: LibraryDetailInput, language: LanguageOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
     }
 

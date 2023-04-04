@@ -25,6 +25,8 @@ export const API_ENDPOINTS = {
     POST_COMMENT_LIBRARY: '/library/commentlibrary',
     LIBRARY_MANAGEMENT: '/library/listalllibrary',
     REMOVE_LIBRARY: '/library/deletelibrary',
-    POST_LIBRARY: '/library/postlibrary'
+    POST_LIBRARY: '/library/postlibrary',
+    POST_LIBRARY_LANGUAGE: '/library/addlanglibrary',
+    SUBMIT_PRỌECT: '/project/postproject'
 
 }
