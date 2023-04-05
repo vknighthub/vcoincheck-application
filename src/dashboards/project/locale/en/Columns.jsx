@@ -1,7 +1,7 @@
 import { ProjectSvg } from '@/components/svg';
 import { ColumnFilter } from '@/components/table/FilteringTable/ColumnFilter';
+import Link from "next/link";
 import ColorQuality from '@/utils/ColorQuality';
-import Link from 'next/link';
 
 const getStatusType = (status) => {
 	switch (status) {
@@ -37,7 +37,7 @@ export const COLUMNSFILTER = [
 		accessor: 'Ecosystem',
 		Filter: ColumnFilter,
 		Cell: (props) => (
-			<Link href={`/project/ecosystem/${btoa(props.row.original.Ecosystemcd)}`} className="text-info">
+			<Link href={`/project/ecosystem/${props.row.original.Ecosystemcd}`} className="text-info">
 				{props.row.original.Ecosystem}
 			</Link>
 		),
@@ -48,7 +48,7 @@ export const COLUMNSFILTER = [
 		accessor: 'protype',
 		Filter: ColumnFilter,
 		Cell: (props) => (
-			<Link href={`/project/protype/${btoa(props.row.original.protypecd)}`} className="text-info">
+			<Link href={`/project/protype/${props.row.original.protypecd}`} className="text-info">
 				{props.row.original.protype}
 			</Link>
 		),
@@ -104,7 +104,7 @@ export const COLUMNSREVIEWLIST = [
 		Footer: 'Admin',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-review-list-action/${btoa(props.row.original.proname)}&${btoa(props.row.original.username)}&${btoa('false')}`} className="btn btn-success shadow btn-xs sharp mr-2"
+				<Link href={`/project-review-list-action/${props.row.original.proname}&${props.row.original.username}&${'false'}`} className="btn btn-success shadow btn-xs sharp mr-2"
 				>
 					<i className="fa fa-eye"></i>
 				</Link>
@@ -153,7 +153,7 @@ export const COLUMNSUSERREVIEWLIST = [
 		Footer: 'Admin',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-review-list-action/${btoa(props.row.original.proname)}&${btoa(props.row.original.username)}&${btoa(props.row.original.reviewid)}`} className="btn btn-success shadow btn-xs sharp mr-2"
+				<Link href={`/project-review-list-action/${props.row.original.proname}&${props.row.original.username}&${props.row.original.reviewid}`} className="btn btn-success shadow btn-xs sharp mr-2"
 				>
 					<i className="fa fa-eye"></i>
 				</Link>
@@ -204,7 +204,7 @@ export const COLUMNSFILTERPROJECT = [
 		Footer: 'Admin',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-management-action/${btoa(props.row.original.proname)}`} className={`btn ${props.row.original.proaprstscd === 'P' ? 'btn-warning' : 'btn-success'} shadow btn-xs sharp mr-2`}
+				<Link href={`/project-management-action/${props.row.original.proname}`} className={`btn ${props.row.original.proaprstscd === 'P' ? 'btn-warning' : 'btn-success'} shadow btn-xs sharp mr-2`}
 				>
 					<i className="fa fa-eye"></i>
 				</Link>

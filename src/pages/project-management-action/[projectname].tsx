@@ -1,19 +1,17 @@
 import { getAuthCredentials } from '@/components/auth/use-auth'
 import { Config } from '@/config'
 import routes from '@/config/routes'
-import ProjectManagement from '@/dashboards/ProjectManagement'
 import client from '@/data/client'
 import { allowedRoles, hasAccess, isAuthenticated } from '@/data/client/token.utils'
 import Layout from '@/layouts/_layout'
-import PageTitle from '@/layouts/_title'
 import { NextPageWithLayout, ProjectManagementResponse } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import ProjectManagementAction from '@/dashboards/ProjectManagementAction'
 
-
-const ProjectManagementPage: NextPageWithLayout<
+const ProjectManagementActionPage: NextPageWithLayout<
     InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ language }) => {
     const { t } = useTranslation('common');
@@ -29,17 +27,21 @@ const ProjectManagementPage: NextPageWithLayout<
             isLoading
         }
     }
-    
+
     const { project } = FetchProject()
 
     return (
         <>
-            <PageTitle motherMenu={t('project')} activeMenu={t('projectmanagement')} pageHeading={''} path={''} activeDisplay={''} />
-            {project && <ProjectManagement projects={project} lang={language} />}
+            <ProjectManagementAction
+                projectDetail={undefined}
+                projecttype={undefined}
+                listecosystem={undefined}
+                users={undefined}
+            />
         </>
     )
 }
-ProjectManagementPage.getLayout = function getLayout(page) {
+ProjectManagementActionPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
@@ -82,4 +84,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
         };
     }
 };
-export default ProjectManagementPage
+export default ProjectManagementActionPage

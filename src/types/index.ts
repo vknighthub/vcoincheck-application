@@ -717,8 +717,36 @@ export interface SubmitProjectInput {
     teaminfo: string
 }
 
-export interface SubmitProjectResponse extends ResultObject<{}> { }
+export interface ProjectManagement {
+    proid: number
+    username: string
+    fullname: any
+    procd: string
+    proname: string
+    protype: string
+    protypecd: string
+    Ecosystem: string
+    Ecosystemcd: string
+    prodescr: string
+    teaminfo: string
+    proicon: string
+    totalreview: number
+    prosts: string
+    prostscd: string
+    proaprsts: string
+    proaprstscd: string
+    usrid: number
+    scores: number
+    usermodify?: string
+    createdt: string
+    modifydate: string
+    featured: number
+    quality: Quality
+    color: string
+}
 
+export interface SubmitProjectResponse extends ResultObject<{}> { }
+export interface ProjectManagementResponse extends ResultArray<ProjectManagement> { }
 export interface DictionaryInput {
     dictionarykey: string
     dictionaryname: string

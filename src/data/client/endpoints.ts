@@ -30,6 +30,7 @@ export const API_ENDPOINTS = {
     SUBMIT_PRỌECT: '/project/postproject',
     TOPLIBRARY: 'library/gettoplibrary',
     NEWTOPICLIBRARY: '/library/getlibrarynewtopic',
-    DICTIONARY: '/library/getlistdictionary'
+    DICTIONARY: '/library/getlistdictionary',
+    PROJECT_MANAGEMENT: '/project/listprojectmanager'
 
 }

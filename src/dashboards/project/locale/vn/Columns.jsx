@@ -1,14 +1,14 @@
 import { ProjectSvg } from '@/components/svg';
 import { ColumnFilter } from '@/components/table/FilteringTable/ColumnFilter';
+import Link from "next/link";
 import ColorQuality from '@/utils/ColorQuality';
-import Link from 'next/link';
 
 const getStatusType = (status) => {
 	switch (status) {
 		case 'P':
-			return <i className="fa fa-circle text-warning mr-1"> Pending to Approve</i>
+			return <i className="fa fa-circle text-warning mr-1"> Chờ duyệt</i>
 		case 'A':
-			return <i className="fa fa-circle text-success mr-1"> Approved</i>
+			return <i className="fa fa-circle text-success mr-1"> Đã duyệt</i>
 		default: return ''
 	}
 }
@@ -16,52 +16,42 @@ const getStatusType = (status) => {
 
 export const COLUMNSFILTER = [
 	{
-		Header: 'Icon',
-		Footer: 'Icon',
+		Header: 'I',
+		Footer: 'I',
 		Cell: (props) => (<Link href={`/ecom-project-detail/${props.row.original.proname}`}><ProjectSvg image={props.row.original.proicon} width={24} height={24} /></Link>),
 	},
 	{
-		Header: 'Name',
-		Footer: 'Name',
+		Header: 'Tên dự án',
+		Footer: 'Tên dự án',
 		accessor: 'proname',
 		Filter: ColumnFilter,
-		Cell: (props) => (
-			<Link href={`/ecom-project-detail/${props.row.original.proname}`} className="text-success">
-				{props.row.original.proname}
-			</Link>
-		),
 	},
 	{
-		Header: 'Ecosystem',
-		Footer: 'Ecosystem',
+		Header: 'Hệ sinh thái',
+		Footer: 'Hệ sinh thái',
 		accessor: 'Ecosystem',
 		Filter: ColumnFilter,
 		Cell: (props) => (
-			<Link href={`/project/ecosystem/${btoa(props.row.original.Ecosystemcd)}`} className="text-info">
+			<Link href={`/project/ecosystem/${props.row.original.Ecosystemcd}`} className="text-info">
 				{props.row.original.Ecosystem}
 			</Link>
 		),
 	},
 	{
-		Header: 'Categories',
-		Footer: 'Categories',
+		Header: 'Loại dự án',
+		Footer: 'Loại dự án',
 		accessor: 'protype',
 		Filter: ColumnFilter,
-		Cell: (props) => (
-			<Link href={`/project/protype/${btoa(props.row.original.protypecd)}`} className="text-info">
-				{props.row.original.protype}
-			</Link>
-		),
 	},
 	{
-		Header: 'No of viewed',
-		Footer: 'No of viewed',
+		Header: 'Lượt xem',
+		Footer: 'Lượt xem',
 		accessor: 'totalreview',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Quality',
-		Footer: 'Quality',
+		Header: 'Chất lượng',
+		Footer: 'Chất lượng',
 		Cell: (props) => {
 			const colorquality = ColorQuality(props.row.original.quality)
 			return (
@@ -73,26 +63,26 @@ export const COLUMNSFILTER = [
 
 export const COLUMNSREVIEWLIST = [
 	{
-		Header: 'Project',
-		Footer: 'Project',
+		Header: 'Dự án',
+		Footer: 'Dự án',
 		accessor: 'proname',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'User',
-		Footer: 'User',
+		Header: 'Người dùng',
+		Footer: 'Người dùng',
 		accessor: 'username',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Categories',
-		Footer: 'Categories',
+		Header: 'Loại dự án',
+		Footer: 'Loại dự án',
 		accessor: 'protype',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Status',
-		Footer: 'Status',
+		Header: 'Trạng thái',
+		Footer: 'Trạng thái',
 		accessor: 'status',
 		Filter: ColumnFilter,
 		Cell: (props) => (
@@ -100,11 +90,11 @@ export const COLUMNSREVIEWLIST = [
 		)
 	},
 	{
-		Header: 'Admin',
-		Footer: 'Admin',
+		Header: 'Quản trị',
+		Footer: 'Quản trị',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-review-list-action/${btoa(props.row.original.proname)}&${btoa(props.row.original.username)}&${btoa('false')}`} className="btn btn-success shadow btn-xs sharp mr-2"
+				<Link href={`/project-review-list-action/${props.row.original.proname}&${props.row.original.username}&${'false'}`} className="btn btn-success shadow btn-xs sharp mr-2"
 				>
 					<i className="fa fa-eye"></i>
 				</Link>
@@ -153,7 +143,7 @@ export const COLUMNSUSERREVIEWLIST = [
 		Footer: 'Admin',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-review-list-action/${btoa(props.row.original.proname)}&${btoa(props.row.original.username)}&${btoa(props.row.original.reviewid)}`} className="btn btn-success shadow btn-xs sharp mr-2"
+				<Link href={`/project-review-list-action/${props.row.original.proname}&${props.row.original.username}&${props.row.original.reviewid}`} className="btn btn-success shadow btn-xs sharp mr-2"
 				>
 					<i className="fa fa-eye"></i>
 				</Link>
@@ -162,54 +152,52 @@ export const COLUMNSUSERREVIEWLIST = [
 	},
 ]
 
-
 export const COLUMNSFILTERPROJECT = [
 	{
-		Header: 'Icon',
-		Footer: 'Icon',
+		Header: 'I',
+		Footer: 'I',
 		Cell: (props) => (<Link href={`/ecom-project-detail/${props.row.original.proname}`}><ProjectSvg image={props.row.original.proicon} width={24} height={24} /></Link>),
 	},
 	{
-		Header: 'Name',
-		Footer: 'Name',
+		Header: 'Tên dự án',
+		Footer: 'Tên dự án',
 		accessor: 'proname',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Ecosystem',
-		Footer: 'Ecosystem',
+		Header: 'Hệ sinh thái',
+		Footer: 'Hệ sinh thái',
 		accessor: 'Ecosystem',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Categories',
-		Footer: 'Categories',
+		Header: 'Loại dự án',
+		Footer: 'Loại dự án',
 		accessor: 'protype',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Status',
-		Footer: 'Status',
+		Header: 'Trạng thái',
+		Footer: 'Trạng thái',
 		accessor: 'prosts',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'No of viewed',
-		Footer: 'No of viewed',
+		Header: 'Lượt xem',
+		Footer: 'Lượt xem',
 		accessor: 'totalreview',
 		Filter: ColumnFilter,
 	},
 	{
-		Header: 'Admin',
-		Footer: 'Admin',
+		Header: 'Quản trị',
+		Footer: 'Quản trị',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-management-action/${btoa(props.row.original.proname)}`} className={`btn ${props.row.original.proaprstscd === 'P' ? 'btn-warning' : 'btn-success'} shadow btn-xs sharp mr-2`}
+				<Link href={`/project-management-action/${props.row.original.proname}`} className="btn btn-success shadow btn-xs sharp mr-2"
 				>
 					<i className="fa fa-eye"></i>
 				</Link>
 			</>
 		)
-	}
+	},
 ]
-

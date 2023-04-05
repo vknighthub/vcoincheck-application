@@ -5,7 +5,7 @@ import { useFilters, useGlobalFilter, usePagination, useTable } from 'react-tabl
 
 
 export const FilteringTable = ({ colunmsfilter, datafilter }) => {
-	const { t } = useTranslation();
+	const { t } = useTranslation('common');
 	const columns = useMemo(() => colunmsfilter, [colunmsfilter])
 	const data = useMemo(() => datafilter, [datafilter])
 	const tableInstance = useTable({

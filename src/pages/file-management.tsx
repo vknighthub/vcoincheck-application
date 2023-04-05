@@ -12,7 +12,6 @@ import Link from 'next/link'
 import { default as folder } from '@/images/folder.png';
 
 const FileManagement: NextPageWithLayout = () => {
-    const { t } = useTranslation('common')
 
     return (
         <>
