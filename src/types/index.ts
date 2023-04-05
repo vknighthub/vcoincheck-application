@@ -719,4 +719,20 @@ export interface SubmitProjectInput {
 
 export interface SubmitProjectResponse extends ResultObject<{}> { }
 
+export interface DictionaryInput {
+    dictionarykey: string
+    dictionaryname: string
+}
+
+export interface Directory {
+    dicid: number
+    dickey: string
+    dicname: string
+    image: any
+    content: string
+    createdt: string
+}
+
+export interface DictionaryResponse extends ResultArray<Directory> { }
+
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

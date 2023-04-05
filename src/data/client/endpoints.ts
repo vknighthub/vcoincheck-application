@@ -27,6 +27,9 @@ export const API_ENDPOINTS = {
     REMOVE_LIBRARY: '/library/deletelibrary',
     POST_LIBRARY: '/library/postlibrary',
     POST_LIBRARY_LANGUAGE: '/library/addlanglibrary',
-    SUBMIT_PRỌECT: '/project/postproject'
+    SUBMIT_PRỌECT: '/project/postproject',
+    TOPLIBRARY: 'library/gettoplibrary',
+    NEWTOPICLIBRARY: '/library/getlibrarynewtopic',
+    DICTIONARY: '/library/getlistdictionary'
 
 }
