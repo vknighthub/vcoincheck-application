@@ -14,7 +14,8 @@ type Props = {
 }
 
 const ReviewList = ({ isShow, showReviewList, reviewlist, checkView, handleSetReviewID, checkBuy }: Props) => {
-    const { t } = useTranslation()
+    
+    const { t } = useTranslation('common')
 
     const handleReviewClick = (rowid: string) => {
         handleSetReviewID(rowid)

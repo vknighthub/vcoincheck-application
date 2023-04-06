@@ -104,7 +104,7 @@ export const COLUMNSREVIEWLIST = [
 		Footer: 'Admin',
 		Cell: (props) => (
 			<>
-				<Link href={`/project-review-list-action/${btoa(props.row.original.proname)}&${btoa(props.row.original.username)}&${btoa('false')}`} className="btn btn-success shadow btn-xs sharp mr-2"
+				<Link href={`/project-review-list-action/proname/${props.row.original.proname}/username/${props.row.original.username}/review/${'false'}`} className="btn btn-success shadow btn-xs sharp mr-2"
 				>
 					<i className="fa fa-eye"></i>
 				</Link>

@@ -1,45 +1,45 @@
 import { getAuthCredentials } from '@/components/auth/use-auth'
 import { Config } from '@/config'
 import routes from '@/config/routes'
-import ProjectManagement from '@/dashboards/ProjectManagement'
 import client from '@/data/client'
 import { allowedRoles, hasAccess, isAuthenticated } from '@/data/client/token.utils'
 import Layout from '@/layouts/_layout'
-import PageTitle from '@/layouts/_title'
-import { NextPageWithLayout, ProjectManagementResponse } from '@/types'
+import { NextPageWithLayout, ReviewByUsernamePronameResponse } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import ReviewDetail from '@/dashboards/ReviewDetail'
 
-
-const ProjectManagementPage: NextPageWithLayout<
+const ProjectReviewPage: NextPageWithLayout<
     InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ language }) => {
-    const { t } = useTranslation('common');
+> = ({ language, projectname, username, reviewid }) => {
 
 
-    const FetchProject = () => {
-        const { data, isLoading } = useQuery<ProjectManagementResponse, Error>(
-            ['project-management'],
-            () => client.project.projectmanagement(),
+    const FetchAllReview = (proname: string, usernames: string) => {
+        const { data, isLoading } = useQuery<ReviewByUsernamePronameResponse, Error>(
+            ['review-list-username-proname'],
+            () => client.project.reviewbyusernameproname({
+                proname: proname,
+                username: usernames
+            }),
         )
         return {
-            project: data?.result.data,
+            reviewlist: data?.result.data,
             isLoading
         }
     }
 
-    const { project } = FetchProject()
 
+    const { reviewlist } = FetchAllReview(projectname, username)
     return (
         <>
-            <PageTitle motherMenu={t('project')} activeMenu={t('projectmanagement')} pageHeading={''} path={''} activeDisplay={''} />
-            {project && <ProjectManagement projects={project} lang={language} />}
+            {reviewlist && <ReviewDetail username={username} reviewid={reviewid} reviewuserlist={reviewlist} language = {language} />}
         </>
     )
 }
-ProjectManagementPage.getLayout = function getLayout(page) {
+
+
+ProjectReviewPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
@@ -47,7 +47,10 @@ ProjectManagementPage.getLayout = function getLayout(page) {
 export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
     try {
 
-        const { locale } = ctx;
+        const { locale, params } = ctx;
+
+        const { projectname, username, reviewid } = params!;
+
         const generateRedirectUrl =
             locale !== Config.defaultLanguage
                 ? `/${locale}${routes.login}`
@@ -70,6 +73,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
         return {
             props: {
                 language: locale,
+                projectname,
+                username,
+                reviewid,
                 ...(await serverSideTranslations(locale!, ['common'])),
             }
         };
@@ -81,4 +87,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
         };
     }
 };
-export default ProjectManagementPage
+
+export default ProjectReviewPage

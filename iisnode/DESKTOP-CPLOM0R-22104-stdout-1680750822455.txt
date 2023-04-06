@@ -1,0 +1,2 @@
+info  - Loaded env from C:\Users\nguye\vcoincheck-application\.env
+> Ready on http://localhost:\\.\pipe\1399937e-c52b-4368-8a0f-0c6c7a764755

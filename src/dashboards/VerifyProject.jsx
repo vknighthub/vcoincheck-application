@@ -1,7 +1,9 @@
 import { Formik } from "formik";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
-import FormikControl from "../../../components/Forms/Formik/FormikControl";
+import FormikControl from "@/components/Forms/Formik/FormikControl";
+import { useTranslation } from "next-i18next";
+import { useEditProjectMutation } from "@/data/project";
 
 const listprojectstatus = [
     {
@@ -22,12 +24,11 @@ const listprojectstatus = [
     }
 ]
 
-const VerifyProject = (props) => {
+const VerifyProject = ({ projectinfo, ecosystem, projecttype }) => {
 
-    const { t, projectInfo, ecosystem } = props;
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const projectTypeList = props.projecttype
+    const { t } = useTranslation('common');
+
+    const projectTypeList = projecttype
 
     const getListProjectTypes = (list) => {
         const listProjectTypes = [];
@@ -72,7 +73,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.procd,
+                    "answer": projectinfo.procd,
                     "disabled": true,
                 },
                 {
@@ -83,7 +84,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.protypecd,
+                    "answer": projectinfo.protypecd,
                     "options": dropdownOptionsProjectTypes,
                     "disabled": false
                 },
@@ -95,7 +96,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.proname,
+                    "answer": projectinfo.proname,
                     "disabled": false,
                 },
                 {
@@ -106,7 +107,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.prostscd,
+                    "answer": projectinfo.prostscd,
                     "options": dropdownOptionsProjectStatus
                 },
                 {
@@ -117,7 +118,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.proicon,
+                    "answer": projectinfo.proicon,
                     "disabled": false,
                 },
                 {
@@ -128,7 +129,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.Ecosystemcd,
+                    "answer": projectinfo.Ecosystemcd,
                     "options": dropdownOptionsEcosystem,
                     "disabled": false,
                 },
@@ -140,7 +141,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 8,
                     "required": "Y",
-                    "answer": projectInfo.teaminfo,
+                    "answer": projectinfo.teaminfo,
                     "disabled": false,
                 },
                 {
@@ -151,7 +152,7 @@ const VerifyProject = (props) => {
                     "styles": "",
                     "rows": 1,
                     "required": "Y",
-                    "answer": projectInfo.prodescr,
+                    "answer": projectinfo.prodescr,
                     "disabled": false,
                 }
             ]
@@ -181,6 +182,9 @@ const VerifyProject = (props) => {
         return Yup.object().shape(shape);
     }
 
+    const { mutate: EditProject} = useEditProjectMutation();
+
+
     const onSubmit = (values) => {
         const listanswer = [];
 
@@ -197,8 +201,9 @@ const VerifyProject = (props) => {
             listanswer.push(jobject)
         })
 
+        
+
         const postdata = {
-            username: props.users.username,
             procd: values.procd,
             proname: values.proname,
             prosts: values.prosts,
@@ -218,14 +223,14 @@ const VerifyProject = (props) => {
             cancelButtonText: "Cancel",
         }).then((result) => {
             if (result.value) {
-                dispatch(editProjectAction(postdata, history));
+                EditProject(postdata)
             }
         });
     }
     return (
         <div className="pt-3">
 
-            {projectInfo &&
+            {projectinfo &&
                 <div className="settings-form">
                     <Formik
                         initialValues={initialValues(submitProject)}

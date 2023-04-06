@@ -31,6 +31,13 @@ export const API_ENDPOINTS = {
     TOPLIBRARY: 'library/gettoplibrary',
     NEWTOPICLIBRARY: '/library/getlibrarynewtopic',
     DICTIONARY: '/library/getlistdictionary',
-    PROJECT_MANAGEMENT: '/project/listprojectmanager'
+    PROJECT_MANAGEMENT: '/project/listprojectmanager',
+    EDIT_PROJECT: '/project/editproject',
+    APPROVE_PROJECT: '/project/approveproject',
+    REMOVE_PROJECT: '/project/removeproject',
+    SETFEATURED: '/project/setfeatured',
+    LISTALLREVIEW: '/project/listallreview',
+    REVIEW_BY_USERNAME_PRONAME: '/project/getreviewbyusrnameproname',
+    REVIEWSCOREACTION: '/project/approvereview',
 
 }

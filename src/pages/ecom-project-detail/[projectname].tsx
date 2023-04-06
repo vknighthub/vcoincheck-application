@@ -13,9 +13,9 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import invariant from 'tiny-invariant';
+import ProjectDetail from '@/dashboards/ProjectDetail'
 
-
-const ProjectDetail: NextPageWithLayout<
+const ProjectDetailPage: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
 > = ({ projectname, projectdetail, lang }) => {
     const { isAuthorized } = useAuth()
@@ -38,6 +38,7 @@ const ProjectDetail: NextPageWithLayout<
 
     const projectdata = data.result.data
 
+
     return (
         <>
             <Seo title="vCoincheck"
@@ -48,18 +49,16 @@ const ProjectDetail: NextPageWithLayout<
             <PageTitle motherMenu={t('project')} activeMenu={t('projectdetail')} path="project" activeDisplay={projectname} pageHeading={''} />
 
             <div className="row">
-                <ProjectDescription project={projectdata.project_info} />
-                <Review lang={lang} reviewinfo={projectdata.review_info} isAuthorized={isAuthorized} />
-                <ReviewProject projectid = {projectdata.project_info.proid} question = {projectdata.question_info} isAuthorized={isAuthorized}/>
+                {projectdata && <ProjectDetail project={projectdata} isAuthorized={isAuthorized} lang={lang} />}
             </div>
         </>
     )
 }
-ProjectDetail.getLayout = function getLayout(page) {
+ProjectDetailPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-    
+
     try {
         const { projectname } = params!; //* we know it's required because of getStaticPaths
         const lang = locale!
@@ -101,4 +100,4 @@ export const getStaticPaths: GetStaticPaths = async (
     return { paths: [], fallback: 'blocking' };
 };
 
-export default ProjectDetail
+export default ProjectDetailPage

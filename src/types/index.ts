@@ -763,4 +763,71 @@ export interface Directory {
 
 export interface DictionaryResponse extends ResultArray<Directory> { }
 
+
+export interface EditProjectInput {
+    procd: string,
+    proname: string,
+    prosts: string,
+    protype: string,
+    ecosystem: string,
+    prodescr: string,
+    proicon: string,
+    teaminfo: string
+}
+
+export interface ApproveProjectInput {
+    procd: string | string[] | undefined;
+}
+
+export interface RemoveProjectInput {
+    procd: string | string[] | undefined;
+}
+
+export interface SetFeatureProjectInput {
+    procd: string | string[] | undefined;
+}
+
+export interface EditProjectResponse extends ResultObject<{}> { }
+export interface ApproveProjectResponse extends ResultObject<{}> { }
+export interface RemoveProjectResponse extends ResultObject<{}> { }
+export interface SetFeaturedProjectResponse extends ResultObject<{}> { }
+
+
+
+export interface ListAllReview {
+    username: string
+    proid: number
+    proname: string
+    protype: string
+    status: string
+}
+
+export interface ListAllReviewResponse extends ResultArray<ListAllReview> { }
+
+export interface ReviewByUsernamePronameInput {
+    proname: string,
+    username: string
+}
+
+export interface ReviewByUsernameProname {
+    user_info: UserInfor
+    project_info: ProjectInfo
+    list_review: ReviewInfo[]
+}
+
+export interface ReviewByUsernamePronameResponse extends ResultObject<ReviewByUsernameProname> { }
+
+
+export interface ApproveReviewScoreActionResponse extends ResultObject<{}> { }
+
+export interface ApproveScoreActionInput {
+    reviewid: string
+    overreview: number
+    basicreview: number
+    advancereview: number
+    expertreview: number
+}
+
+
+
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

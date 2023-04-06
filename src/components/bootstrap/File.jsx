@@ -2,6 +2,7 @@ import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 import TextError from './TextError';
 import Image from 'next/image';
+import logo from '@/images/logo.svg'
 
 const File = (props) => {
     const { label, name, defaultValue, source, disabled, ...rest } = props
@@ -52,7 +53,7 @@ const File = (props) => {
                                         <label className='custom-file-label'>Choose file</label>
                                     </>
                                 }
-                                <Image id={`img-${field.name}`} className="img-fluid pb-5" width={150} height={150} alt="" src={source} />
+                                <Image id={`img-${field.name}`} className="img-fluid pb-5" width={150} height={150} alt="" src={source ? source : logo} />
 
                             </React.Fragment>
                         );

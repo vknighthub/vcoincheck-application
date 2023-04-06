@@ -1,45 +1,45 @@
 import { getAuthCredentials } from '@/components/auth/use-auth'
 import { Config } from '@/config'
 import routes from '@/config/routes'
-import ProjectManagement from '@/dashboards/ProjectManagement'
-import client from '@/data/client'
 import { allowedRoles, hasAccess, isAuthenticated } from '@/data/client/token.utils'
 import Layout from '@/layouts/_layout'
 import PageTitle from '@/layouts/_title'
-import { NextPageWithLayout, ProjectManagementResponse } from '@/types'
-import { useQuery } from '@tanstack/react-query'
+import { ListAllReviewResponse, NextPageWithLayout } from '@/types'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import ProjectReviewList from '@/dashboards/ProjectReviewList'
+import { useQuery } from '@tanstack/react-query'
+import client from '@/data/client'
 
-
-const ProjectManagementPage: NextPageWithLayout<
+const ProjectReviewListPage: NextPageWithLayout<
     InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ language }) => {
+> = ({language}) => {
+
     const { t } = useTranslation('common');
 
-
-    const FetchProject = () => {
-        const { data, isLoading } = useQuery<ProjectManagementResponse, Error>(
-            ['project-management'],
-            () => client.project.projectmanagement(),
+    const FetchAllReview = () => {
+        const { data, isLoading } = useQuery<ListAllReviewResponse, Error>(
+            ['all-review-list'],
+            () => client.project.listallreview(),
         )
         return {
-            project: data?.result.data,
+            reviewlist: data?.result.data,
             isLoading
         }
     }
 
-    const { project } = FetchProject()
-
+    const { reviewlist } = FetchAllReview()
+    
     return (
         <>
-            <PageTitle motherMenu={t('project')} activeMenu={t('projectmanagement')} pageHeading={''} path={''} activeDisplay={''} />
-            {project && <ProjectManagement projects={project} lang={language} />}
+            <PageTitle motherMenu={t('project')} activeMenu={t('projectreviewlist')} pageHeading={''} path={''} activeDisplay={''} />
+            {reviewlist && <ProjectReviewList reviewList={reviewlist} lang={language} /> }
         </>
     )
 }
-ProjectManagementPage.getLayout = function getLayout(page) {
+
+ProjectReviewListPage.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>
 }
 
@@ -81,4 +81,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
         };
     }
 };
-export default ProjectManagementPage
+
+export default ProjectReviewListPage

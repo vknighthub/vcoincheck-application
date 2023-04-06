@@ -7,12 +7,11 @@ import { useTranslation } from 'next-i18next';
 import { ReviewInfo, UserProfile } from '@/types';
 
 type Props = {
-    lang: string,
     reviewinfo: ReviewInfo[],
     isAuthorized: boolean,
 }
 
-const Review = ({ lang, reviewinfo, isAuthorized }: Props) => {
+const Review = ({ reviewinfo, isAuthorized }: Props) => {
     const { t } = useTranslation()
 
     const { me } = useMe()
@@ -78,10 +77,17 @@ const Review = ({ lang, reviewinfo, isAuthorized }: Props) => {
         <>
             {isAuthorized && isShow &&
                 <>
-                    <ReviewList isShow={isShow} showReviewList={showReviewList} reviewlist={reviewinfo} checkView={() => checkView(false)} handleSetReviewID={setReviewID} checkBuy={() => checkBuy(me, 50)} />
-                    {reviewID &&
-                        <ProjectReviewed isShow={isShow} showReviewList={!showReviewList} reviewid={reviewID} language={lang} />
+                    {
+                        <ReviewList
+                            isShow={isShow}
+                            showReviewList={showReviewList}
+                            reviewlist={reviewinfo}
+                            checkView={() => checkView(false)}
+                            handleSetReviewID={setReviewID}
+                            checkBuy={() => checkBuy(me, 50)} />
+
                     }
+
                 </>
             }
         </>

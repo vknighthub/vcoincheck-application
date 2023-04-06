@@ -1,43 +1,27 @@
 import { getAuthCredentials } from '@/components/auth/use-auth'
 import { Config } from '@/config'
 import routes from '@/config/routes'
-import client from '@/data/client'
-import { allowedRoles, hasAccess, isAuthenticated } from '@/data/client/token.utils'
-import Layout from '@/layouts/_layout'
-import { NextPageWithLayout, ProjectManagementResponse } from '@/types'
-import { useQuery } from '@tanstack/react-query'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import ProjectManagementAction from '@/dashboards/ProjectManagementAction'
+import { allowedRoles, hasAccess, isAuthenticated } from '@/data/client/token.utils'
+import { FetchProjectDetail } from '@/data/project'
+import Layout from '@/layouts/_layout'
+import { NextPageWithLayout } from '@/types'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const ProjectManagementActionPage: NextPageWithLayout<
     InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ language }) => {
-    const { t } = useTranslation('common');
+> = ({ language, projectname }) => {
 
-
-    const FetchProject = () => {
-        const { data, isLoading } = useQuery<ProjectManagementResponse, Error>(
-            ['project-management'],
-            () => client.project.projectmanagement(),
-        )
-        return {
-            project: data?.result.data,
-            isLoading
-        }
-    }
-
-    const { project } = FetchProject()
+    const { projectdetail } = FetchProjectDetail(projectname, language)
 
     return (
         <>
-            <ProjectManagementAction
-                projectDetail={undefined}
-                projecttype={undefined}
-                listecosystem={undefined}
-                users={undefined}
-            />
+            {projectdetail &&
+                <ProjectManagementAction
+                    projectDetail={projectdetail}/>
+            }
+
         </>
     )
 }
@@ -49,12 +33,13 @@ ProjectManagementActionPage.getLayout = function getLayout(page) {
 export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
     try {
 
-        const { locale } = ctx;
+        const { locale, params } = ctx;
         const generateRedirectUrl =
             locale !== Config.defaultLanguage
                 ? `/${locale}${routes.login}`
                 : routes.login;
 
+        const { projectname } = params!
 
         const { token, permission } = getAuthCredentials(ctx);
 
@@ -72,6 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
 
         return {
             props: {
+                projectname,
                 language: locale,
                 ...(await serverSideTranslations(locale!, ['common'])),
             }

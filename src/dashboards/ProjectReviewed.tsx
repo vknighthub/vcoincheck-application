@@ -1,20 +1,20 @@
-import client from '@/data/client'
-import { ProjectReviewInput, ProjectReviewResponse, SettingsQueryOptions } from '@/types'
-import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
-import { languages } from './../config/localization/language';
-import Link from 'next/link';
-import ButtonLiked from './../components/Control/ButtonLiked';
+import client from '@/data/client';
+import { ProjectReviewInput, ProjectReviewResponse, SettingsQueryOptions } from '@/types';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import { MouseEventHandler, useState } from 'react';
+import ButtonLiked from './../components/Control/ButtonLiked';
 
 type Props = {
     reviewid: string,
     language: string,
     isShow: boolean,
     showReviewList: boolean
+    setBackToProject: MouseEventHandler<HTMLAnchorElement> | undefined
 }
 
-const ProjectReviewed = ({ isShow, showReviewList, reviewid, language }: Props) => {
+const ProjectReviewed = ({ isShow, showReviewList, reviewid, language, setBackToProject }: Props) => {
     const { t } = useTranslation()
 
     const ProjectReviews = (reviewinput: ProjectReviewInput, languages: SettingsQueryOptions) => {
@@ -24,7 +24,7 @@ const ProjectReviewed = ({ isShow, showReviewList, reviewid, language }: Props) 
         )
         return {
             projectreview: data?.result.data,
-            isLoading 
+            isLoading
         }
     }
 
@@ -93,6 +93,10 @@ const ProjectReviewed = ({ isShow, showReviewList, reviewid, language }: Props) 
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div className="card-body">
+                        <Link href="#" onClick={setBackToProject} className="btn btn-primary d-block rounded-0 mt-3 mt-md-0">Back to project</Link>
                     </div>
                 </>
             }

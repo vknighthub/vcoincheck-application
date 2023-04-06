@@ -1,23 +1,33 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
+import ProjectSvg from '@/components/svg/Project/ProjectSvg';
+import { FetchEcosystem, FetchProjectType, useApproveProjectMutation, useRemoveProjectMutation, useSetFeaturedProjectMutation } from '@/data/project';
 import parse from 'html-react-parser';
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { Tab } from "react-bootstrap";
-import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import ProjectSvg from '@/components/svg/Project/ProjectSvg';
 import VerifyProject from './VerifyProject';
 
 
 
-const ProjectManagementAction = ({ projectDetail, projecttype, listecosystem, users }) => {
+const ProjectManagementAction = ({ projectDetail }) => {
 
 	const { t } = useTranslation("common");
-	const history = useHistory()
 
 	const [editModal, setEditModal] = useState(false);
 
 	const project = projectDetail.project_info
 
+	const { listecosystem } = FetchEcosystem()
+	const { projecttype } = FetchProjectType()
+
+	const { mutate: ApproveProject } = useApproveProjectMutation();
+
+	const { mutate: RemoveProject } = useRemoveProjectMutation();
+
+	const { mutate: SetFeaturedProject } = useSetFeaturedProjectMutation();
+
+	
 
 	const handleApproveProject = (project) => {
 		const postdata = {
@@ -33,7 +43,7 @@ const ProjectManagementAction = ({ projectDetail, projecttype, listecosystem, us
 			cancelButtonText: `${t('cancel')}`,
 		}).then((result) => {
 			if (result.value) {
-				dispatch(approveProjectAction(postdata, history));
+				ApproveProject(postdata);
 			}
 		});
 	}
@@ -52,7 +62,7 @@ const ProjectManagementAction = ({ projectDetail, projecttype, listecosystem, us
 			cancelButtonText: `${t('cancel')}`,
 		}).then((result) => {
 			if (result.value) {
-				dispatch(removeProjectAction(postdata, history));
+				RemoveProject(postdata);
 			}
 		});
 	}
@@ -71,7 +81,7 @@ const ProjectManagementAction = ({ projectDetail, projecttype, listecosystem, us
 			cancelButtonText: `${t('cancel')}`,
 		}).then((result) => {
 			if (result.value) {
-				dispatch(setFeaturedProjectAction(postdata, history, t));
+				SetFeaturedProject(postdata);
 			}
 		});
 	}
@@ -123,7 +133,7 @@ const ProjectManagementAction = ({ projectDetail, projecttype, listecosystem, us
 						</div>
 					</div>
 
-					{editModal ? <VerifyProject t={t} projecttype={projecttype} ecosystem={listecosystem} projectInfo={project} users={users} />
+					{editModal ? <VerifyProject projecttype={projecttype} ecosystem={listecosystem} projectinfo={project} />
 						:
 						<>
 							{project.proaprstscd === 'P' && <button className="btn btn-success" type="submit" onClick={() => handleApproveProject(project)}>{t('approve')}</button>}

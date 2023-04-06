@@ -1,4 +1,4 @@
-import { ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, DictionaryInput, DictionaryResponse, EcosystemResponse, FAQsResponse, FaceInput, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListUserRoleResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectManagementResponse, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
+import { ApproveProjectInput, ApproveProjectResponse, ApproveReviewScoreActionResponse, ApproveScoreActionInput, ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, DictionaryInput, DictionaryResponse, EcosystemResponse, EditProjectInput, EditProjectResponse, FAQsResponse, FaceInput, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListAllReviewResponse, ListUserRoleResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectManagementResponse, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, RemoveProjectInput, RemoveProjectResponse, ReviewByUsernamePronameInput, ReviewByUsernamePronameResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetFeatureProjectInput, SetFeaturedProjectResponse, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from "./http-client";
 
@@ -25,7 +25,14 @@ class Client {
         ecosystem: () => HttpClient.get<EcosystemResponse>(API_ENDPOINTS.ECOSYSTEM),
         projectype: () => HttpClient.get<ProjectTypeListResponse>(API_ENDPOINTS.PROJECTYPELIST),
         submitproject: (input: SubmitProjectInput) => HttpClient.post<SubmitProjectResponse>(API_ENDPOINTS.SUBMIT_PRỌECT, input),
-        projectmanagement: () => HttpClient.get<ProjectManagementResponse>(API_ENDPOINTS.PROJECT_MANAGEMENT)
+        projectmanagement: () => HttpClient.get<ProjectManagementResponse>(API_ENDPOINTS.PROJECT_MANAGEMENT),
+        edit: (input: EditProjectInput) => HttpClient.post<EditProjectResponse>(API_ENDPOINTS.EDIT_PROJECT, input),
+        approve: (procd: ApproveProjectInput) => HttpClient.post<ApproveProjectResponse>(API_ENDPOINTS.APPROVE_PROJECT, procd),
+        remove: (procd: RemoveProjectInput) => HttpClient.post<RemoveProjectResponse>(API_ENDPOINTS.REMOVE_PROJECT, procd),
+        setfeatured: (procd: SetFeatureProjectInput) => HttpClient.post<SetFeaturedProjectResponse>(API_ENDPOINTS.SETFEATURED, procd),
+        listallreview: () => HttpClient.get<ListAllReviewResponse>(API_ENDPOINTS.LISTALLREVIEW),
+        reviewbyusernameproname: (input: ReviewByUsernamePronameInput) => HttpClient.post<ReviewByUsernamePronameResponse>(API_ENDPOINTS.REVIEW_BY_USERNAME_PRONAME,input),
+        approvereviewscoreaction: (input: ApproveScoreActionInput) => HttpClient.post<ApproveReviewScoreActionResponse>(API_ENDPOINTS.REVIEWSCOREACTION,input)
     }
     review = {
         add: (reviewinput: ReviewProjectInput) => HttpClient.post<ReviewProjectResponse>(API_ENDPOINTS.ADD_REVIEW, reviewinput)
