@@ -10,9 +10,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
-type Props = {}
-
-const ProjectPage: NextPageWithLayout = (props: Props) => {
+const ProjectPage: NextPageWithLayout = () => {
     const { t } = useTranslation('common');
 
     return (

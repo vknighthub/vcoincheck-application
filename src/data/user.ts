@@ -75,3 +75,20 @@ export const useApproveUserMutation = () => {
   });
 };
 
+export const useUpdateAvatarMutation = () => {
+  return useMutation(client.users.updateavatar, {
+    onSuccess: () => {
+    }
+  });
+};
+
+export const useLoginByFaceMutation = () => {
+  const { authorize } = useAuth();
+  return useMutation(client.users.loginbyface, {
+    onSuccess: (data) => {
+      if (data.result.token) {
+        authorize(data.result.token, data.result.permission)
+      }
+    }
+  });
+};

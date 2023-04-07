@@ -1,6 +1,7 @@
 export const API_ENDPOINTS = {
     USERS_ME: '/user/getuserprofile',
     USERS_LOGIN: '/user/login',
+    LOGIN_BY_FACE: '/user/loginbyfaceid',
     USERS_REGISTER: '/user/adduser',
     USER_REGISTER_FACE: 'user/registerface',
     USERS_LOGOUT: '/user/logout',
@@ -39,5 +40,8 @@ export const API_ENDPOINTS = {
     LISTALLREVIEW: '/project/listallreview',
     REVIEW_BY_USERNAME_PRONAME: '/project/getreviewbyusrnameproname',
     REVIEWSCOREACTION: '/project/approvereview',
-
+    EVENT: '/event/listall',
+    EVENTBYNAME: '/event/getnewsbyname',
+    ADDNEWS: '/event/postevent',
+    UPLOADAVATAR: '/user/changeavataruser'
 }

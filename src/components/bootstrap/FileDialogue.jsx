@@ -1,10 +1,10 @@
 
-import { useDispatch } from 'react-redux';
-import { changeAvatarUserAction } from '../../../store/actions/UserAction';
+import { useUpdateAvatarMutation } from '@/data/user';
 import Image from 'next/image';
 
 const FileDialogue = (props) => {
-    const dispatch = useDispatch();
+
+    const {mutate: ChangeAvatarUserAction} = useUpdateAvatarMutation()
 
     const reloadProfile = () => {
         const preview = document.getElementById('profile');
@@ -16,7 +16,7 @@ const FileDialogue = (props) => {
                 username: props.username,
                 avatar: preview.src
             }
-            dispatch(changeAvatarUserAction(postdata));
+            ChangeAvatarUserAction(postdata);
         }, false);
 
         if (file) {
@@ -27,7 +27,7 @@ const FileDialogue = (props) => {
     return (
         <>
             <div className="image-upload">
-                <Image id="profile" className="img-fluid rounded-circle" alt="profile" src={props.image} />
+                <Image id="profile" className="img-fluid rounded-circle" alt="profile" src={props.image} width={props.width} height={props.height}/>
                 <input id="browse" name="browse" type="file" accept="image/*" capture="camera" onChange={() => reloadProfile()} multiple />
             </div>
 

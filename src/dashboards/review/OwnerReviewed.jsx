@@ -1,59 +1,50 @@
-import { useEffect, useState } from "react";
-import Advanced from './project/viewdetails/Advanced';
-import Basic from './project/viewdetails/Basic';
-import Expert from './project/viewdetails/Expert';
-import Overviews from './project/viewdetails/Overviews';
-import ApproveProject from "./project/ApproveProject";
-import BackTo from '@/components/vKnightHub/Control/BackTo';
+
+import { useState,useEffect } from "react";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import client from "@/data/client";
-import { GetDataProjectReview } from '@/utils/GetDataProjectReview'
+import Overviews from "../project/viewdetails/Overviews";
+import Basic from "../project/viewdetails/Basic";
+import Advanced from "../project/viewdetails/Advanced";
+import Expert from "../project/viewdetails/Expert";
 
 
-const ProjectReviewedManager = ({ reviewid, language }) => {
 
-    const ProjectReviews = (reviewinput, languages) => {
-        const { data, isLoading, refetch } = useQuery(
-            ['project-review-management'],
-            () => client.project.getprojectreview(reviewinput, languages),
-        )
-        return {
-            projectreview: data?.result.data,
-            isLoading,
-            refetch
-        }
-    }
+const OwnerReviewed = ({ overview, basicquestion, advancequestion, expertquestion, reviewid, scorereviews, activereviewed }) => {
 
-    const { projectreview, refetch } = ProjectReviews(
-        { reviewid: reviewid },
-        { language: language }
-    )
-
-    const [activeToggle, setActiveToggle] = useState(projectreview?.activereviewed);
-
-    const overview = GetDataProjectReview(projectreview?.main_data, 'OR')
-    const basicquestion = GetDataProjectReview(projectreview?.main_data, 'BR')
-    const advancequestion = GetDataProjectReview(projectreview?.main_data, 'AR')
-    const expertquestion = GetDataProjectReview(projectreview?.main_data, 'ER')
-
-    const isapproved = projectreview?.status === 'A' ? true : false
-    const scorereviews = projectreview?.scores
+    const [activeToggle, setActiveToggle] = useState(activereviewed)
 
     useEffect(() => {
-        refetch()
-    }, [reviewid, language])
+        setActiveToggle(activereviewed)
+    }, [reviewid,activereviewed])
 
 
     return (
         <>
+            <div className="col-lg-12">
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                                <div className="product-detail-content">
+                                    <div className="new-arrival-content pr">
+                                        <p className="fs-18 text-success"> Review code:<span className="item fs-18 mx-3">{reviewid}</span>{" "}</p>
+                                        <p className="fs-18 text-success"> Review score:
+                                            <span className="item fs-18 mx-3">
+                                                {scorereviews.overreview + scorereviews.basicreview + scorereviews.advancereview + scorereviews.expertreview}
+                                            </span>{" "}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div className="col-xl-12">
                 <div className="card">
                     <div className="card-body">
                         <div className="profile-tab">
                             <div className="custom-tab-1">
-
                                 <ul className="nav nav-tabs">
                                     {overview &&
                                         <li className="nav-item" onClick={() => setActiveToggle("overviewed")} >
@@ -88,12 +79,11 @@ const ProjectReviewedManager = ({ reviewid, language }) => {
                                             <Basic reviewinfo={basicquestion} />
                                         </div>
                                     }
-
-                                    <div id="advance-reviewed" className={`tab-pane fade ${activeToggle === "advance-reviewed" ? "active show" : ""}`}>
-                                        {advancequestion &&
-                                            <Advanced reviewinfo={advancequestion} />}
-                                    </div>
-
+                                    {advancequestion &&
+                                        <div id="advance-reviewed" className={`tab-pane fade ${activeToggle === "advance-reviewed" ? "active show" : ""}`}>
+                                            <Advanced reviewinfo={advancequestion} />
+                                        </div>
+                                    }
                                     {expertquestion &&
                                         <div id="expert-reviewed" className={`tab-pane fade ${activeToggle === "expert-reviewed" ? "active show" : ""}`}>
                                             <Expert reviewinfo={expertquestion} />
@@ -103,11 +93,17 @@ const ProjectReviewedManager = ({ reviewid, language }) => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-            {!isapproved && <ApproveProject reviewid={reviewid} scorereview={scorereviews} />}
-            <div className="col-xl-12"><BackTo className="btn btn-primary" href="/project-review-list" name="Back To List" /></div>
+
+
+            <div className="card-body">
+                <Link href="/app-profile" className="btn btn-primary d-block rounded-0 mt-3 mt-md-0">Back to profile</Link>
+            </div>
         </>
     );
 };
-export default ProjectReviewedManager;
+
+
+export default OwnerReviewed;

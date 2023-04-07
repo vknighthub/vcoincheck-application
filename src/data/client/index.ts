@@ -1,4 +1,4 @@
-import { ApproveProjectInput, ApproveProjectResponse, ApproveReviewScoreActionResponse, ApproveScoreActionInput, ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, DictionaryInput, DictionaryResponse, EcosystemResponse, EditProjectInput, EditProjectResponse, FAQsResponse, FaceInput, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListAllReviewResponse, ListUserRoleResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectManagementResponse, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, RemoveProjectInput, RemoveProjectResponse, ReviewByUsernamePronameInput, ReviewByUsernamePronameResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetFeatureProjectInput, SetFeaturedProjectResponse, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
+import { AddNewsInput, ApproveProjectInput, ApproveProjectResponse, ApproveReviewScoreActionResponse, ApproveScoreActionInput, ApproveUserInput, ApproveUserResponse, AuthResponse, CommentInput, CommentResponse, DictionaryInput, DictionaryResponse, EcosystemResponse, EditProjectInput, EditProjectResponse, EventAddNewsResponse, EventInput, EventResponse, EventResult, FAQsResponse, FaceInput, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListAllReviewResponse, ListUserRoleResponse, LoginByFaceInput, LoginByFaceResponse, LoginUserInput, MenuResponse, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectManagementResponse, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, RemoveProjectInput, RemoveProjectResponse, ReviewByUsernamePronameInput, ReviewByUsernamePronameResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetFeatureProjectInput, SetFeaturedProjectResponse, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UpdateAvatarInput, UpdateAvatarResponse, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from "./http-client";
 
@@ -14,7 +14,9 @@ class Client {
         getviewdetail: (input: UserInput, language: SettingsQueryOptions) => HttpClient.post<UserViewDetailResponse>(API_ENDPOINTS.USER_VIEW_DETAIL, input, { params: language }),
         getroleofuser: () => HttpClient.get<ListUserRoleResponse>(API_ENDPOINTS.ROLE_OF_USER),
         setroleuser: (input: RoleUserInput) => HttpClient.post<SetRoleUserResponse>(API_ENDPOINTS.SET_ROLE_USER, input),
-        approveuser: (input: ApproveUserInput) => HttpClient.post<ApproveUserResponse>(API_ENDPOINTS.APPROVE_USER, input)
+        approveuser: (input: ApproveUserInput) => HttpClient.post<ApproveUserResponse>(API_ENDPOINTS.APPROVE_USER, input),
+        updateavatar: (input: UpdateAvatarInput) => HttpClient.post<UpdateAvatarResponse>(API_ENDPOINTS.UPLOADAVATAR, input),
+        loginbyface: (input: LoginByFaceInput) => HttpClient.post<AuthResponse>(API_ENDPOINTS.LOGIN_BY_FACE, input)
     }
     project = {
         top: (input: TopInput) => HttpClient.post<ProjectResponse>(API_ENDPOINTS.TOP_PROJECT, input),
@@ -31,8 +33,8 @@ class Client {
         remove: (procd: RemoveProjectInput) => HttpClient.post<RemoveProjectResponse>(API_ENDPOINTS.REMOVE_PROJECT, procd),
         setfeatured: (procd: SetFeatureProjectInput) => HttpClient.post<SetFeaturedProjectResponse>(API_ENDPOINTS.SETFEATURED, procd),
         listallreview: () => HttpClient.get<ListAllReviewResponse>(API_ENDPOINTS.LISTALLREVIEW),
-        reviewbyusernameproname: (input: ReviewByUsernamePronameInput) => HttpClient.post<ReviewByUsernamePronameResponse>(API_ENDPOINTS.REVIEW_BY_USERNAME_PRONAME,input),
-        approvereviewscoreaction: (input: ApproveScoreActionInput) => HttpClient.post<ApproveReviewScoreActionResponse>(API_ENDPOINTS.REVIEWSCOREACTION,input)
+        reviewbyusernameproname: (input: ReviewByUsernamePronameInput) => HttpClient.post<ReviewByUsernamePronameResponse>(API_ENDPOINTS.REVIEW_BY_USERNAME_PRONAME, input),
+        approvereviewscoreaction: (input: ApproveScoreActionInput) => HttpClient.post<ApproveReviewScoreActionResponse>(API_ENDPOINTS.REVIEWSCOREACTION, input)
     }
     review = {
         add: (reviewinput: ReviewProjectInput) => HttpClient.post<ReviewProjectResponse>(API_ENDPOINTS.ADD_REVIEW, reviewinput)
@@ -59,6 +61,11 @@ class Client {
         postlibrarylanguage: (input: PostLibraryInput) => HttpClient.post<PostLibraryResponse>(API_ENDPOINTS.POST_LIBRARY_LANGUAGE, input),
         getbyid: (input: LibraryDetailInput, language: LanguageOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
         dictionary: (input: DictionaryInput) => HttpClient.post<DictionaryResponse>(API_ENDPOINTS.DICTIONARY, input)
+    }
+    news = {
+        event: () => HttpClient.get<EventResponse>(API_ENDPOINTS.EVENT),
+        geteventbyname: ({ name }: EventInput) => HttpClient.get<EventResult>(API_ENDPOINTS.EVENTBYNAME, { name }),
+        addnews: (input: AddNewsInput) => HttpClient.post<EventAddNewsResponse>(API_ENDPOINTS.ADDNEWS, input)
     }
 
 }

@@ -1,8 +1,6 @@
 import useAuth from '@/components/auth/use-auth';
 import routes from '@/config/routes';
-import ProjectDescription from '@/dashboards/ProjectDescription';
-import Review from '@/dashboards/Review';
-import ReviewProject from '@/dashboards/ReviewProject';
+import ProjectDetail from '@/dashboards/ProjectDetail';
 import client from '@/data/client';
 import Layout from '@/layouts/_layout';
 import Seo from '@/layouts/_seo';
@@ -13,7 +11,6 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import invariant from 'tiny-invariant';
-import ProjectDetail from '@/dashboards/ProjectDetail'
 
 const ProjectDetailPage: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>

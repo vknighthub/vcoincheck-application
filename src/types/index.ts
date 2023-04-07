@@ -828,6 +828,51 @@ export interface ApproveScoreActionInput {
     expertreview: number
 }
 
+export interface Event {
+    id: string
+    name: string
+    title: string
+    type: string
+    pubdt: string
+    image: string
+    summary: string
+    content: string
+    username: string
+    url?: string
+    createdt: string
+}
+
+export interface EventInput {
+    name: string | string[] | undefined
+}
+
+export interface AddNewsInput {
+    title: string
+    name: string
+    type: string
+    image: string
+    summary: string
+    content: string
+    url: string
+}
+
+export interface EventResult extends ResultObject<Event> { }
+
+export interface EventResponse extends ResultArray<Event> { }
+
+export interface EventAddNewsResponse extends ResultObject<{}> { }
+
+export interface UpdateAvatarResponse extends ResultObject<{}> { }
+export interface UpdateAvatarInput {
+    avatar: string
+}
+
+export interface LoginByFaceInput {
+    username: string
+    faceid: string
+}
+
+export interface LoginByFaceResponse extends ResultObject<{}> { }
 
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

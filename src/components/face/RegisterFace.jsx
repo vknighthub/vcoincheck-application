@@ -14,12 +14,10 @@ import Swal from 'sweetalert2';
 const RegisterFace = () => {
     let faceioInstance = null
     const { t } = useTranslation();
-    const [render, setRender] = useState(false);
     const { me } = useMe()
     const users = me
     const router = useRouter()
-
-
+    const [render, setRender] = useState(false);
 
     const { mutate: registerFaceAction } = useMutation(client.users.registerface, {
         onSuccess: (data) => {
@@ -54,37 +52,44 @@ const RegisterFace = () => {
         }
     });
 
-    const faceRegistration = async () => {
-        const face = document.getElementById('face')
-        face.style.display = 'none';
-        try {
-            const userInfo = await faceioInstance.enroll({
-                locale: "auto",
-                payload: {
-                    email: `${users.email}`,
-                    userId: `${users.phone}`,
-                    username: `${users.username}`,
-                    website: "https://vcoincheck.io"
-                },
-            })
-            if (userInfo.facialId) {
-                const postData = {
-                    username: users.username,
-                    faceid: userInfo.facialId
-                }
-                registerFaceAction(postData);
-            }
+    const faceRegistration = async (user) => {
+            // const face = document.getElementById('face')
+            // face.style.display = 'none';
+           
+            try {
+                console.log(user)
+                const userInfo = await faceioInstance?.enroll({
+                    locale: "auto",
+                    payload: {
+                        email: `${user.email}`,
+                        userId: `${user.phone}`,
+                        username: `${user.username}`,
+                        website: "https://vcoincheck.io"
+                    },
+                })
+                
 
-        } catch (errorCode) {
-            const error = handleFaceError(errorCode)
-            Swal.fire("Error!", error, "error")
-                .then((response) => {
-                    if (response) {
-                        face.style.display = 'block';
-                        setRender(true)
-                    }
-                });
-        }
+                if (userInfo.facialId) {
+                    console.log(userInfo)
+                    // const postData = {
+                    //     username: users.username,
+                    //     faceid: userInfo.facialId
+                    // }
+                    // registerFaceAction(postData);
+                }
+
+            } catch (errorCode) {
+                console.log(errorCode)
+                // const error = handleFaceError(errorCode)
+                // Swal.fire("Error!", error, "error")
+                //     .then((response) => {
+                //         if (response) {
+                //             face.style.display = 'block';
+                //             setRender(true)
+                //         }
+                //     });
+            }
+        
     }
 
 
@@ -99,23 +104,20 @@ const RegisterFace = () => {
         return () => {
             document.body.removeChild(faceIoScript)
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [render])
 
     const faceIoScriptLoaded = () => {
-        console.log(faceIO)
         if (faceIO && !faceioInstance) {
             faceioInstance = new faceIO('fioa6bbb') //your-faceio-app-public-id
+            console.log(faceioInstance)
         }
     }
 
     return (
         <>
-            {
-                render &&
+            {render && 
                 <div className="form-row d-flex justify-content-between mt">
-                    <Link href="#" className="btn btn-primary" onClick={faceRegistration} >{t('registrationface')}</Link>
+                    <Link href="#" className="btn btn-primary" onClick={()=>faceRegistration(users)} >{t('registrationface')}</Link>
                     <Link href="/" className="btn btn-primary ">{t('gotohome')}</Link>
                 </div>
             }

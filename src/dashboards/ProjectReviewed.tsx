@@ -3,8 +3,13 @@ import { ProjectReviewInput, ProjectReviewResponse, SettingsQueryOptions } from 
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import ButtonLiked from './../components/Control/ButtonLiked';
+import { GetDataProjectReview } from '@/utils/GetDataProjectReview';
+import Overviews from './project/viewdetails/Overviews';
+import Basic from './project/viewdetails/Basic';
+import Advanced from './project/viewdetails/Advanced';
+import Expert from './project/viewdetails/Expert';
 
 type Props = {
     reviewid: string,
@@ -18,26 +23,37 @@ const ProjectReviewed = ({ isShow, showReviewList, reviewid, language, setBackTo
     const { t } = useTranslation()
 
     const ProjectReviews = (reviewinput: ProjectReviewInput, languages: SettingsQueryOptions) => {
-        const { data, isLoading } = useQuery<ProjectReviewResponse, Error>(
+        const { data, isLoading, refetch } = useQuery<ProjectReviewResponse, Error>(
             ['project-review'],
             () => client.project.getprojectreview(reviewinput, languages),
         )
         return {
             projectreview: data?.result.data,
-            isLoading
+            isLoading,
+            refetch
         }
     }
 
-    const { projectreview, isLoading } = ProjectReviews(
+    const { projectreview, refetch } = ProjectReviews(
         { reviewid: reviewid },
         { language: language }
     )
+
+
+    const overview = GetDataProjectReview(projectreview?.main_data, 'OR')
+    const basicquestion = GetDataProjectReview(projectreview?.main_data, 'BR')
+    const advancequestion = GetDataProjectReview(projectreview?.main_data, 'AR')
+    const expertquestion = GetDataProjectReview(projectreview?.main_data, 'ER')
 
     const score = projectreview?.scores
 
     const totalscore = (score?.advancereview ?? 0) + (score?.basicreview ?? 0) + (score?.expertreview ?? 0) + (score?.overreview ?? 0)
 
     const [activeToggle, setActiveToggle] = useState("");
+
+    useEffect(() => {
+        refetch()
+    }, [reviewid, language])
 
     return (
         <>
@@ -76,19 +92,49 @@ const ProjectReviewed = ({ isShow, showReviewList, reviewid, language, setBackTo
                                 <div className="profile-tab">
                                     <div className="custom-tab-1">
                                         <ul className="nav nav-tabs">
-                                            <li className="nav-item" onClick={() => setActiveToggle("overviewed")} >
-                                                <Link href="#overviewed" data-toggle="tab" className={`nav-link ${activeToggle === "overviewed" ? "active show" : ""}`}>{t('overview')}</Link>
-                                            </li>
-                                            <li className="nav-item" onClick={() => setActiveToggle("basic-reviewed")}>
-                                                <Link href="#basic-reviewed" data-toggle="tab" className={`nav-link ${activeToggle === "basic-reviewed" ? "active show" : ""}`}>Basic review</Link>
-                                            </li>
-                                            <li className="nav-item" onClick={() => setActiveToggle("advance-reviewed")} >
-                                                <Link href="#advance-reviewed" data-toggle="tab" className={`nav-link ${activeToggle === "advance-reviewed" ? "active show" : ""}`}>Advance review</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link href="#expert-reviewed" data-toggle="tab" onClick={() => setActiveToggle("expert-reviewed")} className={`nav-link ${activeToggle === "expert-reviewed" ? "active show" : ""}`}>Expert review</Link>
-                                            </li>
+                                            {overview &&
+                                                <li className="nav-item" onClick={() => setActiveToggle("overviewed")} >
+                                                    <Link href="#overviewed" data-toggle="tab" className={`nav-link ${activeToggle === "overviewed" ? "active show" : ""}`}>{t('overview')}</Link>
+                                                </li>
+                                            }
+                                            {basicquestion &&
+                                                <li className="nav-item" onClick={() => setActiveToggle("basic-reviewed")}>
+                                                    <Link href="#basic-reviewed" data-toggle="tab" className={`nav-link ${activeToggle === "basic-reviewed" ? "active show" : ""}`}>Basic review</Link>
+                                                </li>
+                                            }
+                                            {advancequestion &&
+                                                <li className="nav-item" onClick={() => setActiveToggle("advance-reviewed")} >
+                                                    <Link href="#advance-reviewed" data-toggle="tab" className={`nav-link ${activeToggle === "advance-reviewed" ? "active show" : ""}`}>Advance review</Link>
+                                                </li>
+                                            }
+                                            {expertquestion &&
+                                                <li className="nav-item">
+                                                    <Link href="#expert-reviewed" data-toggle="tab" onClick={() => setActiveToggle("expert-reviewed")} className={`nav-link ${activeToggle === "expert-reviewed" ? "active show" : ""}`}>Expert review</Link>
+                                                </li>
+                                            }
                                         </ul>
+                                        <div className="tab-content">
+                                            {overview &&
+                                                <div id="overviewed" className={`tab-pane fade ${activeToggle === "overviewed" ? "active show" : ""}`} >
+                                                    <Overviews reviewinfo={overview} />
+                                                </div>
+                                            }
+                                            {basicquestion &&
+                                                <div id="basic-reviewed" className={`tab-pane fade ${activeToggle === "basic-reviewed" ? "active show" : ""}`} >
+                                                    <Basic reviewinfo={basicquestion} />
+                                                </div>
+                                            }
+                                            {advancequestion &&
+                                                <div id="advance-reviewed" className={`tab-pane fade ${activeToggle === "advance-reviewed" ? "active show" : ""}`}>
+                                                    <Advanced reviewinfo={advancequestion} />
+                                                </div>
+                                            }
+                                            {expertquestion &&
+                                                <div id="expert-reviewed" className={`tab-pane fade ${activeToggle === "expert-reviewed" ? "active show" : ""}`}>
+                                                    <Expert reviewinfo={expertquestion} />
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>

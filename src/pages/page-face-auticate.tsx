@@ -158,15 +158,13 @@ const FaceAuthicatePage: NextPageWithLayout = (props: Props) => {
         </>
     )
 }
+
 FaceAuthicatePage.getLayout = function getLayout(page) {
     return <PrivateLayout>{page}</PrivateLayout>
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     try {
-        const formattedparams = {
-            language: locale,
-        };
         return {
             props: {
                 ...(await serverSideTranslations(locale!, ['common'])),

@@ -1,10 +1,9 @@
-import { useMe } from '@/data/user'
-import React, { useEffect, useState } from 'react'
-import ProjectReviewed from '@/dashboards/ProjectReviewed';
 import ReviewList from '@/dashboards/ReviewList';
-import Swal from 'sweetalert2';
-import { useTranslation } from 'next-i18next';
+import { useMe } from '@/data/user';
 import { ReviewInfo, UserProfile } from '@/types';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 type Props = {
     reviewinfo: ReviewInfo[],

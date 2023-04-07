@@ -6,11 +6,8 @@ import { NextPageWithLayout } from '@/types';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-type Props = {}
-
-const AuthenticationSubmitPage: NextPageWithLayout = (props: Props) => {
+const AuthenticationSubmitPage: NextPageWithLayout = () => {
     
-
     return (
         <div id="face" className="login-main-page" style={{ backgroundImage: "url(" + loginbg + ")" }}>
             <div className="login-wrapper">
@@ -34,9 +31,6 @@ const AuthenticationSubmitPage: NextPageWithLayout = (props: Props) => {
 }
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     try {
-        const formattedparams = {
-            language: locale,
-        };
         return {
             props: {
                 ...(await serverSideTranslations(locale!, ['common'])),
