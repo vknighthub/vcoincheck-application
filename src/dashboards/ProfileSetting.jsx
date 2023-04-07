@@ -1,5 +1,6 @@
 
 import Requirements from '@/components/bootstrap/Requirements';
+import { useChangePasswordMutation } from '@/data/user';
 import { Formik } from 'formik';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -44,7 +45,6 @@ const ProfileSetting = ({ users }) => {
         }).then((result) => {
             if (result.value) {
                 try {
-                    // dispatch(loadingToggleAction(true));
                     // dispatch(addReviewAction(postData, props.action));
                     setHiddenSave(true)
                     setHiddenEdit(false)
@@ -58,6 +58,8 @@ const ProfileSetting = ({ users }) => {
 
     }
 
+    const { mutate: ChangePasswordUserAction } = useChangePasswordMutation()
+
     const onSubmitChangePassword = (values, history) => {
         const postData = {
             username: users.username,
@@ -70,7 +72,7 @@ const ProfileSetting = ({ users }) => {
             icon: "question",
         }).then((result) => {
             if (result.value) {
-                dispatch(changePasswordUserAction(postData, history));
+                ChangePasswordUserAction(postData);
             }
         });
 

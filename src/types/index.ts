@@ -10,10 +10,29 @@ export interface LoginUserInput {
     username: string;
     password: string;
 }
+
+export interface ForgotPasswordInput {
+    username: string;
+    email: string;
+}
+
+export interface OTPCodeInput {
+    username: string;
+    email: string;
+    code: string;
+}
 export interface FaceInput {
     username: string;
     faceid: string;
 }
+
+export interface ChangePasswordInput {
+    username: string
+    oldpass: string
+    newpass: string
+    encrypt: false
+}
+
 export interface RegisterUserInput {
     username: string
     firstname: string
@@ -873,6 +892,10 @@ export interface LoginByFaceInput {
 }
 
 export interface LoginByFaceResponse extends ResultObject<{}> { }
+
+export interface ForgotPasswordResponse extends ResultObject<{}> { }
+
+export interface ChangePasswordResponse extends ResultObject<{}> { }
 
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

@@ -43199,7 +43199,7 @@ table.dataTable thead .sorting {
 
 .login-wrapper {
   display: flex;
-  min-height: 600px;
+  min-height: 676px;
   height: calc(100vh - 200px);
   box-shadow: 0 0 60px 10px rgba(85, 44, 44, 0.2);
 }

@@ -1,6 +1,7 @@
 import { ProjectSvg } from "@/components/svg"
 import Link from "next/link"
 import {ColumnFilter} from '@/components/table/FilteringTable/ColumnFilter'
+import ColorQuality from "@/utils/ColorQuality"
 
 
 const getStatusType = (status) => {
@@ -32,7 +33,7 @@ export const COLUMNSFILTER = [
 		accessor: 'Ecosystem',
 		Filter: ColumnFilter,
 		Cell: (props) => (
-			<Link href={`/project/ecosystem/${btoa(props.row.original.Ecosystemcd)}`} className="text-info">
+			<Link href={`/project/ecosystem/${props.row.original.Ecosystemcd}`} className="text-info">
 				{props.row.original.Ecosystem}
 			</Link>
 		),

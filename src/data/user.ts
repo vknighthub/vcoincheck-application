@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import client from './client';
 import { API_ENDPOINTS } from './client/endpoints';
+import Swal from 'sweetalert2';
 
 export const useMe = () => {
   const { isAuthorized } = useAuth();
@@ -88,6 +89,25 @@ export const useLoginByFaceMutation = () => {
     onSuccess: (data) => {
       if (data.result.token) {
         authorize(data.result.token, data.result.permission)
+      }
+    }
+  });
+};
+
+export const useChangePasswordMutation = () => {
+  const router = useRouter()
+  return useMutation(client.users.changpassword, {
+    onSuccess: (data) => {
+      if (data.errorcode === 0) {
+        Swal.fire({
+          title: "Changed!",
+          html: "This user's password has been changed. Please login again!!!",
+          icon: "success"
+        }).then((login) => {
+          if (login) {
+            router.push('/page-login')
+          }
+        })
       }
     }
   });

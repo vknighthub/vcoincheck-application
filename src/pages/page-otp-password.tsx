@@ -1,9 +1,11 @@
 
+import Asideleft from "@/components/AsideLeft";
 import LinkIcon from "@/components/Control/LinkIcon";
-import useAuth from '@/components/auth/use-auth';
 import client from "@/data/client";
+import loginbg from "@/images/bg-login.jpg";
 import PrivateLayout from "@/layouts/_private-route";
-import { AuthResponse, LoginUserInput, NextPageWithLayout } from "@/types";
+import Seo from "@/layouts/_seo";
+import { AuthResponse, NextPageWithLayout, OTPCodeInput } from "@/types";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from "axios";
@@ -12,45 +14,45 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import Swal from "sweetalert2";
 import * as yup from 'yup';
-import loginbg from "@/images/bg-login.jpg";
-import Asideleft from "@/components/AsideLeft";
-import Seo from "@/layouts/_seo";
 
-const LoginPage: NextPageWithLayout = () => {
+const OTPPassword: NextPageWithLayout = () => {
     const { t } = useTranslation('common');
-    const { authorize } = useAuth();
+
     const router = useRouter()
 
 
     const loginValidationSchema = yup.object().shape({
         username: yup.string().required(),
-        password: yup.string().required(),
+        email: yup.string().required(),
+        code: yup.string().required()
     });
 
     const {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm<LoginUserInput>({
+    } = useForm<OTPCodeInput>({
         resolver: yupResolver(loginValidationSchema)
     });
 
 
-    const { mutate: login } = useMutation(client.users.login, {
+    const { mutate: confirmotpcode } = useMutation(client.users.confirmotpforgotpassword, {
         onSuccess: (data) => {
-            if (!data.result.token) {
-                toast.error(<b>{t('text-wrong-user-name-and-pass')}</b>, {
-                    className: '-mt-10 xs:mt-0',
-                });
-                return;
-            } else {
-                authorize(data.result.token, data.result.permission);
-                router.push('/')
-            }
+            if (data.errorcode === 0) {
+                Swal.fire("Succeed!", "Your password has been reset. Please login to email to get new password", "success")
+                    .then((response) => {
+                        if (response) {
+                            setTimeout(() => {
+                                router.push("/page-login");
+                            }, 1000)
 
+                        }
+                    })
+            } else {
+                Swal.fire("Failed!", data.messagedetail, "error");
+            }
         },
         onError: (errorAsUnknown) => {
             const error = errorAsUnknown as AxiosError<AuthResponse>;
@@ -65,8 +67,8 @@ const LoginPage: NextPageWithLayout = () => {
         }
     });
 
-    const onSubmit: SubmitHandler<LoginUserInput> = (data) => {
-        login(data)
+    const onSubmit: SubmitHandler<OTPCodeInput> = (data) => {
+        confirmotpcode(data)
     };
 
     return (
@@ -89,7 +91,7 @@ const LoginPage: NextPageWithLayout = () => {
                                             <div className="auth-form-1">
                                                 <div className="mb-4">
                                                     <h3 className="text-white mb-1">{t('welcome')} vCoincheck</h3>
-                                                    <p className="text-white">{t('signinby')}</p>
+                                                    <p className="text-white">{t('Forgot Password')}</p>
                                                 </div>
                                                 <form onSubmit={handleSubmit(onSubmit)}>
                                                     <div className="form-group">
@@ -103,12 +105,21 @@ const LoginPage: NextPageWithLayout = () => {
                                                         />
                                                     </div>
                                                     <div className="form-group">
-                                                        <label className="mb-2 "><strong className="text-white">{t('password')}</strong></label>
+                                                        <label className="mb-2 "><strong className="text-white">{t('email')}</strong></label>
                                                         <input
-                                                            type="password"
+                                                            type="email"
                                                             className="form-control"
-                                                            autoComplete="current-password"
-                                                            {...register('password')}
+                                                            autoComplete="current-email"
+                                                            {...register('email')}
+                                                        />
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className="mb-2 "><strong className="text-white">{t('OTP Code')}</strong></label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            autoComplete="current-otpcode"
+                                                            {...register('code')}
                                                         />
                                                     </div>
 
@@ -117,35 +128,11 @@ const LoginPage: NextPageWithLayout = () => {
                                                             type="submit"
                                                             className="btn bg-dark text-light btn-block"
                                                         >
-                                                            {t('signin')}
+                                                            {t('resetpwd')}
                                                         </button>
                                                     </div>
 
                                                 </form>
-
-                                                <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                                                    <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/page-register" name={t('register')} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                                                    <div className="nav-item">
-                                                        <LinkIcon className="ai-icon" href="/page-forgot-password" name={t('forgotpwd')} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                                                    <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/page-face-auticate" name={t('faceauthentication')} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                                                    <div className="nav-item">
-                                                        <LinkIcon className="ai-icon text-white" href="/page-sign-in-face" name={t('signinface')} />
-                                                    </div>
-                                                </div>
 
                                                 <div className="form-row d-flex justify-content-between mt-4 mb-2">
                                                     <div className="nav-item">
@@ -186,9 +173,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     }
 };
 
-LoginPage.getLayout = function getLayout(page) {
+OTPPassword.getLayout = function getLayout(page) {
     return <PrivateLayout>{page}</PrivateLayout>
 }
 
-export default LoginPage
+export default OTPPassword
 

@@ -2,6 +2,7 @@ export const API_ENDPOINTS = {
     USERS_ME: '/user/getuserprofile',
     USERS_LOGIN: '/user/login',
     LOGIN_BY_FACE: '/user/loginbyfaceid',
+    FORGOT_PASSWORD: '/user/resetpassword',
     USERS_REGISTER: '/user/adduser',
     USER_REGISTER_FACE: 'user/registerface',
     USERS_LOGOUT: '/user/logout',
@@ -43,5 +44,6 @@ export const API_ENDPOINTS = {
     EVENT: '/event/listall',
     EVENTBYNAME: '/event/getnewsbyname',
     ADDNEWS: '/event/postevent',
-    UPLOADAVATAR: '/user/changeavataruser'
+    UPLOADAVATAR: '/user/changeavataruser',
+    CHANGE_PWD: '/user/changepwd'
 }
