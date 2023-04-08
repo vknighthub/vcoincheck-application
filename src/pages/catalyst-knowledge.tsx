@@ -46,7 +46,7 @@ const CatalystKnowledge: NextPageWithLayout<
 
     return (
         <>
-            <Seo title="vCoincheck"
+            <Seo title="vCoincheck - Catalyst Knowledge"
                 description={catalystknowledgeInit[0].summary}
                 url={routes.catalystknowledge}
                 image_url={catalystknowledgeInit[0].image} />

@@ -10,6 +10,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import invariant from 'tiny-invariant';
 import PostComment from './../../dashboards/PostComment';
+import Seo from '@/layouts/_seo';
+import routes from '@/config/routes';
 
 
 const CatalystKnowledgeDetail: NextPageWithLayout<
@@ -35,6 +37,11 @@ const CatalystKnowledgeDetail: NextPageWithLayout<
 
     return (
         <>
+            <Seo title={`vCoincheck - ${library.library_infor.title}`}
+                description={library.library_infor.summary}
+                url={routes.catalystknowledge_detail(libraryid)}
+                image_url={library.library_infor.image} />
+
             {library &&
                 <div>
                     <div>

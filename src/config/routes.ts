@@ -15,6 +15,13 @@ const routes = {
     marketinfo: 'market-info',
 
     project_detail: (slug?: string) => `ecom-project-detail/${slug}`,
-    user_detail: (slug?: string) => `user-active-profile/${slug}`
+    user_detail: (slug?: string) => `user-active-profile/${slug}`,
+
+    catalystknowledge_detail: (slug?: string) => `catalyst-knowledge/${slug}`,
+    cardanoknowledge_detail: (slug?: string) => `cardano-knowledge/${slug}`,
+    blockchainknowledge_detail: (slug?: string) => `blockchain-knowledge/${slug}`,
+    
+
+
 }
 export default routes;
