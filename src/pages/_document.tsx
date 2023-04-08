@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/metismenujs/dist/metismenujs.min.css" />
         <meta content="ARlHFWFHn8AbiaF1wlj5GZK74YmLlYlt4lGN6S9QfTI" name="google-site-verification" />
       </Head>
