@@ -14,6 +14,8 @@ const SignInFace = () => {
     const router = useRouter()
     const { t } = useTranslation('common');
 
+    const [render, setRender] = useState(false);
+
     const { mutate: LoginByFaceAction } = useLoginByFaceMutation()
 
     const faceSignIn = async () => {
@@ -52,10 +54,11 @@ const SignInFace = () => {
         faceIoScript.async = true
         faceIoScript.onload = () => faceIoScriptLoaded()
         document.body.appendChild(faceIoScript)
+        setRender(true)
         return () => {
             document.body.removeChild(faceIoScript)
         }
-    }, [])
+    }, [render])
 
     const faceIoScriptLoaded = () => {
         let faceioInstance = null
@@ -67,18 +70,20 @@ const SignInFace = () => {
 
     return (
         <>
-            <div id="face" className="login-main-page" style={{ backgroundImage: "url(" + loginbg + ")" }}>
-                <div className="login-wrapper">
-                    <AsideLeftAuthen />
-                    <div className="login-aside-right gradient_one">
-                        <div className="row m-0 justify-content-center h-100 align-items-center">
-                            <div className="col-xl-8 col-xxl-8">
-                                <div className="authincation-content">
-                                    <div className="row no-gutters">
-                                        <div className="col-xl-12">
-                                            <div className="form-row d-flex justify-content-between mt">
-                                                <Link href="#" className="btn btn-primary" onClick={faceSignIn} >{t('scan')}</Link>
-                                                <Link href="/page-login" className="btn btn-primary ">{t('loginbyusername')}</Link>
+            {render &&
+                <div id="face" className="login-main-page" style={{ backgroundImage: "url(" + loginbg + ")" }}>
+                    <div className="login-wrapper">
+                        <AsideLeftAuthen />
+                        <div className="login-aside-right gradient_one">
+                            <div className="row m-0 justify-content-center h-100 align-items-center">
+                                <div className="col-xl-8 col-xxl-8">
+                                    <div className="authincation-content">
+                                        <div className="row no-gutters">
+                                            <div className="col-xl-12">
+                                                <div className="form-row d-flex justify-content-between mt">
+                                                    <Link href="#" className="btn btn-primary" onClick={faceSignIn} >{t('scan')}</Link>
+                                                    <Link href="/page-login" className="btn btn-primary ">{t('loginbyusername')}</Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -87,8 +92,9 @@ const SignInFace = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </>
+
     );
 };
 
