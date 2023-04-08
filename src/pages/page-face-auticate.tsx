@@ -77,7 +77,7 @@ const FaceAuthicatePage: NextPageWithLayout = (props: Props) => {
         <>
             <Seo
                 title="vCoincheck - Login authentication"
-                url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/page-face-auticate`}
+                url={`page-face-auticate`}
                 image_url={""}
                 description="Please sign in or sign up user before continuing face authentication"
             />

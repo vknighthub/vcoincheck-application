@@ -1,8 +1,11 @@
 
+import Asideleft from "@/components/AsideLeft";
 import LinkIcon from "@/components/Control/LinkIcon";
 import useAuth from '@/components/auth/use-auth';
 import client from "@/data/client";
+import loginbg from "@/images/bg-login.jpg";
 import PrivateLayout from "@/layouts/_private-route";
+import Seo from "@/layouts/_seo";
 import { AuthResponse, LoginUserInput, NextPageWithLayout } from "@/types";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
@@ -15,9 +18,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Swal from "sweetalert2";
 import * as yup from 'yup';
-import loginbg from "@/images/bg-login.jpg";
-import Asideleft from "@/components/AsideLeft";
-import Seo from "@/layouts/_seo";
 
 const LoginPage: NextPageWithLayout = () => {
     const { t } = useTranslation('common');
@@ -73,7 +73,7 @@ const LoginPage: NextPageWithLayout = () => {
         <>
             <Seo
                 title="vCoincheck - Login"
-                url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/page-login`}
+                url={'page-login'}
                 image_url={""}
                 description="Welcome to vCoincheck. Please input some information to Login to vCoincheck"
             />

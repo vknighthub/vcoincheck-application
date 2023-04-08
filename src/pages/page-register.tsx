@@ -85,8 +85,8 @@ const RegisterPage: NextPageWithLayout = () => {
         <>
             <Seo 
                 title="vCoincheck - Register"
-                url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/page-register`} 
-                image_url={""} 
+                url={`page-register`} 
+                image_url={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}/system/image/page-register.png`} 
                 description="Welcome to vCoincheck. Please input some information to register new member of vCoincheck" 
             />
 

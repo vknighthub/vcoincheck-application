@@ -75,9 +75,9 @@ const OTPPassword: NextPageWithLayout = () => {
         <>
             <Seo
                 title="vCoincheck - Login"
-                url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/page-login`}
+                url={`page-otp-password`}
                 image_url={""}
-                description="Welcome to vCoincheck. Please input some information to Login to vCoincheck"
+                description="Welcome to vCoincheck. Please input some information to Reset password"
             />
             <div className="login-main-page" style={{ backgroundImage: "url(" + loginbg.src + ")" }}>
                 <div className="login-wrapper">
