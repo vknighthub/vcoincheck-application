@@ -15,6 +15,7 @@ import "./../vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import './../components/table/FilteringTable/filtering.css';
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'metismenujs/style';
+import CryptoContext from '@/dashboards/market/CryptoContext';
 
 
 type AppPropsWithLayout = AppProps & {
@@ -49,7 +50,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ThemeContext>
-            {getLayout(<Component {...pageProps} />)}
+            <CryptoContext>
+              {getLayout(<Component {...pageProps} />)}
+            </CryptoContext>
           </ThemeContext>
         </Hydrate>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

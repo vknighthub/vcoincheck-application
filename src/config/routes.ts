@@ -12,6 +12,7 @@ const routes = {
     blockchainknowledge: 'blockchain-knowledge',
     librarymanagement: 'library-management',
     dictionary: 'dictionary',
+    marketinfo: 'market-info',
 
     project_detail: (slug?: string) => `ecom-project-detail/${slug}`,
     user_detail: (slug?: string) => `user-active-profile/${slug}`

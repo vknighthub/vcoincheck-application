@@ -17,6 +17,7 @@ const Metismenu = () => {
                 language: language
             }),
         )
+
         return {
             menulist: data?.result.data,
             isLoading,
@@ -26,11 +27,10 @@ const Metismenu = () => {
 
     const { menulist } = GetMenulist(locale)
 
-
     return (
         <>
             {menulist &&
-                <MetisMenu>
+                <MetisMenu key={menulist.length}>
                     {menulist?.map((menu, index) => (
                         <li className={`${pathname === menu.path ? "mm-active" : ""}`} key={index}>
                             <Link href={menu.path} className={menu.class} passHref>
