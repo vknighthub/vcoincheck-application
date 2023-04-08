@@ -11,9 +11,6 @@ import { CoinList } from "@/config/api/api";
 import { CryptoState } from "./CryptoContext";
 import Image from "next/image";
 
-export function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
 export default function CoinsTable() {
   const [coins, setCoins] = useState([]);

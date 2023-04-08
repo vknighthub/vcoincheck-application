@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import { numberWithCommas } from "./market/CoinsTable";
 import { CryptoState } from "./market/CryptoContext";
+import { numberWithCommas } from '@/utils/NumberWithCommas'
 
 function SampleNextArrow(props) {
   const { onClick } = props;
