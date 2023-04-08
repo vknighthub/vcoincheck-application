@@ -36,13 +36,16 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
 
     const library = data.result?.data
 
+    const initdataSEO = cardanoknowledgedetailInit.result.data
+
+
     return (
         <>
-            <Seo title={`vCoincheck - ${library?.library_infor.title}`}
-                description={library?.library_infor.summary}
+            <Seo title={`vCoincheck - ${initdataSEO.library_infor.title}`}
+                description={initdataSEO.library_infor.summary}
                 url={routes.cardanoknowledge_detail(libraryid)}
-                image_url={library?.library_infor.image} />
-        
+                image_url={initdataSEO.library_infor.image} />
+
             {library &&
                 <div>
                     <div>
@@ -123,11 +126,10 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
             language: locale
         }
     )
-    const cardanoknowledgedetailInit = cardanoknowledgedetail.result.data
     try {
         return {
             props: {
-                cardanoknowledgedetailInit,
+                cardanoknowledgedetailInit: cardanoknowledgedetail,
                 libraryid,
                 lang,
                 ...(await serverSideTranslations(locale!, ['common'])),

@@ -35,12 +35,14 @@ const BlockchainKnowledgeDetail: NextPageWithLayout<
 
     const library = data.result?.data
 
+    const initdataSEO = blockchainknowledgedetailInit.result.data
+
     return (
         <>
-            <Seo title={`vCoincheck - ${library?.library_infor.title}`}
-                description={library?.library_infor.summary}
+            <Seo title={`vCoincheck - ${initdataSEO.library_infor.title}`}
+                description={initdataSEO.library_infor.summary}
                 url={routes.blockchainknowledge_detail(libraryid)}
-                image_url={library?.library_infor.image} />
+                image_url={initdataSEO.library_infor.image} />
 
             {library &&
                 <div>
@@ -122,11 +124,10 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
             language: locale
         }
     )
-    const blockchainknowledgedetailInit = blockchainknowledgedetail.result.data
     try {
         return {
             props: {
-                blockchainknowledgedetailInit,
+                blockchainknowledgedetailInit: blockchainknowledgedetail,
                 libraryid,
                 lang,
                 ...(await serverSideTranslations(locale!, ['common'])),
