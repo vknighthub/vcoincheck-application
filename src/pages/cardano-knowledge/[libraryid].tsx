@@ -38,10 +38,10 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
 
     return (
         <>
-            <Seo title={`vCoincheck - ${library.library_infor.title}`}
-                description={library.library_infor.summary}
+            <Seo title={`vCoincheck - ${library?.library_infor.title}`}
+                description={library?.library_infor.summary}
                 url={routes.cardanoknowledge_detail(libraryid)}
-                image_url={library.library_infor.image} />
+                image_url={library?.library_infor.image} />
         
             {library &&
                 <div>

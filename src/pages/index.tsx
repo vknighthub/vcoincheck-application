@@ -16,7 +16,8 @@ const Home: NextPageWithLayout = () => {
       <Seo title="vCoincheck"
         description="VcoinCheck is a website built with content from the community. Those who want to know if a Blockchain project is good or not can evaluate Blockchain projects for themselves by answering the questions in Vcoincheck."
         url={routes.home}
-        image_url='https://vcoincheck.io/static/media/logo128.46a7870a.svg' />
+        image_url='https://api.vcoincheck.io/system/image/Logo450x450.svg' />
+        
       <div className="row">
         <BestProject />
         <div className="col-xl-6 col-xxl-12 col-lg-12">
