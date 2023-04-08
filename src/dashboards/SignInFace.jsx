@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import loginbg from "@/images/bg-login.jpg";
@@ -13,7 +15,6 @@ const SignInFace = () => {
     const [dataio, setDataIO] = useState()
     const router = useRouter()
     const { t } = useTranslation('common');
-
     const [render, setRender] = useState(false);
 
     const { mutate: LoginByFaceAction } = useLoginByFaceMutation()
@@ -22,11 +23,11 @@ const SignInFace = () => {
         const face = document.getElementById('face')
         face.style.display = 'none';
         try {
-            console.log(dataio)
             const userData = await dataio.authenticate({
                 locale: "auto",
             })
-            if (userData) {
+            if (userData.facialId) {
+                console.log(`userData:` + userData)
                 const postData = {
                     username: userData.payload.username,
                     faceid: userData.facialId
@@ -81,7 +82,7 @@ const SignInFace = () => {
                                         <div className="row no-gutters">
                                             <div className="col-xl-12">
                                                 <div className="form-row d-flex justify-content-between mt">
-                                                    <Link href="#" className="btn btn-primary" onClick={faceSignIn} >{t('scan')}</Link>
+                                                    <Link href="#" className="btn btn-primary" onClick={() => faceSignIn()} >{t('scan')}</Link>
                                                     <Link href="/page-login" className="btn btn-primary ">{t('loginbyusername')}</Link>
                                                 </div>
                                             </div>
