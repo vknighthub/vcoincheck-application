@@ -1,11 +1,10 @@
 import routes from '@/config/routes'
+import Carousel from '@/dashboards/Carousel'
 import Layout from '@/layouts/_layout'
 import Seo from '@/layouts/_seo'
 import { NextPageWithLayout } from '@/types'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
-import Carousel from '@/dashboards/Carousel'
 
 
 const MarketInfo: NextPageWithLayout = () => {
