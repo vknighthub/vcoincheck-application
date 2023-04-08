@@ -12,7 +12,7 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   i18n,
   images: {
-    domains: ["localhost", "127.0.0.1","api.vcoincheck.io","103.77.166.246"],
+    domains: ["localhost", "127.0.0.1","api.vcoincheck.io","103.77.166.246","103.77.167.219"],
   },
   ...(process.env.APPLICATION_MODE === "production" && {
     typescript: {

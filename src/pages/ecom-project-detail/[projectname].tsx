@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useEffect } from 'react';
 import invariant from 'tiny-invariant';
 
 const ProjectDetailPage: NextPageWithLayout<
@@ -18,7 +19,7 @@ const ProjectDetailPage: NextPageWithLayout<
     const { isAuthorized } = useAuth()
     const { t } = useTranslation()
 
-    const { data } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['project-detail'],
         queryFn: () => client.project.getdetail(
             {
@@ -34,6 +35,10 @@ const ProjectDetailPage: NextPageWithLayout<
 
 
     const projectdata = data.result.data
+
+    useEffect(() => {
+        refetch()
+    }, [lang])
 
 
     return (
