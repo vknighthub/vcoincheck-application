@@ -46,5 +46,6 @@ export const API_ENDPOINTS = {
     ADDNEWS: '/event/postevent',
     UPLOADAVATAR: '/user/changeavataruser',
     CHANGE_PWD: '/user/changepwd',
-    UPDATE_USER: '/user/modifyuser'
+    UPDATE_USER: '/user/modifyuser',
+    MINUS_USER: '/user/minusscore',
 }

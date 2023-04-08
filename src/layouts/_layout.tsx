@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import Header from "./nav/Header";
 import NavHeader from './nav/NavHeader';
 import SideBar from "./nav/SideBar";
-import Header from "./nav/Header";
 
 
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {

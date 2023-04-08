@@ -900,6 +900,11 @@ export interface UpdateUserInput {
     birthday: string
 }
 
+export interface MinusUserInput {
+    score: number
+    username: string
+}
+
 export interface LoginByFaceResponse extends ResultObject<{}> { }
 
 export interface ForgotPasswordResponse extends ResultObject<{}> { }
@@ -908,6 +913,7 @@ export interface ChangePasswordResponse extends ResultObject<{}> { }
 
 export interface UpdateUserResponse extends ResultObject<{}> { }
 
+export interface MinusUserResponse extends ResultObject<{}> { }
 
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

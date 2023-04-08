@@ -12,17 +12,17 @@ const SideBar = () => {
     const { t } = useTranslation('common');
 
     useEffect(() => {
+        function toggleFunc() {
+            const myElement: Element | null = document.getElementById('main-wrapper');
+            return myElement?.classList.toggle("menu-toggle");
+        }
+        const myElement: Element | null = document.getElementById('nav-control');
+        if (myElement) {
+            myElement.addEventListener('click', toggleFunc);
+        }
         return () => {
-            var wrapper: Element | null;
-            if (typeof window !== 'undefined') {
-                var wrapper = document.querySelector("#main-wrapper");
-            }
-            function toggleFunc() {
-                return wrapper?.classList.toggle("menu-toggle");
-            }
-            if (typeof window !== 'undefined') {
-                var btn = document.querySelector(".nav-control");
-                btn?.addEventListener("click", toggleFunc);
+            if (myElement) {
+                myElement.removeEventListener('click', toggleFunc);
             }
         }
     }, [])

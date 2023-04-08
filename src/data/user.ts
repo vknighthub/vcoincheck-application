@@ -131,3 +131,11 @@ export const useUpdateUserMutation = () => {
     }
   });
 };
+
+export const useMinusScoreUserAction = () => {
+  return useMutation(client.users.minususer, {
+    onSuccess: () => {
+    }
+  });
+};
+

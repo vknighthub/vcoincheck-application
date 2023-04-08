@@ -5,7 +5,7 @@ import ProjectReviewed from './ProjectReviewed';
 import ReviewList from './ReviewList';
 import ReviewProject from './ReviewProject';
 import { useTranslation } from 'next-i18next';
-import { useMe } from '@/data/user';
+import { useMe, useMinusScoreUserAction } from '@/data/user';
 
 const ProjectDetail = ({ project, isAuthorized, lang }) => {
 
@@ -27,12 +27,14 @@ const ProjectDetail = ({ project, isAuthorized, lang }) => {
 		}
 	}
 
+	const { mutate: MinusScoreUserAction } = useMinusScoreUserAction()
+
 	const exchangeScores = (userInfo, scores, isShowReviewList) => {
 		let postdata = {
 			username: userInfo.username,
 			score: scores
 		}
-		// dispatch(minusScoreUserAction(postdata));
+		MinusScoreUserAction(postdata);
 		setShowReviewList(isShowReviewList)
 	}
 
