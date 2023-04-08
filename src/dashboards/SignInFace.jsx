@@ -24,14 +24,16 @@ const SignInFace = () => {
             const userData = await dataio.authenticate({
                 locale: "auto",
             })
-            const postData = {
-                username: userData.payload.username,
-                faceid: userData.facialId
+            if (userData) {
+                const postData = {
+                    username: userData.payload.username,
+                    faceid: userData.facialId
+                }
+                LoginByFaceAction(postData);
+                setTimeout(() => {
+                    router.push('/')
+                }, 2000)
             }
-            LoginByFaceAction(postData);
-            setTimeout(() => {
-                router.push('/') 
-            },1000)
 
         } catch (errorCode) {
             const error = handleFaceError(errorCode)
@@ -67,10 +69,10 @@ const SignInFace = () => {
         <>
             <div id="face" className="login-main-page" style={{ backgroundImage: "url(" + loginbg + ")" }}>
                 <div className="login-wrapper">
-                    <AsideLeftAuthen /> 
+                    <AsideLeftAuthen />
                     <div className="login-aside-right gradient_one">
                         <div className="row m-0 justify-content-center h-100 align-items-center">
-                            <div className="col-xl-7 col-xxl-7">
+                            <div className="col-xl-8 col-xxl-8">
                                 <div className="authincation-content">
                                     <div className="row no-gutters">
                                         <div className="col-xl-12">
