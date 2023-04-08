@@ -1,6 +1,6 @@
 
 import Requirements from '@/components/bootstrap/Requirements';
-import { useChangePasswordMutation } from '@/data/user';
+import { useChangePasswordMutation, useUpdateUserMutation } from '@/data/user';
 import { Formik } from 'formik';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -32,12 +32,16 @@ const ProfileSetting = ({ users }) => {
         setHiddenEdit(true)
     }
 
+    const { mutate: PostUpdateUser } = useUpdateUserMutation()
+
     const onSubmit = (values) => {
         const postData = {
-            username: user.username,
-            userinfo: {
-                values
-            }
+            username: users.username,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            address: values.address,
+            phone: values.phone,
+            birthday: values.birthday,
         }
         Swal.fire({
             title: "Are you sure want to edit information?",
@@ -45,10 +49,9 @@ const ProfileSetting = ({ users }) => {
         }).then((result) => {
             if (result.value) {
                 try {
-                    // dispatch(addReviewAction(postData, props.action));
+                    PostUpdateUser(postData)
                     setHiddenSave(true)
                     setHiddenEdit(false)
-                    console.log(postData)
                     Swal.fire("Edited!", "This user information has been edited.", "success");
                 } catch (error) {
                     Swal.fire("Failed!", "This user information has been failed for edit.", "error");
@@ -84,13 +87,11 @@ const ProfileSetting = ({ users }) => {
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
         ),
-        confirmnewpass: Yup.string().required("Please enter confirm old password").when("newpassword", {
-            is: val => (val && val.length > 0 ? true : false),
-            then: Yup.string().oneOf(
+        confirmnewpass: Yup.string().required("Please enter confirm old password").
+            oneOf(
                 [Yup.ref("newpassword")],
-                "Confirm password is not same new password"
-            )
-        })
+                "Confirm password is not same new password")
+
     });
 
     const validate = (values) => {

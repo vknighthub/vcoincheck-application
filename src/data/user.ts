@@ -112,3 +112,22 @@ export const useChangePasswordMutation = () => {
     }
   });
 };
+
+export const useUpdateUserMutation = () => {
+  const router = useRouter()
+  return useMutation(client.users.updateuser, {
+    onSuccess: (data) => {
+      if (data.errorcode === 0) {
+        Swal.fire({
+          title: "Changed!",
+          html: "This user's information has been changed!!!",
+          icon: "success"
+        }).then((login) => {
+          if (login) {
+            router.reload()
+          }
+        })
+      }
+    }
+  });
+};

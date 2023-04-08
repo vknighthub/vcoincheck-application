@@ -891,11 +891,23 @@ export interface LoginByFaceInput {
     faceid: string
 }
 
+export interface UpdateUserInput {
+    username: string
+    firstname: string
+    lastname: string
+    address: string
+    phone: string
+    birthday: string
+}
+
 export interface LoginByFaceResponse extends ResultObject<{}> { }
 
 export interface ForgotPasswordResponse extends ResultObject<{}> { }
 
 export interface ChangePasswordResponse extends ResultObject<{}> { }
+
+export interface UpdateUserResponse extends ResultObject<{}> { }
+
 
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;
