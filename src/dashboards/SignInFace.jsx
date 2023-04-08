@@ -12,9 +12,7 @@ const SignInFace = () => {
 
     const [dataio, setDataIO] = useState()
     const router = useRouter()
-
     const { t } = useTranslation('common');
-    const [render, setRender] = useState(false);
 
     const { mutate: LoginByFaceAction } = useLoginByFaceMutation()
 
@@ -22,6 +20,7 @@ const SignInFace = () => {
         const face = document.getElementById('face')
         face.style.display = 'none';
         try {
+            console.log(dataio)
             const userData = await dataio.authenticate({
                 locale: "auto",
             })
@@ -40,14 +39,12 @@ const SignInFace = () => {
                 .then((response) => {
                     if (response) {
                         face.style.display = 'block';
-                        setRender(true)
                     }
                 });
         }
     }
 
     useEffect(() => {
-
         const faceIoScript = document.createElement('script')
         faceIoScript.src = '//cdn.faceio.net/fio.js'
         faceIoScript.async = true
@@ -56,9 +53,7 @@ const SignInFace = () => {
         return () => {
             document.body.removeChild(faceIoScript)
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [render])
+    }, [])
 
     const faceIoScriptLoaded = () => {
         let faceioInstance = null

@@ -19,13 +19,13 @@ class Client {
         loginbyface: (input: LoginByFaceInput) => HttpClient.post<AuthResponse>(API_ENDPOINTS.LOGIN_BY_FACE, input),
         forgotpassword: (input: ForgotPasswordInput) => HttpClient.post<ForgotPasswordResponse>(API_ENDPOINTS.FORGOT_PASSWORD, input),
         confirmotpforgotpassword: (input: OTPCodeInput) => HttpClient.post<ForgotPasswordResponse>(API_ENDPOINTS.FORGOT_PASSWORD, input),
-        changpassword: (input: ChangePasswordInput) => HttpClient.post<ChangePasswordResponse>(API_ENDPOINTS.CHANGE_PWD,input),
-        updateuser: (input: UpdateUserInput) => HttpClient.post<UpdateUserResponse>(API_ENDPOINTS.UPDATE_USER,input)
-        
+        changpassword: (input: ChangePasswordInput) => HttpClient.post<ChangePasswordResponse>(API_ENDPOINTS.CHANGE_PWD, input),
+        updateuser: (input: UpdateUserInput) => HttpClient.post<UpdateUserResponse>(API_ENDPOINTS.UPDATE_USER, input)
+
     }
     project = {
         top: (input: TopInput) => HttpClient.post<ProjectResponse>(API_ENDPOINTS.TOP_PROJECT, input),
-        all: () => HttpClient.get<ProjectResponse>(API_ENDPOINTS.ALL_PROJECT),
+        all: ({ language }: SettingsQueryOptions) => HttpClient.get<ProjectResponse>(API_ENDPOINTS.ALL_PROJECT, { language }),
         getdetail: (proname: ProjectInput, language: SettingsQueryOptions) => HttpClient.post<ProjectDetailResponse>(API_ENDPOINTS.PROJECT_DETAIL, proname, { params: language }),
         getprojectreview: (projectreview: ProjectReviewInput, language: SettingsQueryOptions) => HttpClient.post<ProjectReviewResponse>(API_ENDPOINTS.PROJECT_REVIEWID, projectreview, { params: language }),
         likeprojectreview: (likeprojectreview: LikeProjectReviewInput) => HttpClient.post<ProjectReviewResponse>(API_ENDPOINTS.LIKE_REVIEW_PROJECT, likeprojectreview),

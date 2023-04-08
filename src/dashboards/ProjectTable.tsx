@@ -29,7 +29,7 @@ const ProjectTable = (props: Props) => {
 
         const { data, isLoading, error } = useQuery<ProjectResponse, Error>(
             ['all-project'],
-            () => client.project.all(),
+            () => client.project.all({ language: locale }),
         )
         return {
             projects: data?.result.data,
@@ -39,7 +39,7 @@ const ProjectTable = (props: Props) => {
     }
 
     const { projects, isLoading } = Project();
-    
+
     if (isLoading) {
         return <Skeleton count={10} />
     }

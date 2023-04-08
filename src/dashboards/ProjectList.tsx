@@ -3,28 +3,32 @@ import client from '@/data/client'
 import { ProjectResponse } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { SkeletonTheme } from 'react-loading-skeleton'
-import SkeletionThemeTable from './../components/SkeletionTheme/Table';
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-type Props = {}
-
-const ProjectList = (props: Props) => {
+const ProjectList = () => {
     const { t } = useTranslation()
+    const { locale } = useRouter()
 
-    const Project = () => {
+    const Project = (language: string | undefined) => {
 
-        const { data, isLoading, error } = useQuery<ProjectResponse, Error>(
+        const { data, error, refetch } = useQuery<ProjectResponse, Error>(
             ['all-project'],
-            () => client.project.all(),
+            () => client.project.all({ language: language }),
         )
         return {
             projects: data?.result.data,
-            isLoading,
             error,
+            refetch
         }
     }
 
-    const { projects, isLoading } = Project();
+    const { projects, refetch } = Project(locale);
+
+    useEffect(() => {
+        refetch()
+    }, [locale])
+
 
     return (
         <>
