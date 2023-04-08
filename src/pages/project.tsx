@@ -18,7 +18,7 @@ const ProjectPage: NextPageWithLayout = () => {
             <Seo title="vCoincheck - Project"
                 description="vCoinCheck A place to synthesize typical projects, as well as projects with development potential. Community participants can log in to comment and rate their favorite projects. Users will get points when participating in project evaluation "
                 url={routes.project}
-                image_url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/system/image/project.png`} />
+                image_url={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}/system/image/project.png`} />
                 
             <PageTitle activeMenu={t('allproject')} motherMenu={t('project')} path="project" pageHeading={''} activeDisplay={''} />
             <TopProject />

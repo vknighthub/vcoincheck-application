@@ -14,6 +14,7 @@ import './../css/style.css';
 import "./../vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import './../components/table/FilteringTable/filtering.css';
 import 'react-loading-skeleton/dist/skeleton.css'
+import 'metismenujs/style';
 
 
 type AppPropsWithLayout = AppProps & {

@@ -1,4 +1,3 @@
-'use client';
 
 import Donate from '@/components/Donate'
 import { useTranslation } from 'next-i18next'

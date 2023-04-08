@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^3.0.0",
+    "@metismenu/react": "^0.0.3",
     "@tanstack/react-query": "^4.28.0",
     "@tanstack/react-query-devtools": "^4.28.0",
     "@tinymce/tinymce-react": "^4.3.0",

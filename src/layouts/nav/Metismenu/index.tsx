@@ -3,54 +3,55 @@ import { MenuResponse } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import MM from './MM'
+import MetisMenu from '@metismenu/react'
 
-type Props = {}
 
-const Metismenu = (props: Props) => {
+const Metismenu = () => {
     const { locale, pathname } = useRouter();
 
-    const GetMenulist = () => {
+    const GetMenulist = (language: any) => {
 
         const { data, isLoading, error } = useQuery<MenuResponse, Error>(
-            ['menu', locale],
+            ['menu', language],
             () => client.system.menu({
-                language: locale
+                language: language
             }),
         )
         return {
             menulist: data?.result.data,
             isLoading,
-            error,
+            error
         }
     }
 
-    const { menulist } = GetMenulist()
+    const { menulist } = GetMenulist(locale)
+
 
     return (
         <>
-            <MM className="metismenu" id="menu">
-                {menulist?.map((menu, index) => (
-                    <li className={`${pathname === menu.path ? "mm-active" : ""}`} key={index}>
-                        <Link href={menu.path} className={menu.class} passHref>
-                            <i className={menu.icon}></i>
-                            <span className="nav-text">{menu.name}</span>
-                        </Link>
-                        {menu.menu_sub[0] &&
-                            <ul>
-                                {menu.menu_sub?.map((content, index) => (
-                                    <li key={index} >
-                                        <Link className={`${pathname === content.path ? "mm-active" : ""}`} href={content.path}>
-                                            {content.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        }
-
-                    </li>
-                ))}
-            </MM>
+            {menulist &&
+                <MetisMenu>
+                    {menulist?.map((menu, index) => (
+                        <li className={`${pathname === menu.path ? "mm-active" : ""}`} key={index}>
+                            <Link href={menu.path} className={menu.class} passHref>
+                                <i className={menu.icon}></i>
+                                <span className="nav-text">{menu.name}</span>
+                            </Link>
+                            {menu.menu_sub[0] &&
+                                <ul>
+                                    {menu.menu_sub?.map((content, index) => (
+                                        <li key={index} >
+                                            <Link className={`${pathname === content.path ? "mm-active" : ""}`} href={content.path}>
+                                                {content.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            }
+                        </li>
+                    ))}
+                </MetisMenu>
+            }
         </>
     )
 }
