@@ -1,17 +1,15 @@
-import Layout from '@/layouts/_layout'
-import { NextPageWithLayout } from '@/types'
-import React from 'react'
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import SubmitProject from '@/dashboards/SubmitProject'
 import client from '@/data/client'
+import Layout from '@/layouts/_layout'
+import { NextPageWithLayout } from '@/types'
 import { useQuery } from '@tanstack/react-query'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 
 const SubmitProjectPage: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
 > = ({ ecosystemdata }) => {
-
     const { data: ecosys } = useQuery({
         queryKey: ['ecosystem-project'],
         queryFn: () => client.project.ecosystem(),
