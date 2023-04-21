@@ -2,7 +2,7 @@
 import Donate from '@/components/Donate'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import Metismenu from './Metismenu'
 import useAuth from '../../components/auth/use-auth';
@@ -28,13 +28,20 @@ const SideBar = () => {
         }
     }, [])
 
+    const [render, setRender] = useState(false)
+
+    useEffect(() => {
+        setRender(true)
+    }, [render])
+
+
     return (
         <div className="deznav">
             <PerfectScrollbar className="deznav-scroll">
 
                 <Metismenu />
 
-                {isAuthorized &&
+                {isAuthorized && render &&
                     <div className="add-menu-sidebar">
                         <Link href="/submit-project">
                             <svg

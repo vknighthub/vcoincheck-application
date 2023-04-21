@@ -6,7 +6,7 @@ import Seo from '@/layouts/_seo'
 import { NextPageWithLayout } from '@/types'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 const FAQ: NextPageWithLayout<
@@ -14,9 +14,11 @@ const FAQ: NextPageWithLayout<
 > = ({ formattedparams }) => {
 
     const { faq, refetch } = useFAQQuery(formattedparams)
+
     useEffect(() => {
         refetch()
     }, [formattedparams])
+
     return (
         <>
             <Seo title="vCoincheck"

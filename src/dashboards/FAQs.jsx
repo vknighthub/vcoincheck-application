@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useAddFaqs, useDeleteFaqs, useEditFaqs } from '@/data/faq';
 import { useMe } from '@/data/user';
 import parse from 'html-react-parser';
 import { useTranslation } from 'next-i18next';
@@ -10,7 +11,7 @@ import Swal from "sweetalert2";
 
 
 const FAQs = ({ faq }) => {
-
+  
   const { t } = useTranslation('common');
   const { locale } = useRouter();
 
@@ -18,14 +19,11 @@ const FAQs = ({ faq }) => {
 
   const isadmin = me?.isadmin
 
-  const defaultFAQs = faq
-
   const [activeBordered, setActiveBordered] = useState(0)
   const [faqsModal, setFAQsModal] = useState(false)
   const [editFAQsId, setEditFAQsId] = useState(null);
   const [lang, setLang] = useState('en');
   const [langEdit, setLangEdit] = useState(locale);
-  const [fetchData, setFetchData] = useState(false);
 
   const [addFormData, setAddFormData] = useState({
     question: '',
@@ -64,6 +62,11 @@ const FAQs = ({ faq }) => {
     setLang(fieldValue)
   };
 
+  const { mutate: AddFAQ } = useAddFaqs()
+  const { mutate: EditFAQ } = useEditFaqs()
+  const { mutate: DeleteFAQ } = useDeleteFaqs()
+
+
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
     var error = false;
@@ -86,8 +89,8 @@ const FAQs = ({ faq }) => {
         lang: lang,
         body: newFAQs,
       }
+      AddFAQ(postData)
       setFAQsModal(false);
-      setFetchData(true);
     } else {
       Swal.fire('Oops', errorMsg, "error");
     }
@@ -111,7 +114,9 @@ const FAQs = ({ faq }) => {
     setEditFormData(formValues);
     setEditFormFullData(editValue);
     setEditModal(true);
+
   };
+
 
   const handleDeleteClick = (faqsId) => {
     Swal.fire({
@@ -128,11 +133,12 @@ const FAQs = ({ faq }) => {
           lang: locale,
           faqid: faqsId
         }
-        setFetchData(true);
+        DeleteFAQ(postData)
       }
     });
 
   }
+
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -172,8 +178,10 @@ const FAQs = ({ faq }) => {
     }
     setEditFAQsId(null);
     setEditModal(false);
-    setFetchData(true);
+    EditFAQ(postData)
   }
+
+
 
   return (
     <>
@@ -321,7 +329,7 @@ const FAQs = ({ faq }) => {
                 className='accordion accordion-rounded-stylish accordion-bordered'
                 defaultActiveKey='0'
               >
-                {defaultFAQs.map((data, i) => (
+                {faq.map((data, i) => (
                   <div className="row" key={i}>
                     <>
                       <div className={`${isadmin ? 'accordion__item col-lg-11 col-xl-11 col-sm-11 col-10' : 'accordion__item col-lg-12 col-xl-12 col-sm-12 col-12'}`} >
@@ -358,7 +366,7 @@ const FAQs = ({ faq }) => {
                                 <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#342E59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                             </Dropdown.Toggle>
-                            <Dropdown.Menu alignRight={true} className="dropdown-menu-right">
+                            <Dropdown.Menu alignright={true} className="dropdown-menu-right">
                               <Dropdown.Item onClick={(event) => handleEditClick(event, data)}>{t('edit')}</Dropdown.Item>
                               <Dropdown.Item onClick={() => handleDeleteClick(data.faqid)} className="text-danger">{t('delete')}</Dropdown.Item>
                             </Dropdown.Menu>

@@ -1,6 +1,7 @@
 import { FAQsResponse, SettingsQueryOptions } from "@/types"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import client from "./client"
+import { useRouter } from "next/router"
 
 export const useFAQQuery = (languages: SettingsQueryOptions) => {
     const { data, isLoading, refetch } = useQuery<FAQsResponse, Error>(
@@ -14,10 +15,43 @@ export const useFAQQuery = (languages: SettingsQueryOptions) => {
     }
 }
 
-export const useEditFaqs = () => {
-    return useMutation(client.faq.edit), {
-        onSuccess: () => {
-
+export const useAddFaqs = () => {
+    const router = useRouter()
+    return useMutation(client.faq.add, {
+        onSuccess: (data) => {
+            if (data.errorcode === 0) {
+                router.reload()
+            }
         }
-    }
-}
+    });
+};
+
+export const useEditFaqs = () => {
+    const router = useRouter()
+    return useMutation(client.faq.edit, {
+        onSuccess: (data) => {
+            if (data.errorcode === 0) {
+                router.reload()
+            }
+        }
+    });
+};
+
+export const useDeleteFaqs = () => {
+    const router = useRouter()
+    return useMutation(client.faq.delete, {
+        onSuccess: (data) => {
+            if (data.errorcode === 0) {
+                router.reload()
+            }
+        }
+    });
+};
+
+
+
+
+
+
+
+
