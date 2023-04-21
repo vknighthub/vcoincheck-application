@@ -27,7 +27,7 @@ const UserProfile = ({ isAuthorized }) => {
                                     {t('hello')}, <strong>{me?.firstname}  {me?.lastname}</strong>
                                 </span>
                                 <p className="fs-12 mb-0">{me?.isadmin ? "Admin" : "Normal user"}</p>
-                            </div><Image src={me?.avatar ? me.avatar : profile} width={20} height={20} alt="" className="img-fluid" />
+                            </div><Image src={me?.avatar ? me.avatar : profile} width={57} height={57} alt="" className="img-fluid" priority/>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu align="start">

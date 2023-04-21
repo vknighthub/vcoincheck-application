@@ -17,7 +17,7 @@ import { useTranslation } from 'next-i18next';
 
 const getImage = (image) => {
   if (image.length > 0) {
-    return <Image className="card-img-top img-block" src={image} alt="" width={80}  height={80}/>
+    return <Image className="card-img-top img-block" src={image} alt="" width={470}  height={250}/>
   }
 }
 
