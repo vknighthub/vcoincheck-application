@@ -38,9 +38,6 @@ ProjectPage.getLayout = function getLayout(page) {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     try {
-        const formattedparams = {
-            language: locale,
-        };
         return {
             props: {
                 ...(await serverSideTranslations(locale!, ['common'])),

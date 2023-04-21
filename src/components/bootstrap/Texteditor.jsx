@@ -9,6 +9,7 @@ const Texteditor = (props) => {
             <label htmlFor={name}>{label}</label>
             <div className="summernote">
                 <Field
+                    apiKey="r6pbr9fmuyz5cmhqxhczpuiaq76xsuuq66an060n2frgjtnt"
                     id={name}
                     name={name}
                     render={({ form }) => {
@@ -16,17 +17,18 @@ const Texteditor = (props) => {
                             <>
                                 <Editor
                                     init={{
-                                        height: 500,
+                                        height: 800,
                                         menubar: true,
                                         plugins: [
-                                            "advlist autolink lists link image code charmap print preview anchor",
-                                            "searchreplace visualblocks code fullscreen",
-                                            "insertdatetime media table paste code help wordcount",
+                                            'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                                            'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                                            'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount',
                                         ],
                                         toolbar:
-                                            "undo redo | formatselect | code |link | image | bold italic backcolor | alignleft aligncenter alignright alignjustify |  \n" +
-                                            "bullist numlist outdent indent | removeformat | help ",
-                                        content_style: 'body { color: #7e7e7e }'
+                                            'undo redo | casechange blocks | bold italic backcolor | ' +
+                                            'alignleft aligncenter alignright alignjustify | ' +
+                                            'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
+                                        content_style: 'body {font-family:Quicksand; color: #7e7e7e }'
                                     }}
                                     onEditorChange={(content) => {
                                         form.setFieldValue(name, content)

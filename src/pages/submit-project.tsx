@@ -10,7 +10,6 @@ import { useQuery } from '@tanstack/react-query'
 
 const SubmitProjectPage: NextPageWithLayout<
     InferGetStaticPropsType<typeof getStaticProps>
-
 > = ({ ecosystemdata }) => {
 
     const { data: ecosys } = useQuery({
