@@ -9,13 +9,13 @@ const Texteditor = (props) => {
             <label htmlFor={name}>{label}</label>
             <div className="summernote">
                 <Field
-                    apiKey="r6pbr9fmuyz5cmhqxhczpuiaq76xsuuq66an060n2frgjtnt"
                     id={name}
                     name={name}
                     render={({ form }) => {
                         return (
                             <>
                                 <Editor
+                                    apiKey="r6pbr9fmuyz5cmhqxhczpuiaq76xsuuq66an060n2frgjtnt"
                                     init={{
                                         height: 800,
                                         menubar: true,
@@ -25,10 +25,9 @@ const Texteditor = (props) => {
                                             'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount',
                                         ],
                                         toolbar:
-                                            'undo redo | casechange blocks | bold italic backcolor | ' +
-                                            'alignleft aligncenter alignright alignjustify | ' +
-                                            'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
-                                        content_style: 'body {font-family:Quicksand; color: #7e7e7e }'
+                                            "undo redo | formatselect | code |link | image | bold italic backcolor | alignleft aligncenter alignright alignjustify |  \n" +
+                                            "bullist numlist outdent indent | removeformat | help | link image media table mergetags",
+                                        content_style: 'body { color: #7e7e7e }'
                                     }}
                                     onEditorChange={(content) => {
                                         form.setFieldValue(name, content)
