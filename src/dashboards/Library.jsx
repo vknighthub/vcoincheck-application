@@ -130,7 +130,7 @@ const Library = ({ toplibrary, newtopiclibrary }) => {
                 <Slider {...settings}>
                   {toplibrary.map((library, index) => (
                     <div className="items" key={index}>
-                      <Link href={`${GetCategory(library.catid)}/${btoa(library.id)}`}>
+                      <Link href={`${GetCategory(library.catid)}/${library.id}`}>
                         <div className="media mt-4">
                           <Image src={library.image} alt="" className="mr-3 rounded" width={50} height={50} />
                           <div className="media-body">
@@ -154,7 +154,7 @@ const Library = ({ toplibrary, newtopiclibrary }) => {
           <Row>
             {toplibrary.map((knowledge, index) => (
               <Col xl='6' key={index}>
-                <Link href={`${GetCategory(knowledge.catid)}/${btoa(knowledge.id)}`} className='float-right'>
+                <Link href={`${GetCategory(knowledge.catid)}/${knowledge.id}`} className='float-right'>
                   <Card className='mb-3'>
                     {getImage(knowledge.image)}
                     <Card.Header>
@@ -196,7 +196,7 @@ const Library = ({ toplibrary, newtopiclibrary }) => {
               <div className="card-body">
                 {newtopiclibrary.map((library, index) => (
                   <div key={index}>
-                    <Link href={`${GetCategory(library.catid)}/${btoa(library.id)}`}>
+                    <Link href={`${GetCategory(library.catid)}/${library.id}`}>
                       <i className="fa fa-archive text-dark mr-2 scale-2" />
                       <span className="fs-14">{library.title}</span>
                     </Link>

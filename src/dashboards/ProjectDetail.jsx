@@ -70,7 +70,6 @@ const ProjectDetail = ({ project, isAuthorized, lang }) => {
 	useEffect(() => {
 		setIsShow(true)
 	}, [])
-
 	return (
 		<>
 			{project.project_info && <ProjectDescription project={project.project_info} />}
@@ -89,7 +88,9 @@ const ProjectDetail = ({ project, isAuthorized, lang }) => {
 										handleSetReviewID={setReviewID}
 										checkBuy={() => checkBuy(me, 50)} />
 								}
-								{project && <ReviewProject project={project.project_info} question={project.question_info} isAuthorized={isAuthorized} />}
+								
+								{project && <ReviewProject projectid={project.project_info.proid} question={project.question_info} isAuthorized={isAuthorized} />}
+								
 							</>
 						) : (
 							<ProjectReviewed

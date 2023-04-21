@@ -17,7 +17,6 @@ const ReviewProject = ({ question, projectid, isAuthorized }: Props) => {
     const { t } = useTranslation('common');
 
     const [activeToggle, setActiveToggle] = useState("overview");
-
     const actionStep = (curentStep: string) => {
         switch (curentStep) {
             case 'overview':

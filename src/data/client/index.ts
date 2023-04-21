@@ -66,6 +66,7 @@ class Client {
         postlibrarylanguage: (input: PostLibraryInput) => HttpClient.post<PostLibraryResponse>(API_ENDPOINTS.POST_LIBRARY_LANGUAGE, input),
         getbyid: (input: LibraryDetailInput, language: LanguageOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
         dictionary: (input: DictionaryInput) => HttpClient.post<DictionaryResponse>(API_ENDPOINTS.DICTIONARY, input)
+        
     }
     news = {
         event: () => HttpClient.get<EventResponse>(API_ENDPOINTS.EVENT),

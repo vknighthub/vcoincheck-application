@@ -94,6 +94,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
             formattedparams
         )
 
+        
+
         return {
             props: {
                 libraryInit,
