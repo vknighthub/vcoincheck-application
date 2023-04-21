@@ -90,7 +90,7 @@ const CatalystKnowledgeDetail: NextPageWithLayout<
                                             </ul>
 
 
-                                            <Image src={library.library_infor.image} alt="" className="img-fluid mb-3 w-100" width={680} height={300} />
+                                            <Image src={library.library_infor.image} alt="" className="img-fluid mb-3 w-100" width={1630} height={915} />
                                             <p className="text-blue fs-18 my-3">
                                                 {library.library_infor.summary}
                                             </p>
