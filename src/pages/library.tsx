@@ -33,7 +33,7 @@ const LibraryPage: NextPageWithLayout<
     })
 
     const { data: topiclibrary, refetch: refetchNewTopicLibrary } = useQuery({
-        queryKey: ['top-library'],
+        queryKey: ['topic-library'],
         queryFn: () => client.library.getnewtopic(
             {
                 top: 10,
