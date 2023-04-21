@@ -1,4 +1,4 @@
-import { AddNewsInput, ApproveProjectInput, ApproveProjectResponse, ApproveReviewScoreActionResponse, ApproveScoreActionInput, ApproveUserInput, ApproveUserResponse, AuthResponse, ChangePasswordInput, ChangePasswordResponse, CommentInput, CommentResponse, DictionaryInput, DictionaryResponse, EcosystemResponse, EditProjectInput, EditProjectResponse, EventAddNewsResponse, EventInput, EventResponse, EventResult, FAQsResponse, FaceInput, ForgotPasswordInput, ForgotPasswordResponse, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListAllReviewResponse, ListUserRoleResponse, LoginByFaceInput, LoginByFaceResponse, LoginUserInput, MenuResponse, MinusUserInput, MinusUserResponse, OTPCodeInput, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectManagementResponse, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, RemoveProjectInput, RemoveProjectResponse, ReviewByUsernamePronameInput, ReviewByUsernamePronameResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetFeatureProjectInput, SetFeaturedProjectResponse, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UpdateAvatarInput, UpdateAvatarResponse, UpdateUserInput, UpdateUserResponse, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
+import { AddNewsInput, ApproveProjectInput, ApproveProjectResponse, ApproveReviewScoreActionResponse, ApproveScoreActionInput, ApproveUserInput, ApproveUserResponse, AuthResponse, ChangePasswordInput, ChangePasswordResponse, CommentInput, CommentResponse, DictionaryInput, DictionaryResponse, EcosystemResponse, EditFaqsInput, EditFaqsResponse, EditProjectInput, EditProjectResponse, EventAddNewsResponse, EventInput, EventResponse, EventResult, FAQsResponse, FaceInput, ForgotPasswordInput, ForgotPasswordResponse, LanguageOptions, LibraryDetailInput, LibraryDetailResponse, LibraryInput, LibraryManagementResponse, LibraryResponse, LikeProjectReviewInput, ListAllReviewResponse, ListUserRoleResponse, LoginByFaceInput, LoginByFaceResponse, LoginUserInput, MenuResponse, MinusUserInput, MinusUserResponse, OTPCodeInput, PostLibraryInput, PostLibraryResponse, ProjectDetailResponse, ProjectInput, ProjectManagementResponse, ProjectResponse, ProjectReviewInput, ProjectReviewResponse, ProjectTypeListResponse, RegisterFaceReponse, RegisterReponse, RegisterUserInput, RemoveLibraryResponse, RemoveProjectInput, RemoveProjectResponse, ReviewByUsernamePronameInput, ReviewByUsernamePronameResponse, ReviewProjectInput, ReviewProjectResponse, RoleUserInput, SetFeatureProjectInput, SetFeaturedProjectResponse, SetRoleUserResponse, SettingsQueryOptions, SubmitProjectInput, SubmitProjectResponse, TopInput, UpdateAvatarInput, UpdateAvatarResponse, UpdateUserInput, UpdateUserResponse, UserDeleteResponse, UserInput, UserListResponse, UserProfileResult, UserViewDetailResponse } from "@/types";
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from "./http-client";
 
@@ -21,7 +21,7 @@ class Client {
         confirmotpforgotpassword: (input: OTPCodeInput) => HttpClient.post<ForgotPasswordResponse>(API_ENDPOINTS.FORGOT_PASSWORD, input),
         changpassword: (input: ChangePasswordInput) => HttpClient.post<ChangePasswordResponse>(API_ENDPOINTS.CHANGE_PWD, input),
         updateuser: (input: UpdateUserInput) => HttpClient.post<UpdateUserResponse>(API_ENDPOINTS.UPDATE_USER, input),
-        minususer: (input:MinusUserInput) => HttpClient.post<MinusUserResponse>(API_ENDPOINTS.MINUS_USER, input)
+        minususer: (input: MinusUserInput) => HttpClient.post<MinusUserResponse>(API_ENDPOINTS.MINUS_USER, input)
     }
     project = {
         top: (input: TopInput) => HttpClient.post<ProjectResponse>(API_ENDPOINTS.TOP_PROJECT, input),
@@ -48,7 +48,8 @@ class Client {
         menu: ({ language }: SettingsQueryOptions) => HttpClient.get<MenuResponse>(API_ENDPOINTS.SYSTEM_MENU, { language })
     }
     faq = {
-        all: () => HttpClient.get<FAQsResponse>(API_ENDPOINTS.FAQS_LIST)
+        all: ({ language }: SettingsQueryOptions) => HttpClient.get<FAQsResponse>(API_ENDPOINTS.FAQS_LIST, { language }),
+        edit: (input: EditFaqsInput) => HttpClient.post<EditFaqsResponse>(API_ENDPOINTS.EDITFAQ, input)
     }
     library = {
         gettop: (input: TopInput, language: SettingsQueryOptions) => HttpClient.post<LibraryResponse>(API_ENDPOINTS.TOPLIBRARY, input, { params: language }),
@@ -66,7 +67,7 @@ class Client {
         postlibrarylanguage: (input: PostLibraryInput) => HttpClient.post<PostLibraryResponse>(API_ENDPOINTS.POST_LIBRARY_LANGUAGE, input),
         getbyid: (input: LibraryDetailInput, language: LanguageOptions) => HttpClient.post<LibraryDetailResponse>(API_ENDPOINTS.LIBRARY_DETAIL, input, { params: language }),
         dictionary: (input: DictionaryInput) => HttpClient.post<DictionaryResponse>(API_ENDPOINTS.DICTIONARY, input)
-        
+
     }
     news = {
         event: () => HttpClient.get<EventResponse>(API_ENDPOINTS.EVENT),

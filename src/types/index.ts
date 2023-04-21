@@ -891,6 +891,8 @@ export interface LoginByFaceInput {
     faceid: string
 }
 
+export interface EditFaqsResponse extends ResultObject<{}> { }
+
 export interface UpdateUserInput {
     username: string
     firstname: string
@@ -915,5 +917,13 @@ export interface UpdateUserResponse extends ResultObject<{}> { }
 
 export interface MinusUserResponse extends ResultObject<{}> { }
 
+export interface EditFaqsInput {
+    lang: string
+    body: {
+        faqid: string
+        question: string
+        answer: string
+    }
+}
 
 export type GetInitialProps = (ctx: NextPageContext) => Promise<any>;

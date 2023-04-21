@@ -12,6 +12,7 @@ import invariant from 'tiny-invariant';
 import PostComment from './../../dashboards/PostComment';
 import Seo from '@/layouts/_seo';
 import routes from '@/config/routes';
+import { useEffect } from 'react';
 
 
 const CardanoKnowledgeDetail: NextPageWithLayout<
@@ -21,7 +22,7 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
     const { t } = useTranslation('common')
 
 
-    const { data } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['library-cardano-detail'],
         queryFn: () => client.library.cardanoknowledgedetail(
             {
@@ -38,6 +39,9 @@ const CardanoKnowledgeDetail: NextPageWithLayout<
 
     const initdataSEO = cardanoknowledgedetailInit.result.data
 
+    useEffect(() => {
+        refetch()
+    }, [lang])
 
     return (
         <>

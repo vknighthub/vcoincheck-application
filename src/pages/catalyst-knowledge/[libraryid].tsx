@@ -12,6 +12,7 @@ import invariant from 'tiny-invariant';
 import PostComment from './../../dashboards/PostComment';
 import Seo from '@/layouts/_seo';
 import routes from '@/config/routes';
+import { useEffect } from 'react';
 
 
 const CatalystKnowledgeDetail: NextPageWithLayout<
@@ -20,7 +21,7 @@ const CatalystKnowledgeDetail: NextPageWithLayout<
 
     const { t } = useTranslation('common')
 
-    const { data } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['library-catalyst-detail'],
         queryFn: () => client.library.catalystknowledgedetail(
             {
@@ -37,6 +38,10 @@ const CatalystKnowledgeDetail: NextPageWithLayout<
 
     const initdataSEO = catalystknowledgedetailInit.result.data
 
+    useEffect(() => {
+        refetch()
+    }, [lang])
+    
     return (
         <>
             <Seo title={`vCoincheck - ${initdataSEO.library_infor.title}`}

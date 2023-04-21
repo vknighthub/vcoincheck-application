@@ -22,6 +22,7 @@ export const API_ENDPOINTS = {
     SET_ROLE_USER: '/user/setroleuser',
     APPROVE_USER: '/user/updatestatus',
     FAQS_LIST: '/faqs/listdata',
+    EDITFAQ: '/faqs/editfaqs',
     LIBRARY: '/library/librarybycategory',
     LIBRARY_DETAIL: '/library/getlibrarybyid',
     POST_COMMENT_LIBRARY: '/library/commentlibrary',

@@ -12,6 +12,7 @@ import invariant from 'tiny-invariant';
 import PostComment from './../../dashboards/PostComment';
 import Seo from '@/layouts/_seo';
 import routes from '@/config/routes';
+import { useEffect } from 'react';
 
 
 const BlockchainKnowledgeDetail: NextPageWithLayout<
@@ -20,7 +21,7 @@ const BlockchainKnowledgeDetail: NextPageWithLayout<
 
     const { t } = useTranslation('common')
 
-    const { data } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['library-blockchain-detail'],
         queryFn: () => client.library.blockchainknowledgedetail(
             {
@@ -36,6 +37,11 @@ const BlockchainKnowledgeDetail: NextPageWithLayout<
     const library = data.result?.data
 
     const initdataSEO = blockchainknowledgedetailInit.result.data
+
+    useEffect(() => {
+        refetch()
+    }, [lang])
+
 
     return (
         <>
