@@ -16,6 +16,7 @@ import './../components/table/FilteringTable/filtering.css';
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'metismenujs/style';
 import CryptoContext from '@/dashboards/market/CryptoContext';
+import { MeshProvider } from "@meshsdk/react";
 
 
 type AppPropsWithLayout = AppProps & {
@@ -51,7 +52,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
         <Hydrate state={pageProps.dehydratedState}>
           <ThemeContext>
             <CryptoContext>
-              {getLayout(<Component {...pageProps} />)}
+              <MeshProvider>
+                {getLayout(<Component {...pageProps} />)}
+              </MeshProvider>
             </CryptoContext>
           </ThemeContext>
         </Hydrate>

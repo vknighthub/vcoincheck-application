@@ -21,7 +21,7 @@ const DictionaryPage: NextPageWithLayout<
         const { t } = useTranslation('common')
 
         const { data } = useQuery({
-            queryKey: ['dictionary'],
+            queryKey: ['notification'],
             queryFn: () => client.library.dictionary(
                 {
                     dictionarykey: "A",

@@ -15,6 +15,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^3.0.0",
+    "@meshsdk/core": "^1.5.2",
+    "@meshsdk/react": "^1.1.7",
     "@metismenu/react": "^0.0.3",
     "@mui/material": "^5.11.16",
     "@tanstack/react-query": "^4.28.0",

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Language from '@/components/Language/Language'
 import Link from 'next/link'
 import Profile from './Profile'
+import { CardanoWallet } from '@meshsdk/react';
 
 type Props = {}
 
@@ -31,7 +32,7 @@ const Header = (props: Props) => {
                         <nav className="navbar navbar-expand">
                             <div className="collapse navbar-collapse justify-content-between">
                                 <div className="header-left">
-
+                                    <CardanoWallet />
                                 </div>
                                 <ul className="navbar-nav header-right">
 
